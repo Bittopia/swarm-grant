@@ -1,6 +1,6 @@
 import { type ReactElement } from 'react'
-import { MainNavigation } from './components/MainNavigation/MainNavigation'
 import CourseGrid from './components/CourseAreaGrid'
+import { BaseTemplate } from './components/BaseTemplate/BaseTemplate'
 
 function App (): ReactElement {
   const academicAreas = [
@@ -66,12 +66,9 @@ function App (): ReactElement {
   ]
 
   return (
-    <div className="h-screen w-full bg-background-color text-white">
-      <MainNavigation />
-      <div className={'p-20'}>
-        <CourseGrid academicAreas={academicAreas} />
-      </div>
-    </div>
+    <BaseTemplate>
+      <CourseGrid academicAreas={academicAreas} />
+    </BaseTemplate>
   )
 }
 
