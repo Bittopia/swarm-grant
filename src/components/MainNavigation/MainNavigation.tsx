@@ -14,12 +14,14 @@ export const MainNavigation: FC = props => {
           'mx-auto flex h-20 max-w-[900px] items-center justify-between'
         }
       >
-        <div className={'flex items-center gap-3'}>
-          <div className={'text-white'}>
-            <RiHaze2Line />
+        <a href={'/'}>
+          <div className={'flex items-center gap-3'}>
+            <div className={'text-white'}>
+              <RiHaze2Line />
+            </div>
+            <div className={'font-bold tracking-wider'}>BitTopia</div>
           </div>
-          <div className={'font-bold tracking-wider'}>BitTopia</div>
-        </div>
+        </a>
         <div className={'flex items-center justify-between gap-5'}>
           <LinkButton href={'#'}>Connect wallet</LinkButton>
           <a
