@@ -6,7 +6,7 @@ export const MainNavigation: FC = props => {
   return (
     <nav
       className={
-        'fixed top-0 w-full border-b-[1px] border-b-gray-500 bg-background-color'
+        'fixed top-0 w-full border-b-[1px] border-b-gray-500 bg-background-color px-4 sm:px-0'
       }
     >
       <section

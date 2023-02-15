@@ -10,7 +10,7 @@ export const CourseGridItem: FC<CourseGridItemProps> = props => {
   return (
     <div
       className={
-        'min-h-20 flex flex-col items-center gap-5 rounded-2xl border-[1px] border-gray-500 p-4'
+        'min-h-20 flex w-full flex-col items-center gap-5 rounded-2xl border-[1px] border-gray-500 p-4'
       }
     >
       <div

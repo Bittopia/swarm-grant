@@ -7,7 +7,9 @@ interface CourseGridProps {
 
 export const CourseAreaGrid: FC<CourseGridProps> = ({ academicAreas }) => {
   return (
-    <section className={'my-5 grid h-full grid-cols-3 gap-5'}>
+    <section
+      className={'my-5 grid h-full grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-5'}
+    >
       {academicAreas.map(area => (
         <CourseGridItem
           key={area.name}

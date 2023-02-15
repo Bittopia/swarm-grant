@@ -8,9 +8,9 @@ interface BaseTemplateProps {
 
 export const BaseTemplate: FC<BaseTemplateProps> = props => {
   return (
-    <div className="h-screen w-full bg-background-color text-white">
+    <div className="min-h-screen w-full bg-background-color text-white">
       <MainNavigation />
-      <div className={'p-28'}>
+      <div className={'py-28 px-10 sm:px-0'}>
         <Container>{props.children}</Container>
       </div>
     </div>

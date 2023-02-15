@@ -5,5 +5,5 @@ interface ContainerProps {
 }
 
 export const Container: FC<ContainerProps> = props => {
-  return <div className={'mx-auto max-w-[900px]'}>{props.children}</div>
+  return <div className={'mx-auto w-full max-w-[900px]'}>{props.children}</div>
 }
