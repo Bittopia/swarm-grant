@@ -1,6 +1,6 @@
 import { type ReactElement } from 'react'
 import { MainNavigation } from './components/MainNavigation/MainNavigation'
-import CourseGrid from './components/CourseGrid'
+import CourseGrid from './components/CourseAreaGrid'
 
 function App (): ReactElement {
   const academicAreas = [
