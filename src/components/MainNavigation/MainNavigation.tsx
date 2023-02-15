@@ -1,0 +1,37 @@
+import { type FC } from 'react'
+import { RiMoreFill, RiHaze2Line } from 'react-icons/ri'
+import { LinkButton } from '../LinkButton/LinkButton'
+
+export const MainNavigation: FC = props => {
+  return (
+    <nav
+      className={
+        'fixed top-0 w-full border-b-[1px] border-b-gray-500 bg-background-color'
+      }
+    >
+      <section
+        className={
+          'mx-auto flex h-20 max-w-[900px] items-center justify-between'
+        }
+      >
+        <div className={'flex items-center gap-3'}>
+          <div className={'text-white'}>
+            <RiHaze2Line />
+          </div>
+          <div className={'font-bold tracking-wider'}>BitTopia</div>
+        </div>
+        <div className={'flex items-center justify-between gap-5'}>
+          <LinkButton href={'#'}>Connect wallet</LinkButton>
+          <a
+            href={'#'}
+            className={
+              'rounded-full border border-gray-500 py-3 px-3 text-sm tracking-wider transition-colors hover:border-white'
+            }
+          >
+            <RiMoreFill />
+          </a>
+        </div>
+      </section>
+    </nav>
+  )
+}

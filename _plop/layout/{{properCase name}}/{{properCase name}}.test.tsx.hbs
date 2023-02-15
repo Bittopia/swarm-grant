@@ -1,0 +1,10 @@
+import { render } from '@testing-library/react'
+import { {{properCase name}} } from './{{properCase name}}'
+import { describe, it, expect } from '@jest/globals'
+
+describe('{{properCase name}} component', () => {
+  it('should render', () => {
+    const component = render(<{{properCase name}}>Hello world</{{properCase name}}>)
+    expect(component).toBeTruthy()
+  })
+})
