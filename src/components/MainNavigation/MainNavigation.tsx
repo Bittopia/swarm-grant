@@ -1,6 +1,7 @@
 import { type FC } from 'react'
 import { RiMoreFill, RiHaze2Line } from 'react-icons/ri'
 import { LinkButton } from '../LinkButton/LinkButton'
+import DropDown from '../DropDown'
 
 export const MainNavigation: FC = props => {
   return (
@@ -24,14 +25,21 @@ export const MainNavigation: FC = props => {
         </a>
         <div className={'flex items-center justify-between gap-5'}>
           <LinkButton href={'#'}>Connect wallet</LinkButton>
-          <a
-            href={'#'}
-            className={
-              'rounded-full border border-gray-500 py-3 px-3 text-sm tracking-wider transition-colors hover:border-white'
+          <DropDown
+            dropDownContent={
+              <div className={'w-[400px]'}>
+                <p>hello world</p>
+              </div>
             }
           >
-            <RiMoreFill />
-          </a>
+            <div
+              className={
+                'flex h-[40px] w-[40px] items-center justify-center rounded-full border border-gray-500 py-3 px-3 text-sm tracking-wider transition-colors hover:border-white'
+              }
+            >
+              <RiMoreFill />
+            </div>
+          </DropDown>
         </div>
       </section>
     </nav>
