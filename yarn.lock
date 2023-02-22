@@ -1338,10 +1338,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@ethersphere/bee-js@^5.1.2":
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/@ethersphere/bee-js/-/bee-js-5.1.2.tgz#b4008d95d39580bd128d48b8662c29daab9facd1"
-  integrity sha512-ta7+HACGj1M8NaKXv4T+aEojm8Gd22BXprQFgFDvba2PUQ/qBL6WiSlcy6QaxiJdwAGNqIaceKj3hmMVI6L3Hw==
+"@ethersphere/bee-js@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ethersphere/bee-js/-/bee-js-5.2.0.tgz#2a7876f03407289ab20a9f95d27b72221878414a"
+  integrity sha512-BM9lBiKC/tMbYNTEs3uyDyAwpED+v6u46DEXyFh7BLCUPg12LBWv0O12XmQj5ybzXnUT4ptHU9UXu3oGHph8Vw==
   dependencies:
     "@ethersphere/swarm-cid" "^0.1.0"
     "@types/readable-stream" "^2.3.13"

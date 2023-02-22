@@ -34,7 +34,7 @@ export const MainNavigation: FC = props => {
           >
             <div
               className={
-                'flex h-[40px] w-[40px] items-center justify-center rounded-full border border-gray-500 py-3 px-3 text-sm tracking-wider transition-colors hover:border-white'
+                'flex h-[46px] w-[46px] items-center justify-center rounded-full border border-gray-500 py-3 px-3 text-sm tracking-wider transition-colors hover:border-white'
               }
             >
               <RiMoreFill />
