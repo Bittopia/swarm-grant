@@ -13,10 +13,10 @@ export const StudyFieldTemplate: FC<StudyFieldTemplateProps> = ({
   return (
     <BaseTemplate>
       <section className={'grid grid-cols-society-feed gap-8'}>
-        <div className={'sticky h-auto'}>
+        <div className={'h-auto'}>
           <div
             className={
-              'flex flex-col items-center gap-4 rounded-2xl border-[1px] border-gray-500'
+              'sticky top-28 flex flex-col items-center gap-4 rounded-2xl border-[1px] border-gray-500'
             }
           >
             <section className={'m-4 flex flex-col items-center gap-4'}>
@@ -50,7 +50,14 @@ export const StudyFieldTemplate: FC<StudyFieldTemplateProps> = ({
                 </button>
               </div>
             </section>
-            <section className={'w-full'}>{/* put the links here */}</section>
+            <section className={'w-full'}>
+              <ul className={'flex flex-col items-start gap-2 pb-4'}>
+                <li className={'border-l-4 border-l-white pl-10'}>Feed</li>
+                <li className={'pl-10'}>Courses</li>
+                <li className={'pl-10'}>Proposals</li>
+                <li className={'pl-10'}>About creators</li>
+              </ul>
+            </section>
           </div>
         </div>
         <div className={'w-full'}>{children}</div>

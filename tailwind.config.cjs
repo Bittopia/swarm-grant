@@ -12,7 +12,7 @@ module.exports = {
         'gray-transparent-50': 'var(--gray-transparent)'
       },
       gridTemplateColumns: {
-        'society-feed': '300px 1fr'
+        'society-feed': '250px 1fr'
       }
     },
   },

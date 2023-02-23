@@ -10,7 +10,42 @@ export const CourseAreaDetails: FC = () => {
             key={index}
             className={'w-full rounded-2xl border-[1px] border-gray-500 p-4'}
           >
-            lalalalslslsl
+            <div className={'flex w-full items-center gap-4'}>
+              <div className={'flex flex-col items-start'}>
+                <div className={'flex w-full justify-between'}>
+                  <figure
+                    className={
+                      'flex w-fit items-center gap-4 rounded-full bg-gray-transparent-50 px-3 py-1'
+                    }
+                  >
+                    <div className={'h-4 w-4 overflow-hidden rounded-full'}>
+                      <img src={'https://picsum.photos/200'} alt={'avatar'} />
+                    </div>
+                    <figcaption>
+                      <span className={'text-sm text-gray-500'}>
+                        0x4fjs...fl1k3j
+                      </span>
+                    </figcaption>
+                  </figure>
+
+                  <div
+                    className={
+                      'flex items-center rounded-full bg-slate-600 px-3 py-1 text-xs text-white'
+                    }
+                  >
+                    New Course
+                  </div>
+                </div>
+
+                <div className={'mt-4'}>
+                  <h3 className={'text-lg'}>Lorem ipsum</h3>
+                  <h4 className={'text-lg text-gray-500'}>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    At, culpa doloremque harum illum impedit labore libero...
+                  </h4>
+                </div>
+              </div>
+            </div>
           </div>
         ))}
       </div>
