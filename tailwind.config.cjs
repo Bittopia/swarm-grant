@@ -8,7 +8,11 @@ module.exports = {
     extend: {
       colors: {
         'primary': 'var(--primary-color)',
-        'background-color': 'var(--background-color)'
+        'background-color': 'var(--background-color)',
+        'gray-transparent-50': 'var(--gray-transparent)'
+      },
+      gridTemplateColumns: {
+        'society-feed': '300px 1fr'
       }
     },
   },

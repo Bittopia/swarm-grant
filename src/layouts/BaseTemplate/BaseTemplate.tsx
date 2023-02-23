@@ -1,5 +1,5 @@
 import { type FC } from 'react'
-import { MainNavigation } from '../MainNavigation/MainNavigation'
+import { MainNavigation } from '../../components/MainNavigation/MainNavigation'
 import Container from '../Container'
 
 interface BaseTemplateProps {

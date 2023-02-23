@@ -1,61 +1,64 @@
-export const AcademicFields = [
-  {
+export const AcademicFields = {
+  mathematics: {
     name: 'Mathematics',
     description:
-      'The study of numbers, shapes, and patterns, and their relationships.'
+      'the study of numbers, shapes, and patterns, and their relationships.'
   },
-  {
+  chemistry: {
     name: 'Chemistry',
     description:
-      'The study of the composition, structure, properties, and reactions of matter.'
+      'the study of the composition, structure, properties, and reactions of matter.'
   },
-  {
+  biology: {
     name: 'Biology',
     description:
-      'The study of living organisms and their interactions with each other and the environment.'
+      'the study of living organisms and their interactions with each other and the environment.'
   },
-  {
+  'computer-science': {
     name: 'Computer Science',
     description:
-      'The study of computing, programming, and computational systems.'
+      'the study of computing, programming, and computational systems.'
   },
-  { name: 'Psychology', description: 'The study of the mind and behavior.' },
-  {
+  psychology: {
+    name: 'Psychology',
+    description: 'the study of the mind and behavior.'
+  },
+  sociology: {
     name: 'Sociology',
     description:
-      'The study of human social behavior and its origins, development, organization, and institutions.'
+      'the study of human social behavior and its origins, development, organization, and institutions.'
   },
-  {
+  anthropology: {
     name: 'Anthropology',
     description:
-      'The study of human societies and cultures and their development.'
+      'the study of human societies and cultures and their development.'
   },
-  {
+  economics: {
     name: 'Economics',
     description:
-      'The study of how individuals, organizations, and societies allocate scarce resources.'
+      'the study of how individuals, organizations, and societies allocate scarce resources.'
   },
-  {
+  philosophy: {
     name: 'Philosophy',
     description:
-      'The study of the fundamental nature of knowledge, reality, and existence.'
+      'the study of the fundamental nature of knowledge, reality, and existence.'
   },
-  {
+  history: {
     name: 'History',
-    description: 'The study of the past and its significance.'
+    description: 'the study of the past and its significance.'
   },
-  {
+  linguistics: {
     name: 'Linguistics',
     description:
-      'The study of language, including its structure, use, and evolution.'
+      'the study of language, including its structure, use, and evolution.'
   },
-  {
+  'political-science': {
     name: 'Political Science',
-    description: 'The study of government, politics, and public policies.'
+    description: 'the study of government, politics, and public policies.'
   },
-  {
+  'environmental-science': {
     name: 'Environmental Science',
     description:
-      'The study of the natural environment and how humans interact with it.'
+      'the study of the natural environment and how humans interact with it.'
   }
-]
+}

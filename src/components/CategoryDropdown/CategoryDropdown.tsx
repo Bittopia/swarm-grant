@@ -2,21 +2,30 @@ import { type FC } from 'react'
 import { RiArrowDropDownLine, RiListUnordered } from 'react-icons/ri'
 import DropDown from '../DropDown'
 
-export const CategoryDropdown: FC = props => {
+interface CategoryItem {
+  label: string
+  url: string
+}
+
+interface CategoryDropdownProps {
+  itemList: CategoryItem[]
+}
+
+export const CategoryDropdown: FC<CategoryDropdownProps> = ({ itemList }) => {
   return (
     <DropDown
       dropDownContent={
         <ul className={'decoration-0'}>
-          {new Array(10).fill(0).map((_, index) => (
+          {itemList?.map((item, index) => (
             <li
               key={`li-${index}`}
               className={'transition-transform hover:translate-x-1'}
             >
               <a
-                href={'#'}
+                href={item.url}
                 className={'flex items-center gap-2 py-1 px-2 hover:opacity-50'}
               >
-                <span>Category {index}</span>
+                <span>{item.label}</span>
               </a>
             </li>
           ))}

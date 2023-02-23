@@ -1,6 +1,6 @@
 import { type ReactElement } from 'react'
 import CourseGrid from './components/CourseAreaGrid'
-import { BaseTemplate } from './components/BaseTemplate/BaseTemplate'
+import { BaseTemplate } from './layouts/BaseTemplate/BaseTemplate'
 import { SearchField } from './components/SearchField/SearchField'
 import { CategoryDropdown } from './components/CategoryDropdown/CategoryDropdown'
 import AcademicFields from '@/data/AcademicFields'
@@ -19,13 +19,18 @@ function App (): ReactElement {
           }
         >
           <SearchField />
-          <CategoryDropdown />
+          <CategoryDropdown
+            itemList={Object.keys(AcademicFields).map(item => ({
+              label: AcademicFields[item as keyof typeof AcademicFields].name,
+              url: `/society/${item}`
+            }))}
+          />
         </div>
         <div className={'text-center text-gray-500'}>
-          {AcademicFields.length} areas of study
+          {Object.keys(AcademicFields).length} areas of study
         </div>
       </div>
-      <CourseGrid academicAreas={AcademicFields} />
+      <CourseGrid academicAreas={Object.values(AcademicFields)} />
     </BaseTemplate>
   )
 }
