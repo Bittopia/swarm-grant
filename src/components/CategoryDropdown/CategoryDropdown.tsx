@@ -38,7 +38,7 @@ export const CategoryDropdown: FC<CategoryDropdownProps> = ({ itemList }) => {
         }
       >
         <span className={'flex items-center'}>
-          <RiListUnordered className={'mr-4 fill-white'} /> Category{' '}
+          <RiListUnordered className={'mr-4 fill-white'} /> Societies{' '}
           <RiArrowDropDownLine
             className={'ml-4 h-[1.5rem] w-[1.5rem] fill-gray-500'}
           />

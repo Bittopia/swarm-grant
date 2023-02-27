@@ -6,10 +6,10 @@ interface ModalProps {
   children: ReactNode
 }
 export const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
-  const backdropClass = `fixed top-0 left-0 h-screen w-screen z-10 ${
+  const backdropClass = `fixed top-0 left-0 h-screen w-screen z-20 bg-black bg-opacity-20 ${
     isOpen ? '' : 'hidden'
   }`
-  const modalClass = `fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 bg-white rounded-md shadow-lg p-6 ${
+  const modalClass = `fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 rounded-md shadow-lg ${
     isOpen ? '' : 'hidden'
   }`
 

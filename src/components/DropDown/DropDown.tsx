@@ -31,7 +31,7 @@ export const DropDown: FC<DropDownProps> = ({ children, dropDownContent }) => {
       onClick={() => {
         setVisible(!visible)
       }}
-      className={'relative z-0 cursor-pointer'}
+      className={'relative z-0'}
     >
       {children}
       <div
