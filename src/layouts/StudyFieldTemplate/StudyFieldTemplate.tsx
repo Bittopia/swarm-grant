@@ -46,7 +46,7 @@ export const StudyFieldTemplate: FC<StudyFieldTemplateProps> = ({
                     'rounded-full bg-primary py-2 px-4 text-sm transition-opacity hover:opacity-70'
                   }
                 >
-                  Subscribe
+                  Enroll
                 </button>
               </div>
             </section>

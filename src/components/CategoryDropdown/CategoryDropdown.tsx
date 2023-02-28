@@ -1,6 +1,7 @@
 import { type FC } from 'react'
 import { RiArrowDropDownLine, RiListUnordered } from 'react-icons/ri'
 import DropDown from '../DropDown'
+import { Link } from 'react-router-dom'
 
 interface CategoryItem {
   label: string
@@ -21,12 +22,12 @@ export const CategoryDropdown: FC<CategoryDropdownProps> = ({ itemList }) => {
               key={`li-${index}`}
               className={'transition-transform hover:translate-x-1'}
             >
-              <a
-                href={item.url}
+              <Link
                 className={'flex items-center gap-2 py-1 px-2 hover:opacity-50'}
+                to={item.url}
               >
                 <span>{item.label}</span>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
