@@ -52,10 +52,9 @@ export const StudyFieldTemplate: FC<StudyFieldTemplateProps> = ({
             </section>
             <section className={'w-full'}>
               <ul className={'flex flex-col items-start gap-2 pb-4'}>
-                <li className={'border-l-4 border-l-white pl-10'}>Feed</li>
+                <li className={'border-l-4 border-l-white pl-10'}>News</li>
                 <li className={'pl-10'}>Courses</li>
                 <li className={'pl-10'}>Proposals</li>
-                <li className={'pl-10'}>About creators</li>
               </ul>
             </section>
           </div>

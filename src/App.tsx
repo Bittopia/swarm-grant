@@ -7,7 +7,7 @@ import AcademicFields from '@/data/AcademicFields'
 
 function App (): ReactElement {
   return (
-    <BaseTemplate>
+    <BaseTemplate showFooter>
       <div
         className={
           'flex w-full flex-col items-center justify-center gap-5 sm:flex-row sm:justify-between'

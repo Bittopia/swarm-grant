@@ -5,7 +5,7 @@ export const CourseAreaDetails: FC = () => {
   return (
     <StudyFieldTemplate>
       <div className={'flex flex-col items-center gap-4'}>
-        <h1 className={'w-full text-3xl text-white'}>Feed</h1>
+        <h1 className={'w-full text-3xl text-white'}>News</h1>
         {new Array(10).fill(0).map((_, index) => (
           <div
             key={index}
