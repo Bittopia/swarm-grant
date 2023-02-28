@@ -6,7 +6,7 @@ export const SideNavigation: FC = props => {
   return (
     <div
       className={
-        'fixed left-0 top-0 z-20 flex hidden h-full w-[80px] flex-col items-center gap-8 border-r-[1px] border-r-gray-500 bg-background-color p-4 sm:block'
+        'fixed left-0 top-0 z-20 hidden h-full w-[80px] flex-col items-center gap-8 border-r-[1px] border-r-gray-500 bg-background-color p-4 sm:flex'
       }
     >
       <Link

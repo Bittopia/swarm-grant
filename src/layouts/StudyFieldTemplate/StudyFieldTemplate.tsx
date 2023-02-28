@@ -12,7 +12,7 @@ export const StudyFieldTemplate: FC<StudyFieldTemplateProps> = ({
 }) => {
   return (
     <BaseTemplate>
-      <section className={'grid grid-cols-society-feed gap-8'}>
+      <section className={'grid grid-cols-1 gap-8 md:grid-cols-society-feed'}>
         <div className={'h-auto'}>
           <div
             className={
