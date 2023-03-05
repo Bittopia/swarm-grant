@@ -3,6 +3,7 @@ import { RiHaze2Line, RiMoreFill, RiSunLine } from 'react-icons/ri'
 import DropDown from '@/components/DropDown'
 import BaseButton from '@/components/BaseButton'
 import { ConnectWalletModal } from '../ConnectWalletModal/ConnectWalletModal'
+import { Link } from 'react-router-dom'
 
 export const MainNavigation: FC = props => {
   const [visible, setVisible] = useState(false)
@@ -54,19 +55,27 @@ export const MainNavigation: FC = props => {
                       }
                     >
                       <li>
-                        <a href="/" className="uppercase hover:text-white">
+                        <Link to="/" className="uppercase hover:text-white">
                           Explore
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#" className="uppercase hover:text-white">
+                        <Link to="#" className="uppercase hover:text-white">
                           Timeline
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#" className="uppercase hover:text-white">
+                        <Link to="#" className="uppercase hover:text-white">
                           Create a society
-                        </a>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/profile/0x134214jlk1j4lk12j1"
+                          className="uppercase hover:text-white"
+                        >
+                          Profile
+                        </Link>
                       </li>
                     </ul>
                   </div>

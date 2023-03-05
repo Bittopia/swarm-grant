@@ -1,6 +1,8 @@
 import { type FC, type ReactNode } from 'react'
 import BaseTemplate from '@/layouts/BaseTemplate'
 import { paramCase } from 'change-case'
+import BlockMenu from '@/components/BlockMenu'
+import { useParams } from 'react-router-dom'
 
 interface BioTemplateProps {
   avatar?: string
@@ -16,6 +18,10 @@ export const BioTemplate: FC<BioTemplateProps> = ({
 }) => {
   const avatarUrl =
     avatar ?? `https://cdn.stamp.fyi/avatar/${paramCase(name)}?s=138`
+  const { id } = useParams()
+
+  const { pathname } = window.location
+
   return (
     <BaseTemplate>
       <section className={'grid grid-cols-1 gap-8 md:grid-cols-society-feed'}>
@@ -44,12 +50,22 @@ export const BioTemplate: FC<BioTemplateProps> = ({
                 </div>
               </div>
             </section>
-            <section className={'w-full'}>
-              <ul className={'flex flex-col items-start gap-2 pb-4'}>
-                <li className={'border-l-4 border-l-white pl-10'}>Activity</li>
-                <li className={'pl-10'}>About</li>
-              </ul>
-            </section>
+            {id != null && (
+              <BlockMenu
+                items={[
+                  {
+                    label: 'Activity',
+                    url: `/profile/${id}`,
+                    active: pathname === `/profile/${id}`
+                  },
+                  {
+                    label: 'About',
+                    url: `/profile/${id}/about`,
+                    active: pathname === `/profile/${id}/about`
+                  }
+                ]}
+              />
+            )}
           </div>
         </div>
         <div className={'w-full'}>{children}</div>
