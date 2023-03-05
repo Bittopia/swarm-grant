@@ -1,7 +1,7 @@
 import { type FC } from 'react'
 import StudyFieldTemplate from '@/layouts/StudyFieldTemplate'
 
-export const CourseAreaDetails: FC = () => {
+export const SocietyDetails: FC = () => {
   return (
     <StudyFieldTemplate>
       <div className={'flex flex-col items-center gap-4'}>
