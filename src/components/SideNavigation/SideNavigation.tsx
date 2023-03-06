@@ -18,7 +18,7 @@ export const SideNavigation: FC = props => {
         <span className={'text-2xl font-bold'}>B</span>
       </Link>
       <Link
-        to={'/society/create'}
+        to={'/course/create'}
         className={
           'flex h-[40px] w-[40px] items-center justify-center rounded-full border border-gray-500 bg-transparent hover:cursor-pointer hover:border-white'
         }

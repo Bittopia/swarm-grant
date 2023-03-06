@@ -65,8 +65,11 @@ export const MainNavigation: FC = props => {
                         </Link>
                       </li>
                       <li>
-                        <Link to="#" className="uppercase hover:text-white">
-                          Create a society
+                        <Link
+                          to="/course/create"
+                          className="uppercase hover:text-white"
+                        >
+                          Create a course
                         </Link>
                       </li>
                       <li>
