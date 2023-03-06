@@ -121,11 +121,12 @@ export const NewCourse: FC = () => {
         </div>
         <button
           type={'submit'}
+          disabled={formik.isSubmitting}
           className={
             'rounded-md bg-primary p-2 text-white transition-colors hover:bg-blue-400'
           }
         >
-          Create
+          {formik.isSubmitting ? 'Creating course...' : 'Create course'}
         </button>
       </form>
     </BaseTemplate>
