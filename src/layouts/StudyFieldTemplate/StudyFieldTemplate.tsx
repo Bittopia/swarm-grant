@@ -1,7 +1,9 @@
 import { type FC, type ReactNode } from 'react'
 import BaseTemplate from '@/layouts/BaseTemplate'
-import AcademicFields from '@/data/AcademicFields'
 import { sentenceCase } from 'change-case'
+import { useParams } from 'react-router-dom'
+import BlockMenu from '@/components/BlockMenu'
+import useSocieties from '@/store/societies'
 
 interface StudyFieldTemplateProps {
   children: ReactNode
@@ -10,6 +12,10 @@ interface StudyFieldTemplateProps {
 export const StudyFieldTemplate: FC<StudyFieldTemplateProps> = ({
   children
 }) => {
+  const { societyId } = useParams()
+  const { societies } = useSocieties()
+  const { pathname } = window.location
+
   return (
     <BaseTemplate>
       <section className={'grid grid-cols-1 gap-8 md:grid-cols-society-feed'}>
@@ -19,44 +25,60 @@ export const StudyFieldTemplate: FC<StudyFieldTemplateProps> = ({
               'sticky top-28 flex flex-col items-center gap-4 rounded-2xl border-[1px] border-gray-500'
             }
           >
-            <section className={'m-4 flex flex-col items-center gap-4'}>
-              <div className={'h-20 w-20 overflow-hidden rounded-full'}>
-                <img src={'https://picsum.photos/200'} alt={'avatar'} />
-              </div>
-              <div className={'text-center'}>
-                <h2 className={'text-bold text-lg'}>Computer Science</h2>
-              </div>
-              <div className={'text-center'}>
-                <span
-                  className={
-                    'rounded-md bg-gray-transparent-50 p-2 text-xs tracking-widest'
-                  }
-                >
-                  0xj412lk...j41l2k4
-                </span>
-              </div>
-              <div className={'text-center'}>
-                <p>
-                  {sentenceCase(AcademicFields['computer-science'].description)}
-                </p>
-              </div>
-              <div className={'text-center'}>
-                <button
-                  className={
-                    'rounded-full bg-primary py-2 px-4 text-sm transition-opacity hover:opacity-70'
-                  }
-                >
-                  Enroll
-                </button>
-              </div>
-            </section>
-            <section className={'w-full'}>
-              <ul className={'flex flex-col items-start gap-2 pb-4'}>
-                <li className={'border-l-4 border-l-white pl-10'}>News</li>
-                <li className={'pl-10'}>Courses</li>
-                <li className={'pl-10'}>Proposals</li>
-              </ul>
-            </section>
+            {societyId != null && (
+              <>
+                <section className={'m-4 flex flex-col items-center gap-4'}>
+                  <div className={'h-20 w-20 overflow-hidden rounded-full'}>
+                    <img src={'https://picsum.photos/200'} alt={'avatar'} />
+                  </div>
+                  <div className={'text-center'}>
+                    <h2 className={'text-bold text-lg'}>
+                      {sentenceCase(societyId)}
+                    </h2>
+                  </div>
+                  <div className={'text-center'}>
+                    <span
+                      className={
+                        'rounded-md bg-gray-transparent-50 p-2 text-xs tracking-widest'
+                      }
+                    >
+                      0xj412lk...j41l2k4
+                    </span>
+                  </div>
+                  <div className={'text-center'}>
+                    <p>{sentenceCase(societies[societyId].description)}</p>
+                  </div>
+                  <div className={'text-center'}>
+                    <button
+                      className={
+                        'rounded-full bg-primary py-2 px-4 text-sm transition-opacity hover:opacity-70'
+                      }
+                    >
+                      Enroll
+                    </button>
+                  </div>
+                </section>
+                <BlockMenu
+                  items={[
+                    {
+                      label: 'News',
+                      url: '#',
+                      active: pathname === `/society/${societyId}`
+                    },
+                    {
+                      label: 'Courses',
+                      url: '#',
+                      active: pathname === `/society/${societyId}/courses`
+                    },
+                    {
+                      label: 'Proposals',
+                      url: '#',
+                      active: pathname === `/society/${societyId}/proposals`
+                    }
+                  ]}
+                />
+              </>
+            )}
           </div>
         </div>
         <div className={'w-full'}>{children}</div>
