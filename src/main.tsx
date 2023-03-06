@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import SocietyDetails from '@/pages/SocietyDetails'
 import Profile from '@/pages/profile'
 import ProfileAbout from '@/pages/ProfileAbout'
-import NewSociety from '@/pages/NewSociety'
+import NewCourse from '@/pages/NewCourse'
 
 const router = createBrowserRouter([
   {
@@ -18,8 +18,8 @@ const router = createBrowserRouter([
     element: <SocietyDetails />
   },
   {
-    path: '/society/create',
-    element: <NewSociety />
+    path: '/course/create',
+    element: <NewCourse />
   },
   {
     path: '/society/:societyId/proposals',

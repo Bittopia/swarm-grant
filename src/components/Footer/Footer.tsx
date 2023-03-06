@@ -53,6 +53,13 @@ export const Footer: FC = props => {
             <h3 className={'text-lg'}>Resources</h3>
             <Link
               className={'decoration-none text-gray-500 hover:text-white'}
+              target={'_blank'}
+              to={'https://docs.bittopia.org/'}
+            >
+              Docs
+            </Link>
+            <Link
+              className={'decoration-none text-gray-500 hover:text-white'}
               to={'#'}
             >
               Discussions
@@ -83,7 +90,8 @@ export const Footer: FC = props => {
                 className={
                   'decoration-none text-3xl text-gray-500 hover:text-white'
                 }
-                to={'#'}
+                target={'_blank'}
+                to={'https://github.com/Bittopia'}
               >
                 <RiGithubFill />
               </Link>
@@ -91,7 +99,8 @@ export const Footer: FC = props => {
                 className={
                   'decoration-none text-3xl text-gray-500 hover:text-white'
                 }
-                to={'#'}
+                target={'_blank'}
+                to={'https://discord.gg/rBRZuJWUsy'}
               >
                 <RiDiscordFill />
               </Link>
@@ -99,7 +108,8 @@ export const Footer: FC = props => {
                 className={
                   'decoration-none text-3xl text-gray-500 hover:text-white'
                 }
-                to={'#'}
+                target={'_blank'}
+                to={'https://t.me/bittopia_u'}
               >
                 <RiTelegramFill />
               </Link>
@@ -107,7 +117,8 @@ export const Footer: FC = props => {
                 className={
                   'decoration-none text-3xl text-gray-500 hover:text-white'
                 }
-                to={'#'}
+                target={'_blank'}
+                to={'https://www.youtube.com/c/BittopiaUniversity'}
               >
                 <RiYoutubeFill />
               </Link>
