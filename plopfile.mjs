@@ -55,4 +55,23 @@ export default function (plop) {
             }
         ],
     })
+
+    plop.setGenerator('util', {
+        description: 'Create a util',
+        prompts: [
+            {
+                type: 'input',
+                name: 'name',
+                message: 'What is your util name?',
+            },
+        ],
+        actions: [
+            {
+                type: 'addMany',
+                destination: 'src/utils',
+                base: '_plop/utils',
+                templateFiles: '_plop/utils/**/*',
+            }
+        ],
+    })
 };
