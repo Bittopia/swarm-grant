@@ -1,8 +1,8 @@
 import { type FC, type ReactNode } from 'react'
 import BaseTemplate from '@/layouts/BaseTemplate'
-import { paramCase } from 'change-case'
 import BlockMenu from '@/components/BlockMenu'
 import { useParams } from 'react-router-dom'
+import getResumeFromWeb3AddressUtil from '@/utils/getResumeFromWeb3AddressUtil'
 
 interface BioTemplateProps {
   avatar?: string
@@ -16,9 +16,8 @@ export const BioTemplate: FC<BioTemplateProps> = ({
   name,
   children
 }) => {
-  const avatarUrl =
-    avatar ?? `https://cdn.stamp.fyi/avatar/${paramCase(name)}?s=138`
   const { id } = useParams()
+  const avatarUrl = avatar ?? `https://cdn.stamp.fyi/avatar/${id}?s=138`
 
   const { pathname } = window.location
 
@@ -45,7 +44,7 @@ export const BioTemplate: FC<BioTemplateProps> = ({
                       'rounded-md bg-gray-transparent-50 p-1 text-[10px] tracking-widest'
                     }
                   >
-                    0xj412lk...j41l2k4
+                    {getResumeFromWeb3AddressUtil(id as string)}
                   </span>
                 </div>
               </div>

@@ -4,9 +4,12 @@ import DropDown from '@/components/DropDown'
 import BaseButton from '@/components/BaseButton'
 import { ConnectWalletModal } from '../ConnectWalletModal/ConnectWalletModal'
 import { Link } from 'react-router-dom'
+import useAuthCredentials from '@/store/AuthCredentials'
+import { getResumeFromWeb3AddressUtil } from '../../utils/getResumeFromWeb3AddressUtil/getResumeFromWeb3AddressUtil'
 
 export const MainNavigation: FC = props => {
   const [visible, setVisible] = useState(false)
+  const { web3Address } = useAuthCredentials()
 
   return (
     <>
@@ -31,13 +34,27 @@ export const MainNavigation: FC = props => {
             </div>
           </a>
           <div className={'flex items-center justify-between gap-5'}>
-            <BaseButton
-              onClick={() => {
-                setVisible(true)
-              }}
-            >
-              Connect wallet
-            </BaseButton>
+            {web3Address !== '' && (
+              <Link to={`/profile/${web3Address}`}>
+                <BaseButton>
+                  <span className={'flex items-center justify-center'}>
+                    <span
+                      className={'mr-4 h-2 w-2 rounded-full bg-green-400'}
+                    />
+                    {getResumeFromWeb3AddressUtil(web3Address)}
+                  </span>
+                </BaseButton>
+              </Link>
+            )}
+            {web3Address === '' && (
+              <BaseButton
+                onClick={() => {
+                  setVisible(true)
+                }}
+              >
+                Connect wallet
+              </BaseButton>
+            )}
             <DropDown
               dropDownContent={
                 <div className={'flex w-[300px] flex-col gap-8'}>

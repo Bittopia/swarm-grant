@@ -25,5 +25,6 @@ module.exports = {
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/no-unescaped-entities': 'off',
+    '@typescript-eslint/restrict-template-expressions': 'off'
   }
 }
