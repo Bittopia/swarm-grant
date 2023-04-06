@@ -1,32 +1,42 @@
 import { paramCase } from 'change-case'
+import uploadDataToSwarmUtil from '@/utils/UploadDataToSwarmUtil'
+import bee from 'src/vendor/BeeInstanceUtil'
 
 interface BaseCourseProps {
   avatar?: string
   title: string
-  descriprion: string
+  description: string
   isPrivate?: boolean
+  ownerAddress: string
 }
 
 export class CourseService {
   public async create ({
     avatar,
     title,
-    descriprion,
-    isPrivate
+    description,
+    isPrivate,
+    ownerAddress
   }: BaseCourseProps): Promise<any> {
     const avatarUrl =
       avatar ?? `https://cdn.stamp.fyi/avatar/${paramCase(title)}?s=138`
+    const dataToUpload = {
+      avatar: avatarUrl,
+      title,
+      description,
+      isPrivate,
+      ownerAddress
+    }
 
-    return await new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve({
-          avatar: avatarUrl,
-          title,
-          descriprion,
-          isPrivate
-        })
-      }, 2000)
-    })
+    try {
+      return await uploadDataToSwarmUtil(
+        JSON.stringify(dataToUpload),
+        bee,
+        import.meta.env.VITE_POSTAGE_BATCH_ID
+      )
+    } catch (error: any) {
+      throw new Error(error.message)
+    }
   }
 
   public async read ({ id }: { id: string }): Promise<any> {
@@ -39,7 +49,7 @@ export class CourseService {
         resolve({
           avatar: avatarUrl,
           title: 'Some cool society',
-          descriprion:
+          description:
             'lorem ipsum dolor sit amet consectetur adipisicing elit.',
           isPrivate: false
         })
@@ -51,7 +61,7 @@ export class CourseService {
     id,
     avatar,
     title,
-    descriprion,
+    description,
     isPrivate
   }: BaseCourseProps & { id: string }): Promise<any> {
     const avatarUrl =
@@ -62,7 +72,7 @@ export class CourseService {
         resolve({
           avatar: avatarUrl,
           title,
-          descriprion,
+          description,
           isPrivate
         })
       }, 2000)

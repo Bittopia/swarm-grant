@@ -1,84 +1,66 @@
-import { type FC } from 'react'
+import { type FC, useState } from 'react'
 import BaseTemplate from '@/layouts/BaseTemplate'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
 import { sentenceCase } from 'change-case'
-import useSocieties from '@/store/societies'
+import useAuthCredentials from '@/store/AuthCredentials'
+import CourseService from '@/services/CourseService'
 
 const CourseSchema = yup.object({
-  name: yup.string().required(),
+  title: yup.string().required(),
   description: yup.string().required(),
   isPrivate: yup.boolean().optional()
 })
 
 export const NewCourse: FC = () => {
+  const { web3Address } = useAuthCredentials()
+  const [isLoading, setIsLoading] = useState(false)
+
   const formik = useFormik({
     initialValues: {
-      name: '',
+      title: '',
       description: '',
-      fieldOfStudy: '',
       isPrivate: false
     },
     validationSchema: CourseSchema,
     onSubmit: values => {
-      console.log(values)
+      setIsLoading(true)
+      CourseService.create({ ...values, ownerAddress: web3Address })
+        .then(reference => {
+          console.log(reference)
+          setIsLoading(false)
+        })
+        .catch(error => {
+          console.error(error)
+          setIsLoading(false)
+        })
     }
   })
 
-  const { societies } = useSocieties()
   return (
     <BaseTemplate>
       <h1 className={'mb-8 text-2xl font-bold'}>Create course</h1>
       <form onSubmit={formik.handleSubmit} className={'flex flex-col gap-4'}>
         <div className={'flex flex-col gap-2'}>
-          <label htmlFor={'name'} className={'text-sm font-bold'}>
-            Name
+          <label htmlFor={'title'} className={'text-sm font-bold'}>
+            Title
           </label>
           <input
-            value={formik.values.name}
+            value={formik.values.title}
             onChange={formik.handleChange}
             type={'text'}
-            id={'name'}
+            id={'title'}
             className={`rounded-md border border-gray-500 bg-transparent p-2 focus:border-primary focus:outline-none ${
-              formik.errors.name != null && formik.touched.name === true
+              formik.errors.title != null && formik.touched.title === true
                 ? 'border-red-500'
                 : ''
             }`}
           />
-          {formik.errors.name != null && formik.touched.name === true && (
+          {formik.errors.title != null && formik.touched.title === true && (
             <div
               className={'w-fit rounded-lg bg-red-500 p-2 text-xs text-white'}
             >
-              {sentenceCase(formik.errors.name)}
-            </div>
-          )}
-        </div>
-        <div className={'flex flex-col gap-2'}>
-          <label htmlFor={'name'} className={'text-sm font-bold'}>
-            Field of study
-          </label>
-          <select
-            value={formik.values.fieldOfStudy}
-            onChange={formik.handleChange}
-            id={'fieldOfStudy'}
-            placeholder={'Select field of study'}
-            className={`rounded-md border border-gray-500 bg-transparent p-2 focus:border-primary focus:outline-none ${
-              formik.errors.name != null && formik.touched.name === true
-                ? 'border-red-500'
-                : ''
-            }`}
-          >
-            {Object.keys(societies).map(societyKeys => (
-              <option key={societyKeys} value={societyKeys}>
-                {societies[societyKeys].name}
-              </option>
-            ))}
-          </select>
-          {formik.errors.name != null && formik.touched.name === true && (
-            <div
-              className={'w-fit rounded-lg bg-red-500 p-2 text-xs text-white'}
-            >
-              {sentenceCase(formik.errors.name)}
+              {sentenceCase(formik.errors.title)}
             </div>
           )}
         </div>
@@ -121,7 +103,7 @@ export const NewCourse: FC = () => {
         </div>
         <button
           type={'submit'}
-          disabled={formik.isSubmitting}
+          disabled={formik.isSubmitting || isLoading}
           className={
             'rounded-md bg-primary p-2 text-white transition-colors hover:bg-blue-400'
           }
