@@ -3,12 +3,13 @@ import firestore from 'firebase/firestore'
 
 // Replace these values with your Firebase project's configuration
 const firebaseConfig = {
-  apiKey: 'YOUR_API_KEY',
-  authDomain: 'YOUR_AUTH_DOMAIN',
-  projectId: 'YOUR_PROJECT_ID',
-  storageBucket: 'YOUR_STORAGE_BUCKET',
-  messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-  appId: 'YOUR_APP_ID'
+  apiKey: 'AIzaSyBh0kzCd26OP2P6hRJYWReNYnPZX75GAeo',
+  authDomain: 'bittopia-eff37.firebaseapp.com',
+  projectId: 'bittopia-eff37',
+  storageBucket: 'bittopia-eff37.appspot.com',
+  messagingSenderId: '600477991868',
+  appId: '1:600477991868:web:33a0f54991cf6f292061b9',
+  measurementId: 'G-WYYR5DGHBY'
 }
 
 // Initialize Firebase with a "default" Firebase project
