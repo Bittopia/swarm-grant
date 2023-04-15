@@ -7,6 +7,7 @@ import SocietyDetails from '@/pages/SocietyDetails'
 import Profile from '@/pages/profile'
 import ProfileAbout from '@/pages/ProfileAbout'
 import NewCourse from '@/pages/NewCourse'
+import NewSociety from '@/pages/NewSociety'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: '/course/create',
     element: <NewCourse />
+  },
+  {
+    path: '/society/create',
+    element: <NewSociety />
   },
   {
     path: '/society/:societyId/proposals',

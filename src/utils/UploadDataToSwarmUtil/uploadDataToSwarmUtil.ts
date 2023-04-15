@@ -1,14 +1,14 @@
 import {
   type BatchId,
-  type Bee,
   type Reference,
   type UploadResult
 } from '@ethersphere/bee-js'
 
+import bee from '@/vendor/BeeInstanceUtil'
+
 export async function uploadDataToSwarmUtil<T extends string> (
   data: T,
-  bee: Bee,
-  batchId: BatchId
+  batchId: BatchId = import.meta.env.VITE_POSTAGE_BATCH_ID
 ): Promise<Reference> {
   try {
     const result: UploadResult = await bee.uploadData(batchId, data)

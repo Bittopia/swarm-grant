@@ -1,10 +1,13 @@
 import { paramCase } from 'change-case'
+import uploadDataToSwarmUtil from '@/utils/UploadDataToSwarmUtil'
+import DatabaseUtil from '@/utils/DatabaseUtil'
 
 interface BaseSocietyProps {
   avatar?: string
   title: string
   descriprion: string
   isPrivate?: boolean
+  ownerAddress: string
 }
 
 export class SocietyService {
@@ -12,21 +15,30 @@ export class SocietyService {
     avatar,
     title,
     descriprion,
-    isPrivate
+    isPrivate = false,
+    ownerAddress
   }: BaseSocietyProps): Promise<any> {
     const avatarUrl =
       avatar ?? `https://cdn.stamp.fyi/avatar/${paramCase(title)}?s=138`
 
-    return await new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve({
-          avatar: avatarUrl,
-          title,
-          descriprion,
-          isPrivate
-        })
-      }, 2000)
-    })
+    const dataToBeSaved: BaseSocietyProps = {
+      avatar: avatarUrl,
+      title,
+      descriprion,
+      isPrivate,
+      ownerAddress
+    }
+
+    try {
+      const hash = await uploadDataToSwarmUtil(JSON.stringify(dataToBeSaved))
+      const db = new DatabaseUtil()
+
+      const result = await db.create('society', { reference: hash })
+
+      return { reference: hash, data: dataToBeSaved, result }
+    } catch (error: any) {
+      throw new Error(error.message)
+    }
   }
 
   public async read ({ id }: { id: string }): Promise<any> {

@@ -5,7 +5,7 @@ import { useFormik } from 'formik'
 import { sentenceCase } from 'change-case'
 
 const SocietySchema = yup.object({
-  name: yup.string().required(),
+  title: yup.string().required(),
   description: yup.string().required(),
   isPrivate: yup.boolean().optional()
 })
@@ -13,7 +13,7 @@ const SocietySchema = yup.object({
 export const NewSociety: FC = () => {
   const formik = useFormik({
     initialValues: {
-      name: '',
+      title: '',
       description: '',
       isPrivate: false
     },
@@ -31,21 +31,21 @@ export const NewSociety: FC = () => {
             Name
           </label>
           <input
-            value={formik.values.name}
+            value={formik.values.title}
             onChange={formik.handleChange}
             type={'text'}
-            id={'name'}
+            id={'title'}
             className={`rounded-md border border-gray-500 bg-transparent p-2 focus:border-primary focus:outline-none ${
-              formik.errors.name != null && formik.touched.name === true
+              formik.errors.title != null && formik.touched.title === true
                 ? 'border-red-500'
                 : ''
             }`}
           />
-          {formik.errors.name != null && formik.touched.name === true && (
+          {formik.errors.title != null && formik.touched.title === true && (
             <div
               className={'w-fit rounded-lg bg-red-500 p-2 text-xs text-white'}
             >
-              {sentenceCase(formik.errors.name)}
+              {sentenceCase(formik.errors.title)}
             </div>
           )}
         </div>

@@ -1,6 +1,6 @@
 import { paramCase } from 'change-case'
 import uploadDataToSwarmUtil from '@/utils/UploadDataToSwarmUtil'
-import bee from 'src/vendor/BeeInstanceUtil'
+import DatabaseUtil from '@/utils/DatabaseUtil'
 
 interface BaseCourseProps {
   avatar?: string
@@ -20,7 +20,7 @@ export class CourseService {
   }: BaseCourseProps): Promise<any> {
     const avatarUrl =
       avatar ?? `https://cdn.stamp.fyi/avatar/${paramCase(title)}?s=138`
-    const dataToUpload = {
+    const dataToBeSaved = {
       avatar: avatarUrl,
       title,
       description,
@@ -29,11 +29,12 @@ export class CourseService {
     }
 
     try {
-      return await uploadDataToSwarmUtil(
-        JSON.stringify(dataToUpload),
-        bee,
-        import.meta.env.VITE_POSTAGE_BATCH_ID
-      )
+      const hash = await uploadDataToSwarmUtil(JSON.stringify(dataToBeSaved))
+      const db = new DatabaseUtil()
+
+      const { id } = await db.create('course', { reference: hash })
+
+      return { reference: hash, data: { id, ...dataToBeSaved } }
     } catch (error: any) {
       throw new Error(error.message)
     }

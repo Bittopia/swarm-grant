@@ -1,92 +1,139 @@
 import { create } from 'zustand'
 
-export interface Society {
+type Address = string
+export interface Course {
+  id: string
   name: string
   description: string
+  ownerAddress: Address
+  profiles: Address[]
 }
 
-export type SocietiesState = Record<string, Society>
-
-const initialState: SocietiesState = {
-  mathematics: {
-    name: 'Mathematics DAS',
-    description:
-      'the study of numbers, shapes, and patterns, and their relationships.'
-  },
-  chemistry: {
-    name: 'Chemistry DAS',
-    description:
-      'the study of the composition, structure, properties, and reactions of matter.'
-  },
-  biology: {
-    name: 'Biology DAS',
-    description:
-      'the study of living organisms and their interactions with each other and the environment.'
-  },
-  'computer-science': {
-    name: 'Computer Science DAS',
-    description:
-      'the study of computing, programming, and computational systems.'
-  },
-  psychology: {
-    name: 'Psychology DAS',
-    description: 'the study of the mind and behavior.'
-  },
-  sociology: {
-    name: 'Sociology DAS',
-    description:
-      'the study of human social behavior and its origins, development, organization, and institutions.'
-  },
-  anthropology: {
-    name: 'Anthropology DAS',
-    description:
-      'the study of human societies and cultures and their development.'
-  },
-  economics: {
-    name: 'Economics DAS',
-    description:
-      'the study of how individuals, organizations, and societies allocate scarce resources.'
-  },
-  philosophy: {
-    name: 'Philosophy DAS',
-    description:
-      'the study of the fundamental nature of knowledge, reality, and existence.'
-  },
-  history: {
-    name: 'History DAS',
-    description: 'the study of the past and its significance.'
-  },
-  linguistics: {
-    name: 'Linguistics DAS',
-    description:
-      'the study of language, including its structure, use, and evolution.'
-  },
-  'political-science': {
-    name: 'Political Science DAS',
-    description: 'the study of government, politics, and public policies.'
-  },
-  'environmental-science': {
-    name: 'Environmental Science DAS',
-    description:
-      'the study of the natural environment and how humans interact with it.'
-  }
+export interface Society {
+  id: string
+  name: string
+  description: string
+  ownerAddress: Address
+  courses: Course[]
+  profiles?: Profile[]
 }
 
-interface SocietiesStore {
-  societies: SocietiesState
-  setSocieties: (societies: SocietiesState) => void
-  addSociety: ({ slug, society }: { slug: string, society: Society }) => void
+export interface Profile {
+  id: Address
+  name: string
+  description: string
+  address: Address
 }
 
-export const useSocieties = create<SocietiesStore>(set => ({
-  societies: initialState,
-  setSocieties: (societies: SocietiesState) => {
-    set({ societies })
-  },
-  addSociety: ({ slug, society }: { slug: string, society: Society }) => {
+interface MainState {
+  isLoading: boolean
+  profiles: Record<string, Profile>
+  societies: Record<string, Society>
+}
+
+const initialState: MainState = {
+  isLoading: false,
+  profiles: {},
+  societies: {}
+}
+
+interface MainStore {
+  data: MainState
+
+  setIsLoading: (isLoading: boolean) => void
+
+  addProfile: (profile: Profile) => void
+  updateProfile: (profileId: Address, profile: Profile) => void
+  // deleteProfile: (profileId: Address) => void
+
+  addSociety: (society: Society) => void
+  updateSociety: (societyId: string, society: Society) => void
+
+  addCourseToSociety: (societyId: string, course: Course) => void
+  updateCourse: (societyId: string, courseId: string, course: Course) => void
+}
+
+export const useSocieties = create<MainStore>(set => ({
+  data: initialState,
+  setIsLoading: (isLoading: boolean) => {
     set(state => ({
       ...state,
-      [slug]: society
+      isLoading
     }))
+  },
+  addProfile: (profile: Profile) => {
+    set(state => ({
+      ...state,
+      profiles: {
+        ...state.data.profiles,
+        [profile.id]: profile
+      }
+    }))
+  },
+  updateProfile: (profileId: Address, profile: Profile) => {
+    set(state => ({
+      ...state,
+      profiles: {
+        ...state.data.profiles,
+        [profileId]: profile
+      }
+    }))
+  },
+  addSociety: (society: Society) => {
+    set(state => ({
+      ...state,
+      societies: {
+        ...state.data.societies,
+        [society.id]: society
+      }
+    }))
+  },
+  updateSociety: (societyId: string, society: Society) => {
+    set(state => ({
+      ...state,
+      societies: {
+        ...state.data.societies,
+        [societyId]: society
+      }
+    }))
+  },
+  updateCourse: (societyId: string, courseId: string, course: Course) => {
+    set(state => {
+      const society = state.data.societies[societyId]
+      if (society === undefined) {
+        throw new Error(`Society ${societyId} not found`)
+      }
+      const courses = society.courses.map(c =>
+        c.id === courseId ? course : c
+      )
+      return {
+        ...state,
+        societies: {
+          ...state.data.societies,
+          [societyId]: {
+            ...society,
+            courses
+          }
+        }
+      }
+    })
+  },
+  addCourseToSociety: (societyId: string, course: Course) => {
+    set(state => {
+      const society = state.data.societies[societyId]
+      if (society === undefined) {
+        throw new Error(`Society ${societyId} not found`)
+      }
+      return {
+        ...state,
+        societies: {
+          ...state.data.societies,
+          [societyId]: {
+            ...society,
+            courses: [...society.courses, course]
+          }
+        }
+      }
+    })
   }
 }))
