@@ -1,11 +1,17 @@
-import { type FC, type ReactNode, useEffect, useRef, useState } from 'react'
+import classnames from 'classnames'
+import { useEffect, useRef, useState, type FC, type ReactNode } from 'react'
 
 interface DropDownProps {
   children: ReactNode
   dropDownContent: ReactNode
+  className?: string
 }
 
-export const DropDown: FC<DropDownProps> = ({ children, dropDownContent }) => {
+export const DropDown: FC<DropDownProps> = ({
+  children,
+  dropDownContent,
+  className
+}) => {
   const [visible, setVisible] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -31,7 +37,7 @@ export const DropDown: FC<DropDownProps> = ({ children, dropDownContent }) => {
       onClick={() => {
         setVisible(!visible)
       }}
-      className={'relative z-0'}
+      className={classnames('relative z-0', className)}
     >
       {children}
       <div

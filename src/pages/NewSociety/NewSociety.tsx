@@ -1,12 +1,16 @@
-import { type FC } from 'react'
 import BaseTemplate from '@/layouts/BaseTemplate'
-import * as yup from 'yup'
-import { useFormik } from 'formik'
 import { sentenceCase } from 'change-case'
+import { useFormik } from 'formik'
+import { type FC } from 'react'
+import * as yup from 'yup'
 
 const SocietySchema = yup.object({
   title: yup.string().required(),
   description: yup.string().required(),
+  scienceField: yup
+    .string()
+    .required()
+    .oneOf(['Alpha Sciences', 'Beta Sciences', 'Gamma Sciences']),
   isPrivate: yup.boolean().optional()
 })
 
@@ -15,6 +19,7 @@ export const NewSociety: FC = () => {
     initialValues: {
       title: '',
       description: '',
+      scienceField: '',
       isPrivate: false
     },
     validationSchema: SocietySchema,

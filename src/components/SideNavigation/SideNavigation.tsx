@@ -1,8 +1,10 @@
+import { useAuthCredentials } from '@/store/AuthCredentials/AuthCredentials'
 import { type FC } from 'react'
 import { RiAddLine } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 
 export const SideNavigation: FC = props => {
+  const { web3Address } = useAuthCredentials()
   return (
     <div
       className={
@@ -17,16 +19,18 @@ export const SideNavigation: FC = props => {
       >
         <span className={'text-2xl font-bold'}>B</span>
       </Link>
-      <Link
-        to={'/course/create'}
-        className={
-          'flex h-[40px] w-[40px] items-center justify-center rounded-full border border-gray-500 bg-transparent hover:cursor-pointer hover:border-white'
-        }
-      >
-        <span className={'text-lg'}>
-          <RiAddLine />
-        </span>
-      </Link>
+      {web3Address !== undefined && web3Address !== '' && (
+        <Link
+          to={'/society/create'}
+          className={
+            'flex h-[40px] w-[40px] items-center justify-center rounded-full border border-gray-500 bg-transparent hover:cursor-pointer hover:border-white'
+          }
+        >
+          <span className={'text-lg'}>
+            <RiAddLine />
+          </span>
+        </Link>
+      )}
     </div>
   )
 }

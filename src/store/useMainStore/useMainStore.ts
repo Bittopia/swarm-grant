@@ -1,6 +1,10 @@
 import { create } from 'zustand'
 
 type Address = string
+export type ScienceFields =
+  | 'Alpha Sciences'
+  | 'Beta Sciences'
+  | 'Gamma Sciences'
 export interface Course {
   id: string
   name: string
@@ -13,6 +17,7 @@ export interface Society {
   id: string
   name: string
   description: string
+  studyArea: ScienceFields
   ownerAddress: Address
   courses: Course[]
   profiles?: Profile[]
@@ -53,7 +58,7 @@ interface MainStore {
   updateCourse: (societyId: string, courseId: string, course: Course) => void
 }
 
-export const useSocieties = create<MainStore>(set => ({
+export const useMainStore = create<MainStore>(set => ({
   data: initialState,
   setIsLoading: (isLoading: boolean) => {
     set(state => ({
@@ -103,9 +108,7 @@ export const useSocieties = create<MainStore>(set => ({
       if (society === undefined) {
         throw new Error(`Society ${societyId} not found`)
       }
-      const courses = society.courses.map(c =>
-        c.id === courseId ? course : c
-      )
+      const courses = society.courses.map(c => (c.id === courseId ? course : c))
       return {
         ...state,
         societies: {

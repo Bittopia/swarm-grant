@@ -1,9 +1,8 @@
-import { type FC, type ReactNode } from 'react'
+import BlockMenu from '@/components/BlockMenu'
 import BaseTemplate from '@/layouts/BaseTemplate'
 import { sentenceCase } from 'change-case'
+import { type FC, type ReactNode } from 'react'
 import { useParams } from 'react-router-dom'
-import BlockMenu from '@/components/BlockMenu'
-import useSocieties from '@/store/societies'
 
 interface StudyFieldTemplateProps {
   children: ReactNode
@@ -13,7 +12,7 @@ export const StudyFieldTemplate: FC<StudyFieldTemplateProps> = ({
   children
 }) => {
   const { societyId } = useParams()
-  const { societies } = useSocieties()
+  // const { societies } = useSocieties()
   const { pathname } = window.location
 
   return (
@@ -46,7 +45,8 @@ export const StudyFieldTemplate: FC<StudyFieldTemplateProps> = ({
                     </span>
                   </div>
                   <div className={'text-center'}>
-                    <p>{sentenceCase(societies[societyId].description)}</p>
+                    {/* <p>{sentenceCase(societies?[societyId]?.description)}</p> */}
+                    <p>Hello world</p>
                   </div>
                   <div className={'text-center'}>
                     <button
