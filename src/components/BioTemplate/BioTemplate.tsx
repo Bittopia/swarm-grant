@@ -1,8 +1,10 @@
-import { type FC, type ReactNode } from 'react'
-import BaseTemplate from '@/layouts/BaseTemplate'
 import BlockMenu from '@/components/BlockMenu'
-import { useParams } from 'react-router-dom'
+import BaseTemplate from '@/layouts/BaseTemplate'
 import getResumeFromWeb3AddressUtil from '@/utils/getResumeFromWeb3AddressUtil'
+import { useState, type FC, type ReactNode } from 'react'
+import { useParams } from 'react-router-dom'
+import { BaseButton } from '../BaseButton/BaseButton'
+import { EditProfileModal } from '../EditProfileModal/EditProfileModal'
 
 interface BioTemplateProps {
   avatar?: string
@@ -21,6 +23,8 @@ export const BioTemplate: FC<BioTemplateProps> = ({
 
   const { pathname } = window.location
 
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
+
   return (
     <BaseTemplate>
       <section className={'grid grid-cols-1 gap-8 md:grid-cols-society-feed'}>
@@ -31,7 +35,11 @@ export const BioTemplate: FC<BioTemplateProps> = ({
             }
           >
             <section className={'m-4 flex flex-col items-center gap-4'}>
-              <div className={'h-20 w-20 overflow-hidden rounded-full'}>
+              <div
+                className={
+                  'h-20 w-20 overflow-hidden rounded-full bg-slate-200'
+                }
+              >
                 <img src={avatarUrl} alt={'avatar'} />
               </div>
               <div className={'flex flex-col items-center'}>
@@ -46,6 +54,17 @@ export const BioTemplate: FC<BioTemplateProps> = ({
                   >
                     {getResumeFromWeb3AddressUtil(id as string)}
                   </span>
+                </div>
+                <div className="flex w-full items-center">
+                  <BaseButton
+                    onClick={() => {
+                      setIsEditModalOpen(true)
+                    }}
+                    className="mt-2 w-full"
+                    size="sm"
+                  >
+                    Edit profile
+                  </BaseButton>
                 </div>
               </div>
             </section>
@@ -67,6 +86,12 @@ export const BioTemplate: FC<BioTemplateProps> = ({
             )}
           </div>
         </div>
+        <EditProfileModal
+          isOpen={isEditModalOpen}
+          onClose={() => {
+            setIsEditModalOpen(false)
+          }}
+        />
         <div className={'w-full'}>{children}</div>
       </section>
     </BaseTemplate>

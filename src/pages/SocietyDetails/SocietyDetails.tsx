@@ -1,9 +1,25 @@
-import { type FC } from 'react'
+import { useQueryData } from '@/hooks/useQueryData/useQueryData'
 import StudyFieldTemplate from '@/layouts/StudyFieldTemplate'
+import useMainStore from '@/store/useMainStore'
+import { type Society } from '@/store/useMainStore/useMainStore'
+import { useEffect, type FC } from 'react'
+import { useParams } from 'react-router-dom'
 
 export const SocietyDetails: FC = () => {
+  const { data, setData } = useMainStore()
+  const { data: resultData } = useQueryData()
+  const { societyId } = useParams<{ societyId: string }>()
+
+  useEffect(() => {
+    if (resultData !== undefined) {
+      setData({ ...resultData.data, isLoading: false })
+    }
+  }, [resultData])
+
+  const society: Society = data?.societies[societyId as string]
+
   return (
-    <StudyFieldTemplate>
+    <StudyFieldTemplate society={society}>
       <div className={'flex flex-col items-center gap-4'}>
         <h1 className={'w-full text-3xl text-white'}>News</h1>
         {new Array(10).fill(0).map((_, index) => (
@@ -24,7 +40,7 @@ export const SocietyDetails: FC = () => {
                     </div>
                     <figcaption>
                       <span className={'text-sm text-gray-500'}>
-                        0x4fjs...fl1k3j
+                        Some new course name
                       </span>
                     </figcaption>
                   </figure>

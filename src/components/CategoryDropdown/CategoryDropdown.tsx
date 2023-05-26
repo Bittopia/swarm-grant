@@ -4,8 +4,8 @@ import { RiArrowDropDownLine, RiListUnordered } from 'react-icons/ri'
 import DropDown from '../DropDown'
 
 export interface CategoryItem {
-  label: ScienceFields
-  value: ScienceFields
+  label: ScienceFields | string
+  value: ScienceFields | undefined
 }
 
 interface CategoryDropdownProps {
@@ -48,7 +48,7 @@ export const CategoryDropdown: FC<CategoryDropdownProps> = ({
         <span className={'flex w-full items-center justify-between'}>
           <span className="flex items-center">
             <RiListUnordered className={'mr-4 fill-white'} />
-            {selectedItem !== undefined ? selectedItem.label : 'Science Fields'}
+            {selectedItem !== undefined ? selectedItem.label : 'All Sciences'}
           </span>
           <RiArrowDropDownLine
             className={'ml-4 h-[1.5rem] w-[1.5rem] fill-gray-500'}

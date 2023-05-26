@@ -1,26 +1,29 @@
 import BioTemplate from '@/components/BioTemplate'
-import { type FC } from 'react'
 import { TextContentBlock } from '@/components/TextContentBlock/TextContentBlock'
+import { useQueryData } from '@/hooks/useQueryData/useQueryData'
+import useAuthCredentials from '@/store/AuthCredentials'
+import { type FC } from 'react'
 
 export const ProfileAbout: FC = () => {
-  const user = {
-    avatar: 'https://picsum.photos/200',
-    name: 'John Doe',
-    bio: 'lorem ipsum dolor sit amet'
-  }
+  const { data: queryData } = useQueryData()
+  const { web3Address } = useAuthCredentials()
+
+  const profile = queryData?.data.profiles[web3Address]
 
   return (
-    <BioTemplate name={'John Doe'}>
+    <BioTemplate name={profile !== undefined ? profile.name : ''}>
       <section className={'flex flex-col gap-8'}>
-        {user.bio !== '' && (
-          <TextContentBlock title={'Bio'}>{user.bio}</TextContentBlock>
+        {profile?.description !== '' && (
+          <TextContentBlock title={'Bio'}>
+            {profile?.description}
+          </TextContentBlock>
         )}
-        <TextContentBlock title={'Created societies'}>
+        {/* <TextContentBlock title={'Created societies'}>
           Hasn't created any society yet
         </TextContentBlock>
         <TextContentBlock title={'Joined courses'}>
           Hasn't joined any course yet
-        </TextContentBlock>
+        </TextContentBlock> */}
       </section>
     </BioTemplate>
   )

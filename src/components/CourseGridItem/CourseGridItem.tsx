@@ -1,12 +1,12 @@
+import { type Society } from '@/store/useMainStore/useMainStore'
 import { type FC } from 'react'
 import LinkButton from '../LinkButton'
 
 interface CourseGridItemProps {
-  title: string
-  description: string
+  society: Society
 }
 
-export const CourseGridItem: FC<CourseGridItemProps> = props => {
+export const CourseGridItem: FC<CourseGridItemProps> = ({ society }) => {
   return (
     <div
       className={
@@ -17,15 +17,17 @@ export const CourseGridItem: FC<CourseGridItemProps> = props => {
         className={'h-[60px] w-[60px] overflow-hidden rounded-full bg-white'}
       >
         <img
-          src={`https://robohash.org/${props.title.replace(' ', '')}`}
-          alt={props.title}
+          src={`https://robohash.org/${society.name.replace(' ', '')}`}
+          alt={society.name}
         />
       </div>
       <div className={'flex flex-col gap-2 text-center'}>
-        <h1 className={'text-2xl'}>{props.title}</h1>
-        <p className={'min-h-[48px] text-xs'}>{props.description}</p>
+        <h1 className={'text-2xl'}>{society.name}</h1>
+        <p className={'min-h-[48px] text-xs line-clamp-3'}>
+          {society.description}
+        </p>
       </div>
-      <LinkButton href={'#'}>Explore</LinkButton>
+      <LinkButton href={`/society/${society.id}`}>Explore</LinkButton>
     </div>
   )
 }

@@ -1,68 +1,136 @@
-import { type FC, useState } from 'react'
+import { useQueryData } from '@/hooks/useQueryData/useQueryData'
+import { useRedirectUnauthenticated } from '@/hooks/useRedirectUnauthenticated/useRedirectUnauthenticated'
 import BaseTemplate from '@/layouts/BaseTemplate'
-import * as yup from 'yup'
-import { useFormik } from 'formik'
+import MainService from '@/services/MainService'
+import { useAuthCredentials } from '@/store/AuthCredentials/AuthCredentials'
+import {
+  useMainStore,
+  type Course,
+  type MainState,
+  type Society
+} from '@/store/useMainStore/useMainStore'
 import { sentenceCase } from 'change-case'
-import useAuthCredentials from '@/store/AuthCredentials'
-import CourseService from '@/services/CourseService'
+import classNames from 'classnames'
+import { useFormik } from 'formik'
+import { useState, type FC } from 'react'
+import { v4 } from 'uuid'
+import * as yup from 'yup'
 
 const CourseSchema = yup.object({
-  title: yup.string().required(),
+  name: yup.string().required(),
   description: yup.string().required(),
-  isPrivate: yup.boolean().optional()
+  society: yup.string().required(),
+  ownerAddress: yup.string().required(),
+  profiles: yup.array()
 })
 
 export const NewCourse: FC = () => {
   const { web3Address } = useAuthCredentials()
+  const { data: queryData, refetch } = useQueryData()
+  const { setData } = useMainStore()
   const [isLoading, setIsLoading] = useState(false)
 
-  const formik = useFormik({
+  const societies =
+    queryData !== undefined && Object.values(queryData.data.societies)
+
+  const formik = useFormik<Course & { society: string }>({
     initialValues: {
-      title: '',
+      name: '',
       description: '',
-      isPrivate: false
+      ownerAddress: web3Address,
+      society: '',
+      profiles: [web3Address]
     },
+    enableReinitialize: true,
     validationSchema: CourseSchema,
-    onSubmit: values => {
+    onSubmit: (values): void => {
+      const uuid = v4()
+      const data = queryData?.data as MainState
+
+      const dataSet = {
+        ...data,
+        societies: {
+          ...data.societies,
+          ...{
+            [values.society]: {
+              ...data.societies[values.society],
+              courses: [
+                ...(data.societies[values.society].courses as Course[]),
+                { ...values, ...{ id: uuid } }
+              ]
+            } satisfies Society
+          }
+        }
+      }
+
       setIsLoading(true)
-      CourseService.create({ ...values, ownerAddress: web3Address })
-        .then(reference => {
-          console.log(reference)
+
+      MainService.mutate(dataSet)
+        .then(result => {
           setIsLoading(false)
+          setData(result.data)
+          void refetch()
+          formik.resetForm()
         })
-        .catch(error => {
-          console.error(error)
+        .catch(err => {
           setIsLoading(false)
+          console.log(err)
         })
     }
   })
 
+  useRedirectUnauthenticated()
+
   return (
     <BaseTemplate>
-      <h1 className={'mb-8 text-2xl font-bold'}>Create course</h1>
+      <h1 className={'mb-8 text-2xl font-bold'}>Create society</h1>
       <form onSubmit={formik.handleSubmit} className={'flex flex-col gap-4'}>
         <div className={'flex flex-col gap-2'}>
-          <label htmlFor={'title'} className={'text-sm font-bold'}>
-            Title
+          <label htmlFor={'name'} className={'text-sm font-bold'}>
+            Name
           </label>
           <input
-            value={formik.values.title}
+            value={formik.values.name}
             onChange={formik.handleChange}
             type={'text'}
-            id={'title'}
+            id={'name'}
             className={`rounded-md border border-gray-500 bg-transparent p-2 focus:border-primary focus:outline-none ${
-              formik.errors.title != null && formik.touched.title === true
+              formik.errors.name != null && formik.touched.name === true
                 ? 'border-red-500'
                 : ''
             }`}
           />
-          {formik.errors.title != null && formik.touched.title === true && (
+          {formik.errors.name != null && formik.touched.name === true && (
             <div
               className={'w-fit rounded-lg bg-red-500 p-2 text-xs text-white'}
             >
-              {sentenceCase(formik.errors.title)}
+              {sentenceCase(formik.errors.name)}
             </div>
           )}
+        </div>
+        <div className={'flex flex-col gap-2'}>
+          <label htmlFor={'society'} className={'text-sm font-bold'}>
+            Society
+          </label>
+          <select
+            value={formik.values.society}
+            onChange={formik.handleChange}
+            id={'society'}
+            className={classNames(
+              'rounded-md border border-gray-500 bg-transparent p-2 focus:border-primary focus:outline-none',
+              formik.errors.society != null && formik.touched.society === true
+                ? 'border-red-500'
+                : ''
+            )}
+          >
+            <option value={''}>Select a society</option>
+            {societies !== false &&
+              societies.map(society => (
+                <option key={society.id} value={society.id}>
+                  {society.name}
+                </option>
+              ))}
+          </select>
         </div>
         <div className={'flex flex-col gap-2'}>
           <label htmlFor={'name'} className={'text-sm font-bold'}>
@@ -89,26 +157,21 @@ export const NewCourse: FC = () => {
               </div>
           )}
         </div>
-        <div className={'flex flex-col gap-2'}>
-          <label htmlFor={'isPrivate'} className={'text-sm font-bold'}>
-            <input
-              id={'isPrivate'}
-              checked={formik.values.isPrivate}
-              onChange={formik.handleChange}
-              type={'checkbox'}
-              className={'mr-2'}
-            />
-            Is private?
-          </label>
-        </div>
+        <input
+          type="hidden"
+          value={formik.values.ownerAddress}
+          name="ownerAddress"
+        />
         <button
-          type={'submit'}
-          disabled={formik.isSubmitting || isLoading}
+          disabled={isLoading}
           className={
             'rounded-md bg-primary p-2 text-white transition-colors hover:bg-blue-400'
           }
+          type={'submit'}
         >
-          {formik.isSubmitting ? 'Creating course...' : 'Create course'}
+          {isLoading
+            ? 'Creating postage batch and uploading data...'
+            : 'Create'}
         </button>
       </form>
     </BaseTemplate>

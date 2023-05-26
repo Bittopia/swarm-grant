@@ -1,16 +1,19 @@
+import db from '@/vendor/firebase'
 import {
   addDoc,
   collection,
   doc,
-  type DocumentData,
-  type DocumentReference,
   getDoc,
   getDocs,
-  type QuerySnapshot,
+  limit,
+  orderBy,
+  query,
+  updateDoc,
+  type DocumentData,
+  type DocumentReference,
   type DocumentSnapshot,
-  updateDoc
+  type QuerySnapshot
 } from 'firebase/firestore'
-import db from '@/vendor/firebase'
 
 export class DatabaseUtil<T extends Record<string, any>> {
   public async create (
@@ -40,6 +43,19 @@ export class DatabaseUtil<T extends Record<string, any>> {
   public async readMany (path: string): Promise<QuerySnapshot<DocumentData>> {
     try {
       return await getDocs(collection(db, path))
+    } catch (e: any) {
+      console.error('Error reading document: ', e)
+      throw new Error(e.message)
+    }
+  }
+
+  public async readLatest (path: string): Promise<DocumentData> {
+    try {
+      const docRef = collection(db, path)
+      const q = query(docRef, orderBy('createdAt', 'desc'), limit(1))
+      const querySnapshot = await getDocs(q)
+      const data = querySnapshot.docs[0].data()
+      return data
     } catch (e: any) {
       console.error('Error reading document: ', e)
       throw new Error(e.message)

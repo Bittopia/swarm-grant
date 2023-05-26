@@ -1,4 +1,4 @@
-import { type ComponentStory, type ComponentMeta } from '@storybook/react'
+import { type ComponentMeta, type ComponentStory } from '@storybook/react'
 
 import { BaseButton } from './BaseButton'
 
@@ -15,4 +15,9 @@ const Template: ComponentStory<typeof BaseButton> = args => (
 
 export const Default = Template.bind({})
 
-Default.args = {}
+Default.args = {
+  children: 'Button',
+  onClick: () => {
+    console.log('hello')
+  }
+}

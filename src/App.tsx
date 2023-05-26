@@ -1,19 +1,34 @@
-import AcademicFields from '@/data/AcademicFields'
-import { useState, type ReactElement } from 'react'
+import { useEffect, useState, type ReactElement } from 'react'
 import {
   CategoryDropdown,
   type CategoryItem
 } from './components/CategoryDropdown/CategoryDropdown'
 import CourseGrid from './components/CourseAreaGrid'
 import { SearchField } from './components/SearchField/SearchField'
+import useQueryData from './hooks/useQueryData'
 import { BaseTemplate } from './layouts/BaseTemplate/BaseTemplate'
 import { useMainStore } from './store/useMainStore/useMainStore'
 
 function App (): ReactElement {
-  const { data } = useMainStore()
+  const { data, setData } = useMainStore()
   const [activeScienceField, setactiveScienceField] = useState<
   CategoryItem | undefined
   >(undefined)
+  const { data: resultData, isLoading } = useQueryData()
+
+  useEffect(() => {
+    if (resultData !== undefined) {
+      setData({ ...resultData.data, isLoading: false })
+    }
+  }, [resultData])
+
+  const filteredSocieties = Object.values(data.societies).filter(society => {
+    return (
+      activeScienceField?.value === undefined ||
+      society.studyArea === activeScienceField.value
+    )
+  })
+
   return (
     <BaseTemplate showFooter>
       <div
@@ -29,6 +44,7 @@ function App (): ReactElement {
           <SearchField />
           <CategoryDropdown
             itemList={[
+              { label: 'All Sciences', value: undefined },
               { label: 'Alpha Sciences', value: 'Alpha Sciences' },
               { label: 'Beta Sciences', value: 'Beta Sciences' },
               { label: 'Gamma Sciences', value: 'Gamma Sciences' }
@@ -41,7 +57,19 @@ function App (): ReactElement {
           {Object.keys(data.societies).length} Societies
         </div>
       </div>
-      <CourseGrid academicAreas={Object.values(AcademicFields)} />
+      {isLoading
+        ? (
+        <div
+          className={
+            'flex min-h-[400px] w-full items-center justify-center rounded-lg p-8 text-center text-slate-500'
+          }
+        >
+          Loading...
+        </div>
+          )
+        : (
+        <CourseGrid societies={filteredSocieties} />
+          )}
     </BaseTemplate>
   )
 }

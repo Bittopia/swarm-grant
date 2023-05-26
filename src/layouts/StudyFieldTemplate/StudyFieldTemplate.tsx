@@ -1,18 +1,19 @@
 import BlockMenu from '@/components/BlockMenu'
 import BaseTemplate from '@/layouts/BaseTemplate'
-import { sentenceCase } from 'change-case'
+import { type Society } from '@/store/useMainStore/useMainStore'
 import { type FC, type ReactNode } from 'react'
 import { useParams } from 'react-router-dom'
 
 interface StudyFieldTemplateProps {
+  society?: Society
   children: ReactNode
 }
 
 export const StudyFieldTemplate: FC<StudyFieldTemplateProps> = ({
+  society,
   children
 }) => {
   const { societyId } = useParams()
-  // const { societies } = useSocieties()
   const { pathname } = window.location
 
   return (
@@ -27,13 +28,15 @@ export const StudyFieldTemplate: FC<StudyFieldTemplateProps> = ({
             {societyId != null && (
               <>
                 <section className={'m-4 flex flex-col items-center gap-4'}>
-                  <div className={'h-20 w-20 overflow-hidden rounded-full'}>
+                  <div
+                    className={
+                      'h-20 w-20 overflow-hidden rounded-full bg-slate-200'
+                    }
+                  >
                     <img src={'https://picsum.photos/200'} alt={'avatar'} />
                   </div>
                   <div className={'text-center'}>
-                    <h2 className={'text-bold text-lg'}>
-                      {sentenceCase(societyId)}
-                    </h2>
+                    <h2 className={'text-bold text-lg'}>{society?.name}</h2>
                   </div>
                   <div className={'text-center'}>
                     <span
@@ -41,12 +44,11 @@ export const StudyFieldTemplate: FC<StudyFieldTemplateProps> = ({
                         'rounded-md bg-gray-transparent-50 p-2 text-xs tracking-widest'
                       }
                     >
-                      0xj412lk...j41l2k4
+                      {society?.id}
                     </span>
                   </div>
-                  <div className={'text-center'}>
-                    {/* <p>{sentenceCase(societies?[societyId]?.description)}</p> */}
-                    <p>Hello world</p>
+                  <div className={'text-center line-clamp-4'}>
+                    <p>{society?.description}</p>
                   </div>
                   <div className={'text-center'}>
                     <button
@@ -62,19 +64,19 @@ export const StudyFieldTemplate: FC<StudyFieldTemplateProps> = ({
                   items={[
                     {
                       label: 'News',
-                      url: '#',
+                      url: `/society/${societyId}`,
                       active: pathname === `/society/${societyId}`
                     },
                     {
                       label: 'Courses',
-                      url: '#',
+                      url: `/society/${societyId}/courses`,
                       active: pathname === `/society/${societyId}/courses`
-                    },
-                    {
-                      label: 'Proposals',
-                      url: '#',
-                      active: pathname === `/society/${societyId}/proposals`
                     }
+                    // {
+                    //   label: 'Proposals',
+                    //   url: '#',
+                    //   active: pathname === `/society/${societyId}/proposals`
+                    // }
                   ]}
                 />
               </>

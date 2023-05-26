@@ -1,11 +1,11 @@
-import { type FC, useState } from 'react'
-import { RiHaze2Line, RiMoreFill, RiSunLine } from 'react-icons/ri'
-import DropDown from '@/components/DropDown'
 import BaseButton from '@/components/BaseButton'
-import { ConnectWalletModal } from '../ConnectWalletModal/ConnectWalletModal'
-import { Link } from 'react-router-dom'
+import DropDown from '@/components/DropDown'
 import useAuthCredentials from '@/store/AuthCredentials'
+import { useState, type FC } from 'react'
+import { RiHaze2Line, RiMoreFill, RiSunLine } from 'react-icons/ri'
+import { Link } from 'react-router-dom'
 import { getResumeFromWeb3AddressUtil } from '../../utils/getResumeFromWeb3AddressUtil/getResumeFromWeb3AddressUtil'
+import { ConnectWalletModal } from '../ConnectWalletModal/ConnectWalletModal'
 
 export const MainNavigation: FC = props => {
   const [visible, setVisible] = useState(false)
@@ -76,27 +76,26 @@ export const MainNavigation: FC = props => {
                           Explore
                         </Link>
                       </li>
-                      <li>
-                        <Link to="#" className="uppercase hover:text-white">
-                          Timeline
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/course/create"
-                          className="uppercase hover:text-white"
-                        >
-                          Create a course
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/profile/0x134214jlk1j4lk12j1"
-                          className="uppercase hover:text-white"
-                        >
-                          Profile
-                        </Link>
-                      </li>
+                      {web3Address !== '' && web3Address !== undefined && (
+                        <>
+                          <li>
+                            <Link
+                              to="/course/create"
+                              className="uppercase hover:text-white"
+                            >
+                              Create a course
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/profile/0x134214jlk1j4lk12j1"
+                              className="uppercase hover:text-white"
+                            >
+                              Profile
+                            </Link>
+                          </li>
+                        </>
+                      )}
                     </ul>
                   </div>
                 </div>
