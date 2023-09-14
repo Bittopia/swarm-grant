@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Container from "$lib/components/Container.svelte";
+  import Container from "$lib/components/Container/Container.svelte";
   import {Alert, Button, Heading, Input, Label, Radio} from "flowbite-svelte";
   import { enhance } from "$app/forms";
 

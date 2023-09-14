@@ -4,7 +4,7 @@
 </script>
 
 <section class={"w-full"}>
-    <div class={["max-w-[1200px] w-full mx-auto", className].join(" ")}>
+    <div class={["container mx-auto", className].join(" ")}>
         <slot></slot>
     </div>
 </section>
