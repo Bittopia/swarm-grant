@@ -40,7 +40,7 @@
                         </div>
                         <div>
                             <Label for="content" class="mb-2">Write down the module content.</Label>
-                            <Textarea bind:value={content} rows="8" name="content" disabled={requesting} type="text" id="content" placeholder="Module content in markdown"/>
+                            <Textarea bind:value={content} rows="20" name="content" disabled={requesting} type="text" id="content" placeholder="Module content in markdown"/>
                         </div>
                         <div class="flex items-center justify-end w-full gap-4">
                             <Button class="dark:bg-primary-200 hover:dark:bg-primary-300 text-primary-500" disabled={requesting} type="submit">Back to courses</Button>
