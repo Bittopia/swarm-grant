@@ -43,6 +43,7 @@
   "type": "module",
   "dependencies": {
     "@ethersphere/bee-js": "^6.4.0",
+    "@sveltejs/adapter-node": "^1.3.1",
     "snarkdown": "^2.0.0",
     "svelte-markdown": "^0.4.0",
     "uuidv4": "^6.2.13",
