@@ -16,10 +16,10 @@ FROM node:18-alpine as runner
 
 WORKDIR /app
 
-COPY --from=builder package*.json ./
+COPY --from=builder /app/package*.json ./
 
 RUN yarn install --production
 
 COPY --from=builder /app/build ./build
 
-CMD ["node", "./build"]
+ENTRYPOINT ["node", "./build"]
