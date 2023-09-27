@@ -1,7 +1,8 @@
 import {fail} from "@sveltejs/kit";
+import societyService from "$lib/services/SocietyService";
 
-export const load = () => {
-  return { title: 'Something healer' }
+export const load = async () => {
+  return await societyService.all()
 }
 
 export const actions = {
