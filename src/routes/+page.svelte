@@ -1,6 +1,6 @@
 <script lang="ts">
     import Container from "$lib/components/Container/Container.svelte";
-    import {Heading} from "flowbite-svelte";
+    import {Button, Heading} from "flowbite-svelte";
     import SocietyBox from "$lib/components/SocietyBox/SocietyBox.svelte";
     import type {SocietyType} from "$lib/types/society";
 
@@ -9,7 +9,10 @@
 
 <Container class="mt-8">
 <section id="society-list">
-    <Heading level="2" class="mb-4">Societies</Heading>
+    <div class="w-full flex items-center justify-between">
+        <Heading level="2" class="mb-4">Societies</Heading>
+        <Button class="w-[200px]" as="a" href="/societies/new">New society</Button>
+    </div>
     <!-- Define list of societies -->
     {#if data}
         <section class="mt-10 grid gap-4 grid-cols-4">
