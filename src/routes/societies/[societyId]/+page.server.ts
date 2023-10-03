@@ -1,6 +1,5 @@
 import societyService from "$lib/services/SocietyService";
-
-export async function load({ params }) {
+export async function load({ params }: never) {
   const { societyId } = params
   const societies = await societyService.all()
   if (societies[societyId]) {

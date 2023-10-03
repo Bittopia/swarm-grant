@@ -1,21 +1,16 @@
-import {beforeAll, describe, expect, it} from "vitest";
-import {societyRepository, SocietyRepository} from "$lib/repository/SocietyRepository/SocietyRepository";
+import {describe, expect, it} from "vitest";
+import {SocietyRepository} from "$lib/repository/SocietyRepository/SocietyRepository";
+import societyRepository from "$lib/repository/SocietyRepository";
 import {BeeService} from "$lib/services/BeeService/BeeService";
 import {RedisService} from "$lib/services/RedisService/RedisService";
 import type {SocietyType} from "$lib/types/society";
 
 describe("SocietyRepository", () => {
-  beforeAll(() => {
-    const societyRepository = new SocietyRepository({
-      beeService: new BeeService(),
-      redisService: new RedisService()
-    })
-  })
   // definitions
   it("should be defined", () => {
     expect(SocietyRepository).toBeDefined()
   })
-  it("should receive beeService and redisService instance to the contructor", () => {
+  it("should receive beeService and redisService instance to the constructor", () => {
     const beeService = new BeeService()
     const redisService = new RedisService()
     const societyRepository = new SocietyRepository({ beeService, redisService })
@@ -51,7 +46,7 @@ describe("SocietyRepository", () => {
   })
   it.skip("should have a method to update a society", async () => {
     const existingSocieties = await societyRepository.all()
-    const society = Object.values(existingSocieties)[0]
+    const society = Object.values(existingSocieties)[0] as SocietyType
     society.name = "Updated Society Name"
     const updatedSociety = await societyRepository.update(society)
     expect(updatedSociety).toBeDefined()
@@ -59,7 +54,7 @@ describe("SocietyRepository", () => {
   })
   it("should have a method to delete a society", async () => {
     const existingSocieties = await societyRepository.all()
-    const society = Object.values(existingSocieties)[0]
+    const society = Object.values(existingSocieties)[0] as SocietyType
     const deletedSocietyId = society.id
     await societyRepository.delete(society.id as string)
     const societies = await societyRepository.all()
