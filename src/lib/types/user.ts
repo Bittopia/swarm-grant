@@ -8,4 +8,4 @@ export const UserSchema = z.object({
   country: z.string().optional(),
 })
 
-export type SocietyType = z.infer<typeof UserSchema>
+export type UserType = z.infer<typeof UserSchema>

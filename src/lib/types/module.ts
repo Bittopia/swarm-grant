@@ -7,4 +7,4 @@ export const ModuleSchema = z.object({
   content: z.string()
 })
 
-export type SocietyType = z.infer<typeof ModuleSchema>
+export type ModuleType = z.infer<typeof ModuleSchema>
