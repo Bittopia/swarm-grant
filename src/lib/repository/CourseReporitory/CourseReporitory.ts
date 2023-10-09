@@ -18,24 +18,25 @@ export class CourseRepository {
     const societies = await societyRepository.all()
 
     const id = uuid();
-    societies[course.societyId as string].courses = {...societies[course.societyId as string].courses, [id]: course}
+    societies[course.societyId as string].courses = {...societies[course.societyId as string].courses, [id]: {id, ...course}}
     // merge and save
     const {reference} = await this.beeService.mutate({ data: societies })
 
     await this.redisService.setData('reference', reference)
-    return societies[course.societyId as string].courses[id]
+    return societies[course.societyId as string].courses?.[id]
   }
 
   async update(course: CourseType) {
     // get all societies
     const societies = await societyRepository.all()
-
-    societies[course.societyId].courses[course.id as string] = course
+    if (societies[course.societyId]?.courses?.[course.id as string]) {
+      societies[course.societyId].courses =  {...societies[course.societyId].courses, [course.id as string]: course}
+    }
     // merge and save
     const {reference} = await this.beeService.mutate({data: societies})
 
     await this.redisService.setData('reference', reference)
-    return societies[course.societyId].courses[course.id as string]
+    return societies[course.societyId].courses?.[course.id as string]
   }
 
   async all(societyId: string) {
@@ -49,7 +50,9 @@ export class CourseRepository {
   async delete(course: CourseType) {
     try {
       const societies = await societyRepository.all()
-      delete societies[course.societyId].courses[course.id as string]
+      if (societies[course.societyId].courses?.[course.id as string]) {
+        delete societies[course.societyId].courses?.[course.id as string]
+      }
       const {reference} = await this.beeService.mutate({data: societies})
       await this.redisService.setData('reference', reference)
       return true
