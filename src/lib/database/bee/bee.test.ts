@@ -28,7 +28,7 @@ export default new BeeUtil()
  */
 
 import {describe, expect, it} from "vitest";
-import BeeUtil from "$lib/utils/bee/bee";
+import BeeUtil from "$lib/database/bee/bee";
 
 describe("BeeUtil", () => {
   it("should be defined", () => {

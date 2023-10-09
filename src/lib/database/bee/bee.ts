@@ -6,8 +6,6 @@ const POSTAGE_BATCH_ID = process.env.POSTAGE_BATCH_ID || '0000'
 class BeeUtil {
 
   private bee: Bee
-
-  // TODO - save references in cache
   constructor() {
     this.bee = new Bee(`${SWARM_HOST}:1633`)
   }
