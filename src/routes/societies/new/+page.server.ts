@@ -8,7 +8,7 @@ export const actions = {
     const data: FormData = await request?.formData()
 
     try {
-      const society = Object.fromEntries(data) as SocietyType
+      const society = (Object.fromEntries(data) as unknown) as SocietyType
       await societyService.save(society)
       redirect(301, `/`)
     } catch (error: any) {
