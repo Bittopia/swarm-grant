@@ -1,11 +1,10 @@
 <script lang="ts">
-    import Container from "$lib/components/Container/Container.svelte";
-    import type {SocietyType} from "$lib/types/society";
-    import {Button} from "flowbite-svelte";
-    import {page} from "$app/stores";
-    import {string} from "zod";
+  import Container from "$lib/components/Container/Container.svelte";
+  import type {SocietyType} from "$lib/types/society";
+  import {Button} from "flowbite-svelte";
+  import {page} from "$app/stores";
 
-    export let data: SocietyType | null = null
+  export let data: SocietyType | null = null
     export let { societyId } = $page.params
 
     console.log(societyId)
