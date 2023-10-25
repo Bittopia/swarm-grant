@@ -39,6 +39,9 @@ export class SocietyRepository {
 
   async all() {
     const reference = await this.redisService.getData('reference')
+    if (!reference) {
+      return {}
+    }
     return await this.beeService.query(reference as string) as Record<string, SocietyType>
   }
 

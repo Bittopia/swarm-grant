@@ -12,7 +12,7 @@
         <Heading level="2" class="mb-4">New course</Heading>
         <!-- New course form -->
         <section class="mt-10">
-            <form method="post" action="?/hello" use:enhance={() => {
+            <form method="post" action="?/newCourse" use:enhance={() => {
                 requesting = true
 
                 return async ({ update }) => {
