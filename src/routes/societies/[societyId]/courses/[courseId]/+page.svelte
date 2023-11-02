@@ -8,9 +8,6 @@
   export let { societyId, courseId } = $page.params
 
   console.log(data)
-
-  // console.log(societyId)
-  // console.log(courseId)
 </script>
 
 <Container class="mt-8">
@@ -39,7 +36,7 @@
                     {#if data.modules && Object.keys(data.modules).length > 0}
                         <section class="flex flex-col items-center gap-4">
                             {#each Object.keys(data.modules) as id}
-                                <a class="w-full" href={`/societies/${data.id}/courses/${courseId}/modules/${id}`}>
+                                <a class="w-full" href={`/societies/${societyId}/courses/${courseId}/modules/${id}`}>
                                     <div class="w-full bg-slate-600 p-4 rounded-lg">
                                         <h3 class="text-xl font-bold">{data.modules[id].name}</h3>
                                         <p class="text-gray-500 mt-4">{data.modules[id].description}</p>

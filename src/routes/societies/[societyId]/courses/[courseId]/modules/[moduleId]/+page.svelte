@@ -1,63 +1,42 @@
 <script lang="ts">
   import Container from "$lib/components/Container/Container.svelte";
-  import {Alert, Button, Heading, Input, Label, Radio} from "flowbite-svelte";
-  import { enhance } from "$app/forms";
+  import {page} from "$app/stores";
+  import type {ModuleType} from "$lib/types/module";
+  import {Button} from "flowbite-svelte";
+  import snarkdown from "snarkdown";
+  import MarkdownContent from "$lib/components/MarkdownContent/MarkdownContent.svelte";
 
-  let requesting = false
-  let form: {error: any}
-  let question = ''
-  let option = ''
-  let questionOptions: string[] = []
-  let rightOption = ''
-
-  function addOption (value: string) {
-    questionOptions.push(value)
-    questionOptions = questionOptions
-    option = ''
-  }
+  export let data: ModuleType | null = null
+  export let { societyId, courseId, moduleId } = $page.params
 </script>
 
-<Container>
-    {#if form?.error}
-        <Alert color="red">
-            {form.error}
-        </Alert>
-    {/if}
-    <form method="post" action="?/hello" use:enhance={() => {
-        requesting = true
-
-        return async ({ update }) => {
-            await update()
-            requesting = false
-        }
-    }}>
-        <div class="mt-8 p-4 rounded-lg bg-slate-500 grid gap-6 mb-6 md:grid-cols-1">
-            <Heading class="text-white" tag="h2">Adding a question for Swarm module</Heading>
-            <div>
-                <Label for="question" class="mb-2">What's the question?</Label>
-                <Input bind:value={question} name="question" disabled={requesting} type="text" id="question" placeholder="Write your question here" required />
-            </div>
-            <div>
-                <Label for="option" class="mb-2">What are the available options?</Label>
-                <div class="w-full flex items-center gap-4">
-                    <Input bind:value={option} name="option" disabled={requesting} type="text" id="option" placeholder="Write your option here"/>
-                    <Button on:click={() => addOption(option)}>Add</Button>
+<Container class="mt-8">
+    {#if data}
+        <div class="w-full">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <Button as="a" href={`/societies/${societyId}/courses/${courseId}`} color="primary" size="sm" outline={true}>Back</Button>
                 </div>
             </div>
-
-            <div class="p-4 rounded-lg bg-slate-300">
-                <h3>Question: {question}</h3>
-                {#each questionOptions as option}
-                    <input type="hidden" name={`options[]`} value={option} />
-                {/each}
-                {#each questionOptions as option, index}
-                    <div>
-                        <Radio on:select={(e) => { rightOption = e.target?.value }} bind:value={questionOptions[index]} name={`rightAnswer`}>{option}</Radio>
-                    </div>
-                {/each}
-            </div>
-
-            <Button disabled={requesting} type="submit">Submit</Button>
         </div>
-    </form>
+        <div class="w-full flex gap-8 mt-8">
+            <div class="w-full">
+                <section class="w-full bg-slate-700 p-8 rounded-lg">
+                    <div class="w-full flex items-center justify-between">
+                        <h1 class="text-3xl font-bold">{data.name}</h1>
+                        <Button as="a" href={`/societies/${societyId}/courses/${courseId}/modules/${data.id}/questions/new`} color="primary" size="sm">Add questions</Button>
+                    </div>
+                    <p class="text-gray-500 mt-4 mb-8">{data.description}</p>
+
+                    {#if data.content}
+                        <section class="flex flex-col items-center gap-4">
+                            <MarkdownContent content={snarkdown(data.content)} />
+                        </section>
+                    {:else}
+                        <p class="w-full text-gray-500">No content created yet.</p>
+                    {/if}
+                </section>
+            </div>
+        </div>
+    {/if}
 </Container>
