@@ -3,6 +3,7 @@ import type {RedisService} from "$lib/services/RedisService/RedisService";
 import {uuid} from "uuidv4";
 import type {CourseType} from "$lib/types/course";
 import societyRepository from "$lib/repository/SocietyRepository";
+import type {SocietyType} from "$lib/types/society";
 
 export class CourseRepository {
   private beeService: BeeService;
@@ -30,7 +31,7 @@ export class CourseRepository {
     // get all societies
     const societies = await societyRepository.all()
     if (societies[course.societyId]?.courses?.[course.id as string]) {
-      societies[course.societyId].courses =  {...societies[course.societyId].courses, [course.id as string]: course}
+      (societies[course.societyId] as Required<SocietyType>).courses =  {...societies[course.societyId].courses, [course.id as string]: course}
     }
     // merge and save
     const {reference} = await this.beeService.mutate({data: societies})

@@ -16,7 +16,7 @@
         <!-- Define list of societies -->
         <section class="mt-10 grid gap-8 grid-cols-2">
             <section id="module-form">
-                <form method="post" action="?/hello" use:enhance={() => {
+                <form method="post" action="?/newModule" use:enhance={() => {
                 requesting = true
 
                 return async ({ update }) => {
