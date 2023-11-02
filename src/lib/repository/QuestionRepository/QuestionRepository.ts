@@ -2,7 +2,6 @@ import type {BeeService} from "$lib/services/BeeService/BeeService";
 import type {RedisService} from "$lib/services/RedisService/RedisService";
 import {uuid} from "uuidv4";
 import societyRepository from "$lib/repository/SocietyRepository";
-import type {ModuleType} from "$lib/types/module";
 import type {SocietyType} from "$lib/types/society";
 import type {QuestionType} from "$lib/types/question";
 
@@ -21,7 +20,7 @@ export class QuestionRepository {
     try {
       const id = uuid();
 
-      (societies[question.societyId] as Required<SocietyType>).courses[question.courseId].modules[question.moduleId].questions = {...societies[question.societyId as string].courses?.[question.courseId].modules[question.moduleId].questions, [id]: {id, ...module}}
+      (societies[question.societyId] as Required<SocietyType>).courses[question.courseId].modules[question.moduleId].questions = {...societies[question.societyId as string].courses?.[question.courseId].modules[question.moduleId].questions, [id]: {id, ...question}}
 
       const {reference} = await this.beeService.mutate({data: societies})
 
@@ -36,7 +35,7 @@ export class QuestionRepository {
     // get all societies
     const societies = await societyRepository.all()
     if (societies[question.societyId]?.courses?.[question.courseId as string].modules?.[question.id as string]) {
-      (societies[question.societyId] as Required<SocietyType>).courses[question.courseId].modules[question.moduleId] =  {...societies[question.societyId].courses?.[question.courseId as string].modules, [question.id as string]: module}
+      (societies[question.societyId] as Required<SocietyType>).courses[question.courseId].modules[question.moduleId].questions[question.id as string] = question
     }
     // merge and save
     const {reference} = await this.beeService.mutate({data: societies})
@@ -45,10 +44,10 @@ export class QuestionRepository {
     return societies[question.societyId].courses?.[question.courseId as string].modules?.[question.id as string]
   }
 
-  async all(societyId: string, courseId: string) {
+  async all(societyId: string, courseId: string, moduleId: string) {
     const societies = await societyRepository.all()
     if (societies[societyId]) {
-      return societies[societyId].courses?.[courseId].modules
+      return societies[societyId].courses?.[courseId].modules?.[moduleId].questions
     }
     return []
   }
@@ -56,8 +55,8 @@ export class QuestionRepository {
   async delete(question: QuestionType) {
     try {
       const societies = await societyRepository.all()
-      if (societies[question.societyId].courses?.[question.courseId as string].modules?.[question.id as string]) {
-        delete societies[question.societyId].courses?.[question.courseId as string].modules?.[question.id as string]
+      if (societies[question.societyId].courses?.[question.courseId as string].modules?.[question.moduleId as string].questions?.[question.id as string]) {
+        delete societies[question.societyId].courses?.[question.courseId as string].modules?.[question.moduleId as string].questions?.[question.id as string]
       }
       const {reference} = await this.beeService.mutate({data: societies})
       await this.redisService.setData('reference', reference)
