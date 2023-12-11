@@ -1,11 +1,14 @@
-import {z} from "zod";
+import { z } from 'zod';
+import { SocietySchema } from './society';
 
 export const UserSchema = z.object({
-  id: z.string().optional(),
-  web3Address: z.string(),
-  name: z.string().optional(),
-  email: z.string().optional(),
-  country: z.string().optional(),
-})
+	web3Address: z.string(),
+	nonce: z.string(),
+	chainId: z.number(),
+	societies: z.record(z.string(), SocietySchema).optional()
+});
 
-export type UserType = z.infer<typeof UserSchema>
+export const AuthUserSchema = UserSchema.omit({ societies: true });
+
+export type UserType = z.infer<typeof UserSchema>;
+export type AuthUserType = z.infer<typeof AuthUserSchema>;

@@ -1,10 +1,10 @@
 import { BeeService } from '$lib/services/BeeService/BeeService';
 import { RedisService } from '$lib/services/RedisService/RedisService';
-import { UserRepository } from './UserRepository';
+import { AuthRepository } from './AuthRepository';
 
-const userRepository = new UserRepository({
+const authRepository = new AuthRepository({
 	beeService: new BeeService(),
 	redisService: new RedisService()
 });
 
-export default userRepository;
+export default authRepository;

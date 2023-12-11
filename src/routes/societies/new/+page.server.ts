@@ -1,17 +1,18 @@
-import { fail, redirect } from '@sveltejs/kit';
-import type { SocietyType } from '$lib/types/society';
+import { fail, redirect, type RequestEvent } from '@sveltejs/kit';
+import type { NewSocietyType } from '$lib/types/society';
 import societyService from '$lib/services/SocietyService';
 
 export const actions = {
-	newSociety: async ({ request }: any) => {
-		// await new Promise((fulfil) => setTimeout(fulfil, 1000))
+	newSociety: async ({ request, locals }: RequestEvent) => {
+		const user = locals.user;
 
-		const data: FormData = await request?.formData();
+		const data: FormData = await request.formData();
 
 		try {
-			const society = Object.fromEntries(data) as unknown as SocietyType;
+			const society = Object.fromEntries(data) as unknown as NewSocietyType;
+			society.creator = user.web3Address;
 			await societyService.save(society);
-			redirect(301, `/`);
+			return redirect(301, `/`);
 		} catch (error: any) {
 			return fail(500, {
 				description: data.get('description'),

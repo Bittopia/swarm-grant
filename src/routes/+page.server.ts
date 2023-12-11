@@ -1,5 +1,5 @@
-import societyService from "$lib/services/SocietyService";
+import societyService from '$lib/services/SocietyService';
 
 export const load = async () => {
-  return await societyService.all()
-}
+	return await societyService.all();
+};
