@@ -10,12 +10,12 @@
 	import { goto } from '$app/navigation';
 
 	function newSociety() {
-		const account = getAccount();
-
-		if (!account || !account.address) {
-			modal.open();
-			return;
-		}
+		// const account = getAccount();
+		//
+		// if (!account || !account.address) {
+		// 	modal.open();
+		// 	return;
+		// }
 		goto('/societies/new');
 	}
 

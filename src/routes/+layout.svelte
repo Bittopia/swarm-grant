@@ -5,7 +5,7 @@
 	import '$lib/web3/modal';
 </script>
 
-<main class="w-full min-h-screen bg-slate-800">
+<main class="w-full h-full bg-slate-800">
 	<Navbar let:hidden let:toggle>
 		<NavBrand href="/">
 			<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"

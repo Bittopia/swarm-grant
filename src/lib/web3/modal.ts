@@ -5,6 +5,7 @@ import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react';
 import { mainnet, arbitrum } from 'viem/chains';
 
 import { PUBLIC_WALLET_CONNECT_PROJECT_ID } from '$env/static/public';
+import { invalidate, invalidateAll } from '$app/navigation';
 
 const projectId = PUBLIC_WALLET_CONNECT_PROJECT_ID;
 
@@ -57,6 +58,7 @@ const siweConfig = createSIWEConfig({
 			console.log('LS -> src/lib/web3/modal.ts:55 -> isValid: ', isValid);
 
 			if (isValid) {
+				invalidateAll();
 				return true;
 			} else {
 				return false;
@@ -84,6 +86,7 @@ const siweConfig = createSIWEConfig({
 	signOut: async () => {
 		try {
 			await fetch('/auth/logout', { method: 'POST' });
+			invalidateAll();
 
 			return true;
 		} catch (error) {

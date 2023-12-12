@@ -1,7 +1,15 @@
-import { fail } from '@sveltejs/kit';
+import { error, fail, type ServerLoad } from '@sveltejs/kit';
 import ObjectPathResolverUtil from '$lib/utils/ObjectPathResolver';
 import type { ModuleType } from '$lib/types/module';
 import moduleRepository from '$lib/repository/ModuleRepository';
+
+export const load: ServerLoad = async ({ locals, parent }) => {
+	await parent();
+
+	if (!locals.user) {
+		throw error(401, 'You must be logged in to create a new module');
+	}
+};
 
 export const actions = {
 	newModule: async ({ request }: any) => {

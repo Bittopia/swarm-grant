@@ -1,8 +1,11 @@
-import AuthService from '$lib/services/AuthService';
+import { JWT_SECRET } from '$env/static/private';
 import type { RequestEvent } from '@sveltejs/kit';
+import jwt from 'jsonwebtoken';
 
-export async function GET({ locals }: RequestEvent) {
-	if (!locals.user) {
+export async function GET({ cookies }: RequestEvent) {
+	const token = cookies.get('jwt');
+
+	if (!token) {
 		return new Response(
 			JSON.stringify({
 				error: 'Unauthorized'
@@ -13,7 +16,7 @@ export async function GET({ locals }: RequestEvent) {
 		);
 	}
 
-	const user = await AuthService.getSession(locals.user);
+	const user = jwt.verify(token, JWT_SECRET);
 
 	return new Response(JSON.stringify(user));
 }

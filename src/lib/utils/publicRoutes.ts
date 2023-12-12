@@ -1,5 +1,6 @@
 export const publicRoutes = [
 	'/',
+	'/auth',
 	'/auth/nonce',
 	'/auth/validate',
 	'/societies/[societyId]',
