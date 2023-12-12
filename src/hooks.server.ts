@@ -2,25 +2,19 @@ import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '$env/static/private';
 import { type Handle, fail } from '@sveltejs/kit';
 import type { UserType } from '$lib/types/user';
+import { isPublicPage } from '$lib/utils/publicRoutes';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	const bypassedRoutes = [
-		'/auth/nonce',
-		'/auth/validate',
-		'/',
-		'/societies/[societyId]',
-		'/societies/[societyId]/courses/[courseId]',
-		'/societies/[societyId]/courses/[courseId]/modules/[moduleId]',
-		'/about'
-	];
-
 	const path = event.route.id as string;
-	console.log('LS -> src/hooks.server.ts:17 -> path: ', path);
+	console.log('hooks.server.ts: path: ', path);
 
-	// TODO: Maybe inverse this logic later
-	if (!bypassedRoutes.includes(path)) {
-		const token = event.request.headers.get('Authorization')?.split(' ')[1];
-		console.log('LS -> src/hooks.server.ts:21 -> token: ', token);
+	console.log('hooks.server.ts: isPublicPage(path): ', isPublicPage(path));
+
+	if (!isPublicPage(path)) {
+		const cookies = event.cookies;
+		const token = cookies.get('jwt');
+
+		console.log('hooks.server.ts: token: ', token);
 
 		if (token) {
 			try {

@@ -1,12 +1,19 @@
 import AuthService from '$lib/services/AuthService';
-import type { RequestEvent } from '@sveltejs/kit';
+import type { RequestHandler } from '@sveltejs/kit';
 
-export async function POST({ request }: RequestEvent) {
+export const POST: RequestHandler = async ({ request, locals }) => {
 	const { message, signature } = await request.json();
-	console.log('LS -> src/routes/auth/validate.ts:5 -> signature: ', signature);
-	console.log('LS -> src/routes/auth/validate.ts:5 -> message: ', message);
 
 	const data = await AuthService.validateSignature(message, signature);
 
-	return new Response(JSON.stringify(data));
-}
+	const headers: Record<string, string> = {};
+
+	if (data.token) {
+		headers['Set-Cookie'] = `jwt=${data.token}; Path=/; HttpOnly; Secure; SameSite=Strict;`;
+	}
+
+	console.log('headers: ', headers);
+	console.log('data', data);
+
+	return new Response(JSON.stringify(data), { headers });
+};

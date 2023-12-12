@@ -50,13 +50,11 @@ const siweConfig = createSIWEConfig({
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ message, signature })
 		});
+		console.log('LS -> src/lib/web3/modal.ts:52 -> response: ', response);
 
 		if (response.ok) {
-			const { isValid, token } = await response.json();
-			console.log('LS -> src/lib/web3/modal.ts:55 -> token: ', token);
+			const { isValid } = await response.json();
 			console.log('LS -> src/lib/web3/modal.ts:55 -> isValid: ', isValid);
-
-			localStorage.setItem('jwt', token);
 
 			if (isValid) {
 				return true;
@@ -69,33 +67,23 @@ const siweConfig = createSIWEConfig({
 	},
 	getSession: async () => {
 		console.log('Getting session');
-		const token = localStorage.getItem('jwt');
 
-		if (token) {
-			const response = await fetch('/auth/session', {
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${token}`
-				}
-			});
+		const response = await fetch('/auth/session');
 
-			if (!response.ok) {
-				throw new Error('Failed to get session!');
-			}
-
-			const data = await response.json();
-			console.log('Session data', data);
-
-			const { address, chainId } = data;
-
-			return { address, chainId };
+		if (!response.ok) {
+			throw new Error('Failed to get session!');
 		}
-		return null;
+
+		const data = await response.json();
+		console.log('Session data', data);
+
+		const { address, chainId } = data;
+
+		return { address, chainId };
 	},
 	signOut: async () => {
 		try {
-			// Sign out by calling the relevant endpoint on your back-end
-			localStorage.removeItem('jwt');
+			await fetch('/auth/logout', { method: 'POST' });
 
 			return true;
 		} catch (error) {
