@@ -1,4 +1,4 @@
-import { verify } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import type { LayoutServerLoad } from './$types';
 import type { RequestEvent } from '@sveltejs/kit';
 import { JWT_SECRET } from '$env/static/private';
@@ -22,7 +22,7 @@ async function getUserFromTokenInRequest(event: RequestEvent) {
 
 	if (token) {
 		try {
-			return verify(token, SECRET_KEY);
+			return jwt.verify(token, SECRET_KEY);
 		} catch {
 			return null;
 		}
