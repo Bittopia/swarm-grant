@@ -18,6 +18,7 @@ export const actions = {
 				error: 'Unauthorized'
 			});
 		}
+
 		const user = locals.user;
 
 		const data: FormData = await request.formData();
@@ -26,12 +27,14 @@ export const actions = {
 			const society = Object.fromEntries(data) as unknown as NewSocietyType;
 			society.creator = user.web3Address;
 			await societyService.save(society);
-			throw redirect(301, `/`);
 		} catch (error: any) {
+			console.log('LS -> src/routes/societies/new/+page.server.ts:31 -> error: ', error);
 			return fail(500, {
 				description: data.get('description'),
 				error: error.message
 			});
 		}
+
+		throw redirect(301, `/`);
 	}
 };

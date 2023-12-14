@@ -8,9 +8,9 @@ const SECRET_KEY: string = JWT_SECRET;
 
 export const load: LayoutServerLoad = async (event) => {
 	const user = await getUserFromTokenInRequest(event);
-	console.log('LS -> src/routes/+layout.server.ts:11 -> user: ', user);
 
 	event.locals.user = user as UserType;
+	console.log('setting user to event.locals');
 
 	return {
 		props: { user }

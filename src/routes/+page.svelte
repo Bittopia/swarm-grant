@@ -4,23 +4,16 @@
 	import SocietyBox from '$lib/components/SocietyBox/SocietyBox.svelte';
 	import type { SocietyType } from '$lib/types/society';
 
-	import { modal } from '$lib/web3/modal';
-
-	import { getAccount } from '@wagmi/core';
 	import { goto } from '$app/navigation';
 
 	function newSociety() {
-		// const account = getAccount();
-		//
-		// if (!account || !account.address) {
-		// 	modal.open();
-		// 	return;
-		// }
 		goto('/societies/new');
 	}
 
-	export let data: Record<string, SocietyType>;
-	console.log(data);
+	export let data;
+	console.log({ data });
+	const societies = data?.societies as SocietyType;
+	console.log('societies', societies);
 </script>
 
 <Container class="mt-8">
@@ -32,8 +25,8 @@
 		<!-- Define list of societies -->
 		{#if data}
 			<section class="mt-10 grid gap-4 grid-cols-4">
-				{#each Object.keys(data) as societyId}
-					<SocietyBox society={data[societyId]} />
+				{#each Object.keys(societies) as societyId}
+					<SocietyBox society={societies[societyId]} />
 				{/each}
 			</section>
 		{:else}
