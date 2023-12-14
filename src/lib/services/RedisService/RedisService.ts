@@ -9,6 +9,7 @@ export class RedisService {
 	private redisClient: RedisClientType;
 
 	constructor() {
+		console.log('LS -> src/lib/services/RedisService/RedisService.ts:12 -> REDIS_URL: ', REDIS_URL);
 		this.redisClient = createClient({ url: REDIS_URL });
 		this.redisClient.on('error', (error) => {
 			console.error('Error connecting to Redis:', error);
