@@ -18,7 +18,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 				nonce: payload.nonce,
 				chainId: payload.chainId
 			};
-			event.locals.jwt = token;
 			return await resolve(event);
 		} catch (error) {
 			throw fail(401, { error: 'Unauthorized' });

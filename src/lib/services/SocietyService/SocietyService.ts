@@ -16,11 +16,30 @@ export class SocietyService {
 		return data.societies;
 	}
 
+	async get(societyId: string) {
+		const societies = await this.all();
+		return societies[societyId];
+	}
+
 	async update(society: SocietyType) {
 		return await this.societyRepo.update(society);
 	}
 
 	async delete(societyId: string) {
 		return await this.societyRepo.delete(societyId);
+	}
+
+	async join(societyId: string, web3Address: string) {
+		return await this.societyRepo.join(societyId, web3Address);
+	}
+
+	async leave(societyId: string, web3Address: string) {
+		return await this.societyRepo.leave(societyId, web3Address);
+	}
+
+	async isMember(societyId: string, web3Address: string) {
+		const society = await this.get(societyId);
+
+		return society?.members?.includes(web3Address);
 	}
 }

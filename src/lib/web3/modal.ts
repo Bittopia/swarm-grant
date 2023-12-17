@@ -5,7 +5,7 @@ import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react';
 import { mainnet, arbitrum } from 'viem/chains';
 
 import { PUBLIC_WALLET_CONNECT_PROJECT_ID } from '$env/static/public';
-import { invalidate, invalidateAll } from '$app/navigation';
+import { invalidateAll } from '$app/navigation';
 
 const projectId = PUBLIC_WALLET_CONNECT_PROJECT_ID;
 

@@ -10,7 +10,9 @@ declare global {
 			user: AuthUserType;
 			jwt: string;
 		}
-		// interface PageData {}
+		interface PageData {
+			user: AuthUserType;
+		}
 		// interface Platform {}
 	}
 	interface Window {

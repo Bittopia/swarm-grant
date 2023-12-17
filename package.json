@@ -51,6 +51,7 @@
 		"@web3modal/siwe": "3.5.0-alpha.1",
 		"@web3modal/wagmi": "3.5.0-alpha.1",
 		"ethers": "6.9.0",
+		"flowbite-svelte-icons": "0.4.5",
 		"jsonwebtoken": "9.0.2",
 		"lodash.set": "4.3.2",
 		"redis": "4.6.10",

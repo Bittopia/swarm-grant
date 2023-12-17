@@ -4,17 +4,12 @@
 	import { Alert, Button, Heading, Input, Label, Textarea } from 'flowbite-svelte';
 	import snarkdown from 'snarkdown';
 	import MarkdownContent from '$lib/components/MarkdownContent/MarkdownContent.svelte';
-	import { afterNavigate, goto } from '$app/navigation';
-	import { base } from '$app/paths';
-
-	let previousPage: string = base;
-
-	afterNavigate(({ from }) => {
-		previousPage = from?.url.pathname || previousPage;
-	});
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	const { societyId, courseId } = $page.params;
 
 	let requesting = false;
-	let form: { error: any } = { error: null };
+	export let form: { error: any } = { error: null };
 	let content = '';
 </script>
 
@@ -82,7 +77,8 @@
 							<Button
 								class="dark:bg-primary-200 hover:dark:bg-primary-300 text-primary-500"
 								disabled={requesting}
-								on:click={() => goto(previousPage)}>Back to courses</Button
+								on:click={() => goto(`/societies/${societyId}/courses/${courseId}`)}
+								>Back to courses</Button
 							>
 							<Button disabled={requesting} type="submit">Save</Button>
 						</div>

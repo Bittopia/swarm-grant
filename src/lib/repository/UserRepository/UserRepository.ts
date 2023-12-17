@@ -61,4 +61,16 @@ export class UserRepository {
 
 		return data as DataType;
 	}
+
+	async updateBio(address: string, bio: string) {
+		const data = await this.all();
+		const users = data.users;
+
+		users[address].bio = bio;
+
+		const { reference } = await this.beeService.mutate({ data: { ...data, users } });
+
+		await this.redisService.setData('reference', reference);
+		return users[address];
+	}
 }

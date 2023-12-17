@@ -71,4 +71,47 @@ export class SocietyRepository {
 			return false;
 		}
 	}
+
+	async join(societyId: string, web3Address: string) {
+		try {
+			const data = await this.all();
+			const societies = data.societies;
+
+			const society = societies[societyId];
+
+			if (!society.members) {
+				society.members = [];
+			}
+
+			society.members = society.members.filter((memberId) => memberId !== web3Address);
+
+			society.members.push(web3Address);
+
+			const { reference } = await this.beeService.mutate({ data: { ...data, societies } });
+			await this.redisService.setData('reference', reference);
+			return { success: true };
+		} catch (e) {
+			return { success: false };
+		}
+	}
+
+	async leave(societyId: string, web3Address: string) {
+		try {
+			const data = await this.all();
+			const societies = data.societies;
+
+			const society = societies[societyId];
+			if (!society.members) {
+				society.members = [];
+			}
+
+			society.members = society.members.filter((memberId) => memberId !== web3Address);
+
+			const { reference } = await this.beeService.mutate({ data: { ...data, societies } });
+			await this.redisService.setData('reference', reference);
+			return { success: true };
+		} catch (e) {
+			return { success: false };
+		}
+	}
 }

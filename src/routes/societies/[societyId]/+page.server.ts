@@ -1,12 +1,33 @@
-import societyService from "$lib/services/SocietyService";
-export async function load({ params }: never) {
-  const { societyId } = params
-  const societies = await societyService.all()
-  if (societies[societyId]) {
-    return societies[societyId]
-  }
-  return {
-    status: 404,
-    error: new Error(`Society ${societyId} not found`)
-  }
-}
+import SocietyService from '$lib/services/SocietyService';
+import type { ServerLoad } from '@sveltejs/kit';
+
+export const load: ServerLoad = async ({ params, parent, locals }) => {
+	await parent();
+
+	const user = locals.user;
+
+	const { societyId } = params;
+
+	if (!societyId) {
+		return {
+			status: 404,
+			error: new Error(`Society ${societyId} not found`)
+		};
+	}
+
+	const society = await SocietyService.get(societyId);
+
+	const isMember = await SocietyService.isMember(society.id, user?.web3Address);
+
+	if (society) {
+		return {
+			...society,
+			isMember
+		};
+	}
+
+	return {
+		status: 404,
+		error: new Error(`Society ${societyId} not found`)
+	};
+};

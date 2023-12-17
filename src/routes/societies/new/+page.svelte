@@ -7,14 +7,14 @@
 	import { page } from '$app/stores';
 	console.log({ page: $page });
 
-	const user = $page.data.props.user;
+	const user = $page.data.user;
 
 	if (!user) {
 		modal.open();
 	}
 
 	let requesting = false;
-	let form: { error: any } = { error: null };
+	export let form;
 </script>
 
 <Container class="mt-8">

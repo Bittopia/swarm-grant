@@ -5,7 +5,8 @@ export const UserSchema = z.object({
 	web3Address: z.string(),
 	nonce: z.string(),
 	chainId: z.number(),
-	societies: z.record(z.string(), SocietySchema).optional()
+	societies: z.record(z.string(), SocietySchema).optional(),
+	bio: z.string().optional()
 });
 
 export const AuthUserSchema = UserSchema.omit({ societies: true });

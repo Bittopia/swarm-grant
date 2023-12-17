@@ -1,26 +1,19 @@
 <script lang="ts">
-	import { afterNavigate } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	import Container from '$lib/components/Container/Container.svelte';
-	import { Alert, Button, Heading, Input, Label, Textarea } from 'flowbite-svelte';
-
-	let previousPage: string = base;
-
-	afterNavigate(({ from }) => {
-		previousPage = from?.url.pathname || previousPage;
-	});
+	import { Alert, Button, Heading, Input, Label, Textarea, Datepicker } from 'flowbite-svelte';
 
 	let requesting = false;
-	let form: { error: any } = { error: null };
+	export let form;
 </script>
 
 <Container class="mt-8">
 	<section id="society-new">
 		<Heading level="2" class="mb-4">New course</Heading>
-		<!-- New course form -->
 		<section class="mt-10">
 			<form
 				method="post"
@@ -28,8 +21,11 @@
 				use:enhance={() => {
 					requesting = true;
 
-					return async ({ update }) => {
+					return async ({ update, result }) => {
 						await update();
+						if (result?.data?.success) {
+							goto(`/societies/${$page.params.societyId}`);
+						}
 						requesting = false;
 					};
 				}}
@@ -65,11 +61,27 @@
 							placeholder="Write a description about your course"
 						/>
 					</div>
+					<div>
+						<Label for="startDate" class="mb-2">Course date</Label>
+						<Datepicker name="startDate" datepickerOrientation="top" required />
+					</div>
+					<div>
+						<Label for="description" class="mb-2">Educator wallet address</Label>
+						<Input
+							id="wallet-address"
+							name="educator"
+							disabled={requesting}
+							type="text"
+							placeholder="Wallet address"
+							required
+						/>
+					</div>
 					<div class="flex items-center justify-end w-full gap-4">
 						<Button
 							class="dark:bg-primary-200 hover:dark:bg-primary-300 text-primary-500"
 							disabled={requesting}
-							on:click={() => goto(previousPage)}>Back to courses list</Button
+							on:click={() => goto(`/societies/${$page.params.societyId}`)}
+							>Back to courses list</Button
 						>
 						<Button disabled={requesting} type="submit">Submit</Button>
 					</div>
