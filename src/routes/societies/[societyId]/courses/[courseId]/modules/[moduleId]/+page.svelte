@@ -1,14 +1,17 @@
 <script lang="ts">
 	import Container from '$lib/components/Container/Container.svelte';
 	import { page } from '$app/stores';
-	import type { ModuleType } from '$lib/types/module';
 	import { Alert, Button, DropdownDivider, Radio } from 'flowbite-svelte';
 	import snarkdown from 'snarkdown';
 	import MarkdownContent from '$lib/components/MarkdownContent/MarkdownContent.svelte';
 
-	export let data: ModuleType;
+	export let data;
 	export let { societyId, courseId, moduleId } = $page.params;
-	const questions = data.questions;
+
+	const module = data.module;
+	const canAddQuestions = data.canAddQuestions;
+
+	const questions = module?.questions;
 
 	let answers: Record<string, string> = {};
 	let questionnarieError = '';
@@ -60,19 +63,21 @@
 				<div class="w-full">
 					<section class="w-full bg-slate-700 p-8 rounded-lg">
 						<div class="w-full flex items-center justify-between">
-							<h1 class="text-3xl font-bold">{data.name}</h1>
-							<Button
-								as="a"
-								href={`/societies/${societyId}/courses/${courseId}/modules/${data.id}/questions/new`}
-								color="primary"
-								size="sm">Add questions</Button
-							>
+							<h1 class="text-3xl font-bold">{module?.name}</h1>
+							{#if canAddQuestions}
+								<Button
+									as="a"
+									href={`/societies/${societyId}/courses/${courseId}/modules/${module?.id}/questions/new`}
+									color="primary"
+									size="sm">Add questions</Button
+								>
+							{/if}
 						</div>
-						<p class="text-gray-500 mt-4 mb-8">{data.description}</p>
+						<p class="text-gray-500 mt-4 mb-8">{module?.description}</p>
 
-						{#if data.content}
+						{#if module?.content}
 							<section class="flex flex-col items-center gap-4">
-								<MarkdownContent content={snarkdown(data.content)} />
+								<MarkdownContent content={snarkdown(module?.content)} />
 							</section>
 						{:else}
 							<p class="w-full text-gray-500">No content created yet.</p>
@@ -83,10 +88,10 @@
 		{/if}
 	</Container>
 
-	<Container class="mt-8">
-		<h1 class="text-xl">Questionnarie</h1>
-		<section class="w-full bg-slate-700 p-8 rounded-lg mt-4">
-			{#if questions}
+	{#if questions}
+		<Container class="mt-8">
+			<h1 class="text-xl">Questionnarie</h1>
+			<section class="w-full bg-slate-700 p-8 rounded-lg mt-4">
 				{#each Object.keys(questions) as id}
 					<Container>
 						<h3>- {questions[id].question}</h3>
@@ -119,7 +124,7 @@
 					<Alert color="red" class="my-4">{questionnarieError}</Alert>
 				{/if}
 				<Button on:click={onQuestionnarieSubmit}>Submit</Button>
-			{/if}
-		</section>
-	</Container>
+			</section>
+		</Container>
+	{/if}
 </Container>
