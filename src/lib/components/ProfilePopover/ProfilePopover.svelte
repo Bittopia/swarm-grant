@@ -4,10 +4,11 @@
 	import CopyToClipboard from './CopyToClipboard.svelte';
 
 	export let address: string;
+	export let triggeredBy: string;
 </script>
 
 <Popover
-	triggeredBy={`#profile-popover-${address}`}
+	{triggeredBy}
 	class="w-86 text-sm font-light text-gray-500 bg-white dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800"
 	style="z-index: 9999;"
 	placement="bottom-start"
