@@ -1,12 +1,16 @@
-import societyService from "$lib/services/SocietyService";
+import ModuleRepository from '$lib/repository/ModuleRepository';
+
 export async function load({ params }: never) {
-  const { societyId, courseId, moduleId } = params
-  const societies = await societyService.all()
-  if (societies[societyId] && societies[societyId as string].courses?.[courseId]) {
-    return societies[societyId as string].courses?.[courseId].modules?.[moduleId]
-  }
-  return {
-    status: 404,
-    error: new Error(`Course ${courseId} not found`)
-  }
+	const { societyId, courseId, moduleId } = params;
+
+	const module = await ModuleRepository.get(societyId, courseId, moduleId);
+
+	if (module) {
+		return module;
+	}
+
+	return {
+		status: 404,
+		error: new Error(`Module with id ${moduleId} not found`)
+	};
 }

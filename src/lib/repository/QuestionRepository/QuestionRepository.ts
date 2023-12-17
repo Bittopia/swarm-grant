@@ -84,7 +84,15 @@ export class QuestionRepository {
 		if (societies[societyId]) {
 			return societies[societyId].courses?.[courseId].modules?.[moduleId].questions;
 		}
-		return [];
+		return {};
+	}
+
+	async get(societyId: string, courseId: string, moduleId: string, id: string) {
+		const questions = await this.all(societyId, courseId, moduleId);
+
+		if (questions) return questions[id];
+
+		return null;
 	}
 
 	async delete(question: QuestionType) {

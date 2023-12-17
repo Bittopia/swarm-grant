@@ -64,7 +64,15 @@ export class ModuleRepository {
 			return societies[societyId].courses?.[courseId].modules;
 		}
 
-		return [];
+		return {};
+	}
+
+	async get(societyId: string, courseId: string, moduleId: string) {
+		const modules = await this.all(societyId, courseId);
+
+		if (modules) return modules[moduleId];
+
+		return null;
 	}
 
 	async delete(module: ModuleType) {

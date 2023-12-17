@@ -54,7 +54,15 @@ export class CourseRepository {
 		if (societies[societyId]) {
 			return societies[societyId].courses;
 		}
-		return [];
+		return {};
+	}
+
+	async get(societyId: string, courseId: string) {
+		const courses = await this.all(societyId);
+
+		if (courses) return courses[courseId];
+
+		return null;
 	}
 
 	async delete(course: CourseType) {

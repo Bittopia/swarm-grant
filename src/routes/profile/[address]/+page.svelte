@@ -18,11 +18,10 @@
 	export let data: PageData;
 
 	let bioContent = data.user?.bio || '';
-	console.log('bioContent', bioContent);
 </script>
 
-<div class="w-full flex flex-col justify-center items-center" style="height: calc(100% - 4.5rem)">
-	<div class="flex gap-8 w-8/12 h-full py-10">
+<div class="w-full flex flex-col justify-center items-center">
+	<div class="flex gap-8 w-8/12 h-full py-4">
 		<section style="flex-grow: 1;">
 			<div class="flex flex-col gap-4 bg-slate-700 p-4 rounded-xl w-full">
 				<Avatar />

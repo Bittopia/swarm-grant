@@ -16,7 +16,7 @@
 	console.log('societies', societies);
 </script>
 
-<Container class="mt-8">
+<Container>
 	<section id="society-list">
 		<div class="w-full flex items-center justify-between">
 			<Heading level="2" class="mb-4">Societies</Heading>

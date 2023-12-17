@@ -1,12 +1,16 @@
-import societyService from "$lib/services/SocietyService";
+import CourseService from '$lib/services/CourseService';
+
 export async function load({ params }: never) {
-  const { societyId, courseId } = params
-  const societies = await societyService.all()
-  if (societies[societyId] && societies[societyId as string].courses?.[courseId]) {
-    return societies[societyId as string].courses?.[courseId]
-  }
-  return {
-    status: 404,
-    error: new Error(`Course ${courseId} not found`)
-  }
+	const { societyId, courseId } = params;
+
+	const course = await CourseService.get(societyId, courseId);
+
+	if (course) {
+		return course;
+	}
+
+	return {
+		status: 404,
+		error: new Error(`Course ${courseId} not found`)
+	};
 }

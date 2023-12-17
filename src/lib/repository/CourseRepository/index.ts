@@ -1,10 +1,10 @@
 import { BeeService } from '$lib/services/BeeService/BeeService';
 import { RedisService } from '$lib/services/RedisService/RedisService';
-import { QuestionRepository } from './QuestionRepository';
+import { CourseRepository } from '$lib/repository/CourseRepository/CourseReporitory';
 
-const questionRepository = new QuestionRepository({
+const courseRepository = new CourseRepository({
 	beeService: new BeeService(),
 	redisService: new RedisService()
 });
 
-export default questionRepository;
+export default courseRepository;

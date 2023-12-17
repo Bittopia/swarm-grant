@@ -15,9 +15,6 @@ declare global {
 		}
 		// interface Platform {}
 	}
-	interface Window {
-		ethereum: any;
-	}
 	interface SIWEClientMethods {
 		verifyMessage: (args: SIWEVerifyMessageArgs) => Promise<true>;
 	}

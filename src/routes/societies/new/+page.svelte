@@ -17,7 +17,14 @@
 	export let form;
 </script>
 
-<Container class="mt-8">
+<Container>
+	<div class="w-full mb-4">
+		<div class="flex items-center justify-between">
+			<div class="flex items-center gap-4">
+				<Button as="a" href="/" color="primary" size="sm" outline={true}>Back</Button>
+			</div>
+		</div>
+	</div>
 	<section id="society-new">
 		<Heading level="2" class="mb-4">New Society</Heading>
 		<!-- Define list of societies -->

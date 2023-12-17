@@ -1,17 +1,26 @@
 <script lang="ts">
-	import { base } from '$app/paths';
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 
 	import Container from '$lib/components/Container/Container.svelte';
 	import { Alert, Button, Heading, Input, Label, Textarea, Datepicker } from 'flowbite-svelte';
+	const { societyId } = $page.params;
 
 	let requesting = false;
 	export let form;
 </script>
 
-<Container class="mt-8">
+<Container>
+	<div class="w-full mb-4">
+		<div class="flex items-center justify-between">
+			<div class="flex items-center gap-4">
+				<Button as="a" href={`/societies/${societyId}`} color="primary" size="sm" outline={true}
+					>Back</Button
+				>
+			</div>
+		</div>
+	</div>
 	<section id="society-new">
 		<Heading level="2" class="mb-4">New course</Heading>
 		<section class="mt-10">
@@ -21,11 +30,8 @@
 				use:enhance={() => {
 					requesting = true;
 
-					return async ({ update, result }) => {
+					return async ({ update }) => {
 						await update();
-						if (result?.data?.success) {
-							goto(`/societies/${$page.params.societyId}`);
-						}
 						requesting = false;
 					};
 				}}

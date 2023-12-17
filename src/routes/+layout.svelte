@@ -4,11 +4,9 @@
 	import { Navbar, NavBrand, NavHamburger, NavLi, NavUl } from 'flowbite-svelte';
 	import { page } from '$app/stores';
 	import '$lib/web3/modal';
-
-	console.log('page', $page);
 </script>
 
-<main class="w-full h-full bg-slate-800">
+<main class="w-full h-full bg-slate-800 overflow-hidden">
 	<Navbar let:hidden let:toggle>
 		<NavBrand href="/">
 			<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
@@ -27,5 +25,7 @@
 			<NavHamburger on:click={toggle} />
 		</div>
 	</Navbar>
-	<slot />
+	<div class="w-full py-8 overflow-auto" style="height: calc(100% - 4.5rem)">
+		<slot />
+	</div>
 </main>

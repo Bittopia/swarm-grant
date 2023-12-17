@@ -9,11 +9,24 @@
 	const { societyId, courseId } = $page.params;
 
 	let requesting = false;
-	export let form: { error: any } = { error: null };
+	export let form;
 	let content = '';
 </script>
 
-<Container class="mt-8">
+<Container>
+	<div class="w-full mb-4">
+		<div class="flex items-center justify-between">
+			<div class="flex items-center gap-4">
+				<Button
+					as="a"
+					href={`/societies/${societyId}/courses/${courseId}`}
+					color="primary"
+					size="sm"
+					outline={true}>Back</Button
+				>
+			</div>
+		</div>
+	</div>
 	<section id="society-new">
 		<Heading level="2" class="mb-4">New module for course XYZ</Heading>
 		<!-- Define list of societies -->
@@ -27,6 +40,7 @@
 
 						return async ({ update }) => {
 							await update();
+
 							requesting = false;
 						};
 					}}

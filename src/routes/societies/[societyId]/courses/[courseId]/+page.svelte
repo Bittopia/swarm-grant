@@ -10,7 +10,7 @@
 	console.log(data);
 </script>
 
-<Container class="mt-8">
+<Container>
 	{#if data}
 		<div class="w-full">
 			<div class="flex items-center justify-between">

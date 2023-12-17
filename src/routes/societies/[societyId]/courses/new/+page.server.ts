@@ -1,7 +1,7 @@
-import { fail, error, type ServerLoad, type RequestEvent } from '@sveltejs/kit';
+import { fail, error, type ServerLoad, type RequestEvent, redirect } from '@sveltejs/kit';
 import type { CourseType } from '$lib/types/course';
 import ObjectPathResolverUtil from '$lib/utils/ObjectPathResolver';
-import courseRepository from '$lib/repository/CourseReporitory';
+import courseRepository from '$lib/repository/CourseRepository';
 
 export const load: ServerLoad = async ({ locals, parent }) => {
 	await parent();
@@ -24,7 +24,6 @@ export const actions = {
 			}
 
 			await courseRepository.save({ ...course, societyId });
-			return { success: true };
 		} catch (error) {
 			if (error instanceof Error) {
 				return fail(500, {
@@ -33,5 +32,7 @@ export const actions = {
 				});
 			}
 		}
+
+		throw redirect(302, `/societies/${societyId}`);
 	}
 };
