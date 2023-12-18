@@ -96,19 +96,15 @@
 									<a class="w-full" href={`/societies/${data.id}/courses/${id}`}>
 										<div class="w-full bg-slate-600 p-4 rounded-lg">
 											{#if data.courses[id]?.educator}
-												<div id={`profile-popover-${id}`} class="flex gap-2 mb-6 relative">
-													<Avatar size="xs" />
-													<span>{truncateWalletAddress(data.courses[id].educator)}</span>
-												</div>
+												<ProfilePopover
+													triggeredBy={`profile-popover-${id}`}
+													address={data.courses[id].educator}
+												/>
 											{/if}
 											<h3 class="text-xl font-bold">{data.courses[id].name}</h3>
 											<p class="text-gray-500 mt-4">{data.courses[id].description}</p>
 										</div>
 									</a>
-									<ProfilePopover
-										triggeredBy={`#profile-popover-${id}`}
-										address={data.courses[id].educator}
-									/>
 								{/if}
 							{/each}
 						</section>

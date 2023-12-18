@@ -1,7 +1,8 @@
 <script lang="ts">
 	import Container from '$lib/components/Container/Container.svelte';
-	import { Button } from 'flowbite-svelte';
+	import { Avatar, Button } from 'flowbite-svelte';
 	import { page } from '$app/stores';
+	import ProfilePopover from '$lib/components/ProfilePopover/ProfilePopover.svelte';
 
 	export let data;
 	export let { societyId, courseId } = $page.params;
@@ -27,6 +28,14 @@
 					<h1 class="text-3xl font-bold">{course.name}</h1>
 					<p class="text-gray-500 mt-4">{course.description}</p>
 					<p class="mt-4">Start Date: {course.startDate}</p>
+
+					<div class="flex gap-4 mt-8">
+						<span>Educator: </span>
+						<ProfilePopover
+							triggeredBy={`educator-${course.id}-${course.educator}`}
+							address={course.educator}
+						/>
+					</div>
 				</section>
 			</div>
 			<div class="w-2/3">
