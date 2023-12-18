@@ -2,18 +2,14 @@
 	import Container from '$lib/components/Container/Container.svelte';
 	import { Button, Heading } from 'flowbite-svelte';
 	import SocietyBox from '$lib/components/SocietyBox/SocietyBox.svelte';
-	import type { SocietyType } from '$lib/types/society';
-
 	import { goto } from '$app/navigation';
+
+	export let data;
+	const societies = data?.societies;
 
 	function newSociety() {
 		goto('/societies/new');
 	}
-
-	export let data;
-	console.log({ data });
-	const societies = data?.societies as SocietyType;
-	console.log('societies', societies);
 </script>
 
 <Container>

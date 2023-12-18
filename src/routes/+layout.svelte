@@ -14,13 +14,14 @@
 			>
 		</NavBrand>
 		<div class="flex items-center">
-			<w3m-button size="sm" balance="hide" />
+			{#if $page.status !== 401}
+				<w3m-button size="sm" balance="hide" />
+			{/if}
 			<NavUl {hidden}>
 				{#if $page.data.user}
 					<NavLi href={`/profile/${$page.data.user.web3Address}`}>Profile</NavLi>
 				{/if}
 				<NavLi href="/">Home</NavLi>
-				<NavLi href="/about">About</NavLi>
 				<!-- <NavLi href="/about">About</NavLi> -->
 			</NavUl>
 			<NavHamburger on:click={toggle} />

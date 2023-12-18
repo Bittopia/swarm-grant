@@ -55,7 +55,6 @@ const siweConfig = createSIWEConfig({
 
 		if (response.ok) {
 			const { isValid } = await response.json();
-			console.log('LS -> src/lib/web3/modal.ts:55 -> isValid: ', isValid);
 
 			if (isValid) {
 				invalidateAll();
