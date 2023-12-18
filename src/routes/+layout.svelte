@@ -21,6 +21,7 @@
 				{/if}
 				<NavLi href="/">Home</NavLi>
 				<NavLi href="/about">About</NavLi>
+				<!-- <NavLi href="/about">About</NavLi> -->
 			</NavUl>
 			<NavHamburger on:click={toggle} />
 		</div>
