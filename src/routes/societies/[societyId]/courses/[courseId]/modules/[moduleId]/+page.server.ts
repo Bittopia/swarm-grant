@@ -1,3 +1,4 @@
+import SocietyService from '$lib/services/SocietyService';
 import ModuleRepository from '$lib/repository/ModuleRepository';
 import CourseService from '$lib/services/CourseService';
 import type { ServerLoad } from '@sveltejs/kit';
@@ -15,8 +16,10 @@ export const load: ServerLoad = async ({ params, locals }) => {
 
 	const canAddQuestions = course?.educator === locals.user?.web3Address;
 
+	const isMemberOfSociety = await SocietyService.isMember(societyId, locals.user?.web3Address);
+
 	if (module) {
-		return { module, canAddQuestions };
+		return { module, canAddQuestions, isMemberOfSociety };
 	}
 
 	return {

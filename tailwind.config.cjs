@@ -1,10 +1,13 @@
 const config = {
-	content: ['./src/**/*.{html,js,svelte,ts}', './node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'],
+	content: [
+		'./src/**/*.{html,js,svelte,ts}',
+		'./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'
+	],
 
 	plugins: [
 		require('flowbite/plugin'),
 		require('@tailwindcss/typography'),
-		require('@tailwindcss/forms'),
+		require('@tailwindcss/forms')
 	],
 
 	darkMode: 'class',
@@ -25,6 +28,9 @@ const config = {
 					800: '#CC4522',
 					900: '#A5371B'
 				}
+			},
+			backdropBlur: {
+				xs: '2px'
 			}
 		}
 	}

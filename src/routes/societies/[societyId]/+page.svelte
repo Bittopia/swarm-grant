@@ -1,50 +1,17 @@
 <script lang="ts">
 	import Container from '$lib/components/Container/Container.svelte';
-	import { Avatar, Button, Spinner } from 'flowbite-svelte';
+	import { Button, Spinner } from 'flowbite-svelte';
 	import { page } from '$app/stores';
 	import type { SocietyType } from '$lib/types/society';
-	import { invalidateAll } from '$app/navigation';
-	import { modal } from '$lib/web3/modal';
 	import ProfilePopover from '$lib/components/ProfilePopover/ProfilePopover.svelte';
-	import truncateWalletAddress from '$lib/utils/truncateWalletAddress';
 	import type { PageData } from '../../$types';
+	import { toggleSociety } from '$lib/utils/society';
 
 	interface Data extends SocietyType {
 		isMember: boolean;
 	}
 
 	let joinLoading = false;
-
-	async function joinSociety() {
-		if (!data?.user) {
-			return modal.open();
-		}
-
-		try {
-			joinLoading = true;
-			const url = data?.isMember ? '/societies/leave' : '/societies/join';
-
-			const response = await fetch(url, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ societyId })
-			});
-
-			if (response.ok) {
-				const data = await response.json();
-
-				if (data.success) {
-					await invalidateAll();
-				}
-			}
-		} catch (error) {
-			console.log('error', error);
-		} finally {
-			joinLoading = false;
-		}
-	}
 
 	export let data: PageData & Data;
 	export let { societyId } = $page.params;
@@ -66,7 +33,25 @@
 					<p class="text-gray-500 mt-4">{data.description}</p>
 					<p class="text-gray-500 mt-4">{data.members?.length ?? 0} members</p>
 					<div class="flex justify-center">
-						<Button class="mt-8 px-16 max-w-full" disabled={joinLoading} on:click={joinSociety}>
+						<Button
+							class="mt-8 px-16 max-w-full"
+							disabled={joinLoading}
+							on:click={async () => {
+								try {
+									joinLoading = true;
+									await toggleSociety({
+										user: data?.user,
+										societyId,
+										alreadyMember: data?.isMember
+									});
+								} catch (error) {
+									//TODO: Handle error
+									console.log({ error });
+								} finally {
+									joinLoading = false;
+								}
+							}}
+						>
 							{#if joinLoading}
 								<Spinner />
 							{:else if data?.isMember}

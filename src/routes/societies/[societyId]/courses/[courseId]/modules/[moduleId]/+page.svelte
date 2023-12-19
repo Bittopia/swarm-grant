@@ -1,9 +1,10 @@
 <script lang="ts">
 	import Container from '$lib/components/Container/Container.svelte';
 	import { page } from '$app/stores';
-	import { Alert, Button, DropdownDivider, Radio } from 'flowbite-svelte';
+	import { Alert, Button, DropdownDivider, Radio, Spinner } from 'flowbite-svelte';
 	import snarkdown from 'snarkdown';
 	import MarkdownContent from '$lib/components/MarkdownContent/MarkdownContent.svelte';
+	import { toggleSociety } from '$lib/utils/society';
 
 	export let data;
 	export let { societyId, courseId, moduleId } = $page.params;
@@ -17,10 +18,13 @@
 	let questionnarieError = '';
 	let incorrectAnswers: Record<string, string> = {};
 	let correctAnswers: Record<string, string> = {};
+	let joinSocietyLoading = false;
 
 	function onQuestionnarieSubmit() {
 		questionnarieError = '';
 		correctAnswers = {};
+
+		if (!$page.data.isMemberOfSociety) return;
 
 		if (!questions) return;
 
@@ -89,8 +93,38 @@
 	</Container>
 
 	{#if questions}
-		<Container class="mt-8">
+		<Container class="mt-8 relative">
 			<h1 class="text-xl">Questionnarie</h1>
+			{#if !$page.data?.isMemberOfSociety}
+				<div
+					class="absolute w-full h-full backdrop-blur-xs flex flex-col items-center justify-center gap-4"
+				>
+					<h2>You need to join society to be able to do this</h2>
+					<Button
+						disabled={joinSocietyLoading}
+						on:click={async () => {
+							try {
+								joinSocietyLoading = true;
+								await toggleSociety({
+									societyId,
+									alreadyMember: $page.data?.isMemberOfSociety,
+									user: $page.data?.user
+								});
+							} catch (error) {
+								console.log(error);
+							} finally {
+								joinSocietyLoading = false;
+							}
+						}}
+					>
+						{#if joinSocietyLoading}
+							<Spinner />
+						{:else}
+							Join Society
+						{/if}
+					</Button>
+				</div>
+			{/if}
 			<section class="w-full bg-slate-700 p-8 rounded-lg mt-4">
 				{#each Object.keys(questions) as id}
 					<Container>
