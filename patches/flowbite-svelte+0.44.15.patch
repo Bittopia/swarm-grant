@@ -1,0 +1,24 @@
+diff --git a/node_modules/flowbite-svelte/dist/datepicker/Datepicker.svelte b/node_modules/flowbite-svelte/dist/datepicker/Datepicker.svelte
+index 242ca14..8491548 100644
+--- a/node_modules/flowbite-svelte/dist/datepicker/Datepicker.svelte
++++ b/node_modules/flowbite-svelte/dist/datepicker/Datepicker.svelte
+@@ -8,6 +8,7 @@ export let datepickerOrientation = 'bottom';
+ export let datepickerTitle = 'Flowbite datepicker';
+ export let attribute = '';
+ export let inputClass = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500';
++export let placeholder = 'dd/mm/yyyy';
+ $: setAttribute = (node, params) => {
+     if (params) {
+         node.setAttribute(params, '');
+@@ -42,9 +43,9 @@ $: setAttribute = (node, params) => {
+       <Calendar />
+     </div>
+     {#if datepickerButtons}
+-      <input {...$$restProps} datepicker datepicker-buttons datepicker-format={datepickerFormat} datepicker-orientation={datepickerOrientation} datepicker-title={datepickerTitle} use:setAttribute={attribute} type="text" class={inputClass} placeholder="Select date" />
++      <input {...$$restProps} datepicker datepicker-buttons datepicker-format={datepickerFormat} datepicker-orientation={datepickerOrientation} datepicker-title={datepickerTitle} use:setAttribute={attribute} type="text" class={inputClass} placeholder={placeholder} />
+     {:else}
+-      <input {...$$restProps} datepicker datepicker-format={datepickerFormat} datepicker-orientation={datepickerOrientation} datepicker-title={datepickerTitle} use:setAttribute={attribute} type="text" class={inputClass} placeholder="Select date" />
++      <input {...$$restProps} datepicker datepicker-format={datepickerFormat} datepicker-orientation={datepickerOrientation} datepicker-title={datepickerTitle} use:setAttribute={attribute} type="text" class={inputClass} placeholder={placeholder} />
+     {/if}
+     <slot />
+   </div>

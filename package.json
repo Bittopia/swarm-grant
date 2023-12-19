@@ -11,7 +11,8 @@
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
 		"test": "vitest",
-		"test:watch": "vitest --watch"
+		"test:watch": "vitest --watch",
+		"postinstall": "patch-package"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "2.0.0",
@@ -54,6 +55,7 @@
 		"flowbite-svelte-icons": "0.4.5",
 		"jsonwebtoken": "9.0.2",
 		"lodash.set": "4.3.2",
+		"patch-package": "^8.0.0",
 		"redis": "4.6.10",
 		"siwe": "2.1.4",
 		"snarkdown": "2.0.0",

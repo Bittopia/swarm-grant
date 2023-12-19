@@ -69,7 +69,14 @@
 					</div>
 					<div>
 						<Label for="startDate" class="mb-2">Course date</Label>
-						<Datepicker name="startDate" datepickerOrientation="top" required />
+						<Datepicker
+							name="startDate"
+							datepickerOrientation="top"
+							datepickerFormat="dd/mm/yyyy"
+							datepickerTitle=""
+							placeholder="dd/mm/yyyy"
+							required
+						/>
 					</div>
 					<div>
 						<Label for="description" class="mb-2">Educator wallet address</Label>
