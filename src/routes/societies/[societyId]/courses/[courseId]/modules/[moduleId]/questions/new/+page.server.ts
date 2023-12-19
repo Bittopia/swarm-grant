@@ -31,6 +31,15 @@ export const actions = {
 			});
 		}
 
+		for (let i = 0; i < options.length; i++) {
+			const option = options[i];
+			if (option === '') {
+				return fail(500, {
+					error: 'Option cannot be empty'
+				});
+			}
+		}
+
 		const questionnarie: NewQuestionType = {
 			question,
 			questionOptions: options,

@@ -76,7 +76,11 @@
 						id="option"
 						placeholder="Write your option here"
 					/>
-					<Button on:click={() => addOption(option)}>Add</Button>
+					<Button
+						on:click={() => {
+							if (option) addOption(option);
+						}}>Add</Button
+					>
 				</div>
 			</div>
 
@@ -87,7 +91,15 @@
 				{/each}
 
 				{#each questionOptions as option, index}
-					<div class="mt-2">
+					<div class="flex gap-2 mt-2">
+						<Button
+							on:click={() => {
+								questionOptions = questionOptions.filter((_, i) => i !== index);
+							}}
+							color="red"
+							size="xs"
+							class="p-0 px-1">X</Button
+						>
 						<Radio
 							on:select={(e) => {
 								rightOption = e.target?.value;
