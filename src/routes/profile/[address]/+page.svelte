@@ -23,7 +23,7 @@
 <div class="w-full flex flex-col justify-center items-center">
 	<div class="flex gap-8 w-8/12 h-full py-4">
 		<section style="flex-grow: 1;">
-			<div class="flex flex-col gap-4 bg-slate-700 p-4 rounded-xl w-full">
+			<div class="flex flex-col gap-4 p-4 rounded-xl w-full" style="border: 1px solid #424148">
 				<Avatar />
 				<div class="flex items-center gap-4">
 					{truncateWalletAddress(data.user?.web3Address)}
@@ -58,7 +58,7 @@
 			</div>
 		</section>
 		<section class="" style="flex-grow: 10;">
-			<div class="flex flex-col gap-4 bg-slate-700 p-4 rounded-xl w-full">
+			<div class="flex flex-col gap-4 p-4 rounded-xl w-full" style="border: 1px solid #424148">
 				<div>
 					<header class="flex items-center justify-between">
 						<h2 class="text-xl text-bold">Bio</h2>

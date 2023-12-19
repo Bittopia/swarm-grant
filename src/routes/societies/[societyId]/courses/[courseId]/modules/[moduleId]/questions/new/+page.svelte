@@ -47,7 +47,10 @@
 			};
 		}}
 	>
-		<div class="mt-8 p-4 rounded-lg bg-slate-700 grid gap-6 mb-6 md:grid-cols-1">
+		<div
+			class="mt-8 p-4 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
+			style="border: 1px solid #424148"
+		>
 			<Heading class="text-white" tag="h2">Adding a question for Swarm module</Heading>
 			<div>
 				<Label for="question" class="mb-2">What's the question?</Label>
@@ -72,6 +75,7 @@
 						placeholder="Write your option here"
 					/>
 					<Button
+						class="rounded-full"
 						on:click={() => {
 							if (option) addOption(option);
 						}}>Add</Button
@@ -92,6 +96,7 @@
 								questionOptions = questionOptions.filter((_, i) => i !== index);
 							}}
 							color="red"
+							outline
 							size="xs"
 							class="mr-4 p-0 px-2 rounded-xl">X</Button
 						>
@@ -106,7 +111,7 @@
 				{/each}
 			</div>
 
-			<Button disabled={requesting} type="submit">Submit</Button>
+			<Button disabled={requesting} type="submit" class="rounded-full">Submit</Button>
 		</div>
 	</form>
 </Container>

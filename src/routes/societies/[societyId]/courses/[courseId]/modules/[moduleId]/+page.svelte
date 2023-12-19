@@ -61,7 +61,7 @@
 			</div>
 			<div class="w-full flex gap-8 mt-8">
 				<div class="w-full">
-					<section class="w-full bg-slate-700 p-8 rounded-lg">
+					<section class="w-full p-8 rounded-xl" style="border: 1px solid #424148">
 						<div class="w-full flex items-center justify-between">
 							<h1 class="text-3xl font-bold">{module?.name}</h1>
 							{#if canAddQuestions}
@@ -70,6 +70,7 @@
 									href={`/societies/${societyId}/courses/${courseId}/modules/${module?.id}/questions/new`}
 									color="primary"
 									size="sm"
+									class="rounded-full"
 								>
 									<div class="flex gap-2 items-center">
 										<CirclePlusOutline />
@@ -126,7 +127,7 @@
 					</Button>
 				</div>
 			{/if}
-			<section class="w-full bg-slate-700 p-8 rounded-lg mt-4">
+			<section class="w-full p-8 rounded-xl mt-4" style="border: 1px solid #424148">
 				{#each Object.keys(questions) as id}
 					<Container>
 						<h3>- {questions[id].question}</h3>

@@ -41,7 +41,8 @@
 					</Alert>
 				{/if}
 				<div
-					class="w-full mt-8 p-4 rounded-lg bg-slate-300 dark:bg-slate-700 grid gap-6 mb-6 md:grid-cols-1"
+					class="w-full mt-8 p-4 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
+					style="border: 1px solid #424148"
 				>
 					<div>
 						<Label for="name" class="mb-2">What's the course name?</Label>
@@ -92,10 +93,9 @@
 						<BackButton
 							href={`/societies/${$page.params.societyId}`}
 							disabled={requesting}
-							className="dark:bg-primary-200 hover:dark:bg-primary-300 text-primary-500"
 							text="Back to courses list"
 						/>
-						<Button disabled={requesting} type="submit">Submit</Button>
+						<Button disabled={requesting} type="submit" class="rounded-full px-8">Submit</Button>
 					</div>
 				</div>
 			</form>

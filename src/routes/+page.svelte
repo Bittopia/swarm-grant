@@ -17,7 +17,7 @@
 	<section id="society-list">
 		<div class="w-full flex items-center justify-between">
 			<Heading level="2" class="mb-4">Societies</Heading>
-			<Button class="w-[200px]" on:click={newSociety}>
+			<Button class="w-[200px] rounded-full px-0" on:click={newSociety}>
 				<div class="flex gap-2 items-center">
 					<CirclePlusOutline />
 					<span>New society</span>

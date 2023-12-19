@@ -6,8 +6,8 @@
 	import '$lib/web3/modal';
 </script>
 
-<main class="w-full h-full bg-slate-800 overflow-hidden">
-	<Navbar let:hidden let:toggle>
+<main class="w-full h-full overflow-hidden" style="background-color: #191820;">
+	<Navbar let:hidden let:toggle style="background-color: #181624;">
 		<NavBrand href="/">
 			<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
 				>Bittopia</span
@@ -19,9 +19,11 @@
 			{/if}
 			<NavUl {hidden}>
 				{#if $page.data.user}
-					<NavLi href={`/profile/${$page.data.user.web3Address}`}>Profile</NavLi>
+					<NavLi href={`/profile/${$page.data.user.web3Address}`} style="font-size: 1rem;"
+						>Profile</NavLi
+					>
 				{/if}
-				<NavLi href="/">Home</NavLi>
+				<NavLi href="/" style="font-size: 1rem;">Home</NavLi>
 				<!-- <NavLi href="/about">About</NavLi> -->
 			</NavUl>
 			<NavHamburger on:click={toggle} />

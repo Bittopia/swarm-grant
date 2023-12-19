@@ -8,7 +8,15 @@
 	export let className = '';
 </script>
 
-<Button as="a" {href} color="primary" size="sm" outline={true} {disabled} class={className}>
+<Button
+	as="a"
+	{href}
+	color="dark"
+	outline={true}
+	{disabled}
+	class={'py-2 text-md rounded-full' + className}
+	style="border: 1px solid #424148"
+>
 	<div class="flex gap-2 items-center">
 		<ChevronLeftSolid size="xs" />
 		<span>{text}</span>

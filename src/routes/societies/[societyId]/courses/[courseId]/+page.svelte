@@ -24,7 +24,7 @@
 		</div>
 		<div class="w-full flex gap-8 mt-8">
 			<div class="w-1/3">
-				<section class="w-full bg-slate-700 p-8 rounded-lg">
+				<section class="w-full p-8 rounded-xl" style="border: 1px solid #424148">
 					<h1 class="text-3xl font-bold">{course.name}</h1>
 					<p class="text-gray-500 mt-4">{course.description}</p>
 					<p class="mt-4">Start Date: {course.startDate}</p>
@@ -39,15 +39,16 @@
 				</section>
 			</div>
 			<div class="w-2/3">
-				<section class="w-full bg-slate-700 p-8 rounded-lg">
+				<section class="w-full p-8 rounded-lg">
 					<div class="w-full flex items-center justify-between mb-8">
-						<h2 class="text-2xl font-bold">Modules</h2>
+						<h2 class="text-3xl font-bold">Modules</h2>
 						{#if canCreateModules}
 							<Button
 								as="a"
 								href={`/societies/${societyId}/courses/${courseId}/modules/new`}
 								color="primary"
 								size="sm"
+								class="rounded-full"
 							>
 								<div class="flex gap-2 items-center">
 									<CirclePlusOutline />
@@ -61,10 +62,11 @@
 						<section class="flex flex-col items-center gap-4">
 							{#each Object.keys(course.modules) as id}
 								<a
-									class="w-full"
+									class="w-full rounded-xl"
 									href={`/societies/${societyId}/courses/${courseId}/modules/${id}`}
+									style="border: 1px solid #424148"
 								>
-									<div class="w-full bg-slate-600 p-4 rounded-lg">
+									<div class="w-full p-4 rounded-lg">
 										<h3 class="text-xl font-bold">{course.modules[id].name}</h3>
 										<p class="text-gray-500 mt-4">{course.modules[id].description}</p>
 									</div>

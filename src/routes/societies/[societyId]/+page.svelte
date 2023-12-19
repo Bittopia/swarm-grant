@@ -30,13 +30,13 @@
 		</div>
 		<div class="w-full flex gap-8 mt-8">
 			<div class="w-1/3">
-				<section class="w-full bg-slate-700 p-8 rounded-lg">
+				<section class="w-full p-8 rounded-xl" style="border: 1px solid #424148">
 					<h1 class="text-3xl font-bold">{data.name}</h1>
 					<p class="text-gray-500 mt-4">{data.description}</p>
 					<p class="text-gray-500 mt-4">{data.members?.length ?? 0} members</p>
 					<div class="flex justify-center">
 						<Button
-							class="mt-8 px-16 max-w-full"
+							class="mt-8 max-w-full px-10 text-md rounded-full"
 							disabled={joinLoading}
 							on:click={async () => {
 								try {
@@ -66,11 +66,17 @@
 				</section>
 			</div>
 			<div class="w-2/3">
-				<section class="w-full bg-slate-700 p-8 rounded-lg">
+				<section class="w-full p-8 rounded-xl">
 					<div class="w-full flex items-center justify-between mb-8">
-						<h2 class="text-2xl font-bold">Courses</h2>
+						<h2 class="text-3xl font-bold">Courses</h2>
 						{#if data?.isMember}
-							<Button as="a" href={`/societies/${societyId}/courses/new`} color="primary" size="sm">
+							<Button
+								as="a"
+								href={`/societies/${societyId}/courses/new`}
+								color="primary"
+								size="sm"
+								class="rounded-full px-4"
+							>
 								<div class="flex gap-2 items-center">
 									<CirclePlusOutline />
 									<span>Add new course</span>
@@ -84,7 +90,7 @@
 							{#each Object.keys(data.courses) as id}
 								{#if data?.courses[id]}
 									<a class="w-full" href={`/societies/${data.id}/courses/${id}`}>
-										<div class="w-full bg-slate-600 p-4 rounded-lg">
+										<div class="w-full p-4 rounded-xl" style="border: 1px solid #424148">
 											{#if data.courses[id]?.educator}
 												<ProfilePopover
 													triggeredBy={`profile-popover-${id}`}
