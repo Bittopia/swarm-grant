@@ -9,9 +9,7 @@
 <main class="w-full h-full overflow-hidden" style="background-color: #191820;">
 	<Navbar let:hidden let:toggle style="background-color: #181624;">
 		<NavBrand href="/">
-			<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
-				>Bittopia</span
-			>
+			<img src="/Logo.png" alt="Bittopia's logo" style="width: 220px" />
 		</NavBrand>
 		<div class="flex items-center">
 			{#if $page.status !== 401}
