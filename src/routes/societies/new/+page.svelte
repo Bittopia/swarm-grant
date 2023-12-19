@@ -80,7 +80,7 @@
 							class="dark:bg-primary-200 hover:dark:bg-primary-300 text-primary-500"
 							disabled={requesting}
 						>
-							>Back to society list</Button
+							Back to society list</Button
 						>
 						<Button disabled={requesting} type="submit">Submit</Button>
 					</div>
