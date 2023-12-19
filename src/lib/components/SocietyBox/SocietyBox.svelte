@@ -7,7 +7,7 @@
 
 <a href={`/societies/${society.id}`}>
 	<div
-		class="p-8 rounded-xl hover:bg-slate-700 shadow-gray transition-shadow"
+		class="p-8 rounded-xl hover:bg-slate-700 shadow-gray transition-shadow h-full"
 		style="border: 1px solid #424148"
 	>
 		<Heading tag="h4">{society.name}</Heading>
