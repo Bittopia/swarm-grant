@@ -3,6 +3,7 @@
 	import { Alert, Button, Heading, Input, Label, Radio } from 'flowbite-svelte';
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
+	import BackButton from '$lib/components/BackButton.svelte';
 	const { societyId, courseId, moduleId } = $page.params;
 
 	let requesting = false;
@@ -30,13 +31,7 @@
 	<div class="w-full mb-4">
 		<div class="flex items-center justify-between">
 			<div class="flex items-center gap-4">
-				<Button
-					as="a"
-					href={`/societies/${societyId}/courses/${courseId}/modules/${moduleId}`}
-					color="primary"
-					size="sm"
-					outline={true}>Back</Button
-				>
+				<BackButton href={`/societies/${societyId}/courses/${courseId}/modules/${moduleId}`} />
 			</div>
 		</div>
 	</div>
@@ -98,7 +93,7 @@
 							}}
 							color="red"
 							size="xs"
-							class="p-0 px-1">X</Button
+							class="mr-4 p-0 px-2 rounded-xl">X</Button
 						>
 						<Radio
 							on:select={(e) => {

@@ -4,8 +4,8 @@
 	import { Alert, Button, Heading, Input, Label, Textarea } from 'flowbite-svelte';
 	import snarkdown from 'snarkdown';
 	import MarkdownContent from '$lib/components/MarkdownContent/MarkdownContent.svelte';
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import BackButton from '$lib/components/BackButton.svelte';
 	const { societyId, courseId } = $page.params;
 
 	let requesting = false;
@@ -17,13 +17,7 @@
 	<div class="w-full mb-4">
 		<div class="flex items-center justify-between">
 			<div class="flex items-center gap-4">
-				<Button
-					as="a"
-					href={`/societies/${societyId}/courses/${courseId}`}
-					color="primary"
-					size="sm"
-					outline={true}>Back</Button
-				>
+				<BackButton href={`/societies/${societyId}/courses/${courseId}`} />
 			</div>
 		</div>
 	</div>
@@ -88,12 +82,12 @@
 							/>
 						</div>
 						<div class="flex items-center justify-end w-full gap-4">
-							<Button
-								class="dark:bg-primary-200 hover:dark:bg-primary-300 text-primary-500"
+							<BackButton
+								href={`/societies/${societyId}/courses/${courseId}`}
 								disabled={requesting}
-								on:click={() => goto(`/societies/${societyId}/courses/${courseId}`)}
-								>Back to courses</Button
-							>
+								className="dark:bg-primary-200 hover:dark:bg-primary-300 text-primary-500"
+								text="Back to modules"
+							/>
 							<Button disabled={requesting} type="submit">Save</Button>
 						</div>
 					</div>

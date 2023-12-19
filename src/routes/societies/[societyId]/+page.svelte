@@ -6,6 +6,8 @@
 	import ProfilePopover from '$lib/components/ProfilePopover/ProfilePopover.svelte';
 	import type { PageData } from '../../$types';
 	import { toggleSociety } from '$lib/utils/society';
+	import BackButton from '$lib/components/BackButton.svelte';
+	import { CirclePlusOutline } from 'flowbite-svelte-icons';
 
 	interface Data extends SocietyType {
 		isMember: boolean;
@@ -22,7 +24,7 @@
 		<div class="w-full">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-4">
-					<Button as="a" href="/" color="primary" size="sm" outline={true}>Back</Button>
+					<BackButton href="/" />
 				</div>
 			</div>
 		</div>
@@ -68,9 +70,12 @@
 					<div class="w-full flex items-center justify-between mb-8">
 						<h2 class="text-2xl font-bold">Courses</h2>
 						{#if data?.isMember}
-							<Button as="a" href={`/societies/${societyId}/courses/new`} color="primary" size="sm"
-								>Add new course</Button
-							>
+							<Button as="a" href={`/societies/${societyId}/courses/new`} color="primary" size="sm">
+								<div class="flex gap-2 items-center">
+									<CirclePlusOutline />
+									<span>Add new course</span>
+								</div>
+							</Button>
 						{/if}
 					</div>
 

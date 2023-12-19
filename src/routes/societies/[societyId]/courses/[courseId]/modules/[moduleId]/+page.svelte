@@ -5,6 +5,8 @@
 	import snarkdown from 'snarkdown';
 	import MarkdownContent from '$lib/components/MarkdownContent/MarkdownContent.svelte';
 	import { toggleSociety } from '$lib/utils/society';
+	import BackButton from '$lib/components/BackButton.svelte';
+	import { CirclePlusOutline } from 'flowbite-svelte-icons';
 
 	export let data;
 	export let { societyId, courseId, moduleId } = $page.params;
@@ -53,13 +55,7 @@
 			<div class="w-full">
 				<div class="flex items-center justify-between">
 					<div class="flex items-center gap-4">
-						<Button
-							as="a"
-							href={`/societies/${societyId}/courses/${courseId}`}
-							color="primary"
-							size="sm"
-							outline={true}>Back</Button
-						>
+						<BackButton href={`/societies/${societyId}/courses/${courseId}`} />
 					</div>
 				</div>
 			</div>
@@ -73,8 +69,13 @@
 									as="a"
 									href={`/societies/${societyId}/courses/${courseId}/modules/${module?.id}/questions/new`}
 									color="primary"
-									size="sm">Add questions</Button
+									size="sm"
 								>
+									<div class="flex gap-2 items-center">
+										<CirclePlusOutline />
+										<span>Add questions</span>
+									</div>
+								</Button>
 							{/if}
 						</div>
 						<p class="text-gray-500 mt-4 mb-8">{module?.description}</p>

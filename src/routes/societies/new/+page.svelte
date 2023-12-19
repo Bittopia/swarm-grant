@@ -5,7 +5,7 @@
 	import { modal } from '$lib/web3/modal';
 
 	import { page } from '$app/stores';
-	console.log({ page: $page });
+	import BackButton from '$lib/components/BackButton.svelte';
 
 	const user = $page.data.user;
 
@@ -21,7 +21,7 @@
 	<div class="w-full mb-4">
 		<div class="flex items-center justify-between">
 			<div class="flex items-center gap-4">
-				<Button as="a" href="/" color="primary" size="sm" outline={true}>Back</Button>
+				<BackButton href="/" />
 			</div>
 		</div>
 	</div>
@@ -74,14 +74,12 @@
 						/>
 					</div>
 					<div class="flex items-center justify-end w-full gap-4">
-						<Button
-							as="a"
+						<BackButton
 							href="/"
-							class="dark:bg-primary-200 hover:dark:bg-primary-300 text-primary-500"
 							disabled={requesting}
-						>
-							Back to society list</Button
-						>
+							className="dark:bg-primary-200 hover:dark:bg-primary-300 text-primary-500"
+							text="Back to society list"
+						/>
 						<Button disabled={requesting} type="submit">Submit</Button>
 					</div>
 				</div>

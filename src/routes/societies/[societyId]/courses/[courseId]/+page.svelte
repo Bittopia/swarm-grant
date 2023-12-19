@@ -3,6 +3,8 @@
 	import { Avatar, Button } from 'flowbite-svelte';
 	import { page } from '$app/stores';
 	import ProfilePopover from '$lib/components/ProfilePopover/ProfilePopover.svelte';
+	import BackButton from '$lib/components/BackButton.svelte';
+	import { CirclePlusOutline } from 'flowbite-svelte-icons';
 
 	export let data;
 	export let { societyId, courseId } = $page.params;
@@ -16,9 +18,7 @@
 		<div class="w-full">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-4">
-					<Button as="a" href={`/societies/${societyId}`} color="primary" size="sm" outline={true}
-						>Back</Button
-					>
+					<BackButton href={`/societies/${societyId}`} />
 				</div>
 			</div>
 		</div>
@@ -47,8 +47,13 @@
 								as="a"
 								href={`/societies/${societyId}/courses/${courseId}/modules/new`}
 								color="primary"
-								size="sm">Add new module</Button
+								size="sm"
 							>
+								<div class="flex gap-2 items-center">
+									<CirclePlusOutline />
+									<span>Add new module</span>
+								</div>
+							</Button>
 						{/if}
 					</div>
 
