@@ -39,11 +39,6 @@
 						};
 					}}
 				>
-					{#if form?.error}
-						<Alert color="red">
-							{form.error}
-						</Alert>
-					{/if}
 					<div
 						class="w-full p-4 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
 						style="border: 1px solid #424148"
@@ -68,6 +63,7 @@
 								type="text"
 								id="description"
 								placeholder="Write your option here"
+								required
 							/>
 						</div>
 						<div>
@@ -80,8 +76,16 @@
 								type="text"
 								id="content"
 								placeholder="Module content in markdown"
+								required
 							/>
 						</div>
+
+						{#if form?.error}
+							<Alert color="red">
+								{form.error}
+							</Alert>
+						{/if}
+
 						<div class="flex items-center justify-end w-full gap-4">
 							<BackButton
 								href={`/societies/${societyId}/courses/${courseId}`}

@@ -21,6 +21,10 @@ export const actions = {
 
 		try {
 			const module = Object.fromEntries(data) as unknown as ModuleType;
+
+			if (!module.name || !module.description || !module.content) {
+				return fail(400, { error: 'Please fill in all fields' });
+			}
 			await moduleRepository.save({ ...module, societyId, courseId });
 		} catch (error) {
 			if (error instanceof TypeError) {

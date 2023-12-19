@@ -19,7 +19,7 @@ export const actions = {
 		try {
 			const course = Object.fromEntries(data) as unknown as CourseType;
 
-			if (!course.name || !course.description || !course.startDate) {
+			if (!course.name || !course.description || !course.startDate || !course.educator) {
 				return { error: 'Please fill in all fields' };
 			}
 

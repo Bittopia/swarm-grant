@@ -25,10 +25,16 @@ export const actions = {
 
 		try {
 			const society = Object.fromEntries(data) as unknown as NewSocietyType;
+
+			if (!society.name || !society.description) {
+				return fail(400, {
+					error: 'You must provide a name and description for your society, please try again'
+				});
+			}
+
 			society.creator = user.web3Address;
 			await societyService.save(society);
 		} catch (error: any) {
-			console.log('LS -> src/routes/societies/new/+page.server.ts:31 -> error: ', error);
 			return fail(500, {
 				description: data.get('description'),
 				error: error.message

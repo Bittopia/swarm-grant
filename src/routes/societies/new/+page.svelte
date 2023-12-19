@@ -37,15 +37,11 @@
 
 					return async ({ update }) => {
 						await update();
+
 						requesting = false;
 					};
 				}}
 			>
-				{#if form?.error}
-					<Alert color="red">
-						{form.error}
-					</Alert>
-				{/if}
 				<div
 					class="w-full mt-8 p-4 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
 					style="border: 1px solid #424148"
@@ -72,8 +68,16 @@
 							type="text"
 							id="description"
 							placeholder="Write a description for your society"
+							required
 						/>
 					</div>
+
+					{#if form?.error}
+						<Alert color="red">
+							{form.error}
+						</Alert>
+					{/if}
+
 					<div class="flex items-center justify-end w-full gap-4">
 						<BackButton href="/" disabled={requesting} text="Back to society list" />
 						<Button disabled={requesting} type="submit" class="rounded-full">Submit</Button>

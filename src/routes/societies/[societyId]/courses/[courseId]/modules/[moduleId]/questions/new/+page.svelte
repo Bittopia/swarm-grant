@@ -23,11 +23,6 @@
 </script>
 
 <Container>
-	{#if form?.error}
-		<Alert color="red">
-			{form.error}
-		</Alert>
-	{/if}
 	<div class="w-full mb-4">
 		<div class="flex items-center justify-between">
 			<div class="flex items-center gap-4">
@@ -64,7 +59,14 @@
 					required
 				/>
 			</div>
-			<div>
+
+			<form
+				on:submit={(e) => {
+					e.preventDefault();
+
+					if (option) addOption(option);
+				}}
+			>
 				<Label for="option" class="mb-2">What are the available options?</Label>
 				<div class="w-full flex items-center gap-4">
 					<Input
@@ -73,15 +75,11 @@
 						type="text"
 						id="option"
 						placeholder="Write your option here"
+						required
 					/>
-					<Button
-						class="rounded-full"
-						on:click={() => {
-							if (option) addOption(option);
-						}}>Add</Button
-					>
+					<Button class="rounded-full" type="submit">Add</Button>
 				</div>
-			</div>
+			</form>
 
 			<div class="p-4 rounded-lg">
 				<h3>Question: {question}</h3>
@@ -112,6 +110,12 @@
 			</div>
 
 			<Button disabled={requesting} type="submit" class="rounded-full">Submit</Button>
+
+			{#if form?.error}
+				<Alert color="red">
+					{form.error}
+				</Alert>
+			{/if}
 		</div>
 	</form>
 </Container>
