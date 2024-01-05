@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.postcss';
 
-	import { Navbar, NavBrand, NavHamburger, NavLi, NavUl } from 'flowbite-svelte';
+	import { Navbar, NavBrand, NavHamburger, NavLi, NavUl, DarkMode } from 'flowbite-svelte';
 	import { page } from '$app/stores';
 	import '$lib/web3/modal';
 </script>
@@ -12,16 +12,19 @@
 			<img src="/Logo.png" alt="Bittopia's logo" style="width: 220px" />
 		</NavBrand>
 		<div class="flex items-center">
+			<DarkMode size="sm" />
 			{#if $page.status !== 401}
 				<w3m-button size="sm" balance="hide" />
 			{/if}
 			<NavUl {hidden}>
 				{#if $page.data.user}
-					<NavLi href={`/profile/${$page.data.user.web3Address}`} style="font-size: 1rem;"
-						>Profile</NavLi
+					<NavLi
+						href={`/profile/${$page.data.user.web3Address}`}
+						style="font-size: 1rem;"
+						class="text-white dark:text-gray-400">Profile</NavLi
 					>
 				{/if}
-				<NavLi href="/" style="font-size: 1rem;">Home</NavLi>
+				<NavLi href="/" style="font-size: 1rem;" class="text-white dark:text-gray-400">Home</NavLi>
 				<!-- <NavLi href="/about">About</NavLi> -->
 			</NavUl>
 			<NavHamburger on:click={toggle} />
