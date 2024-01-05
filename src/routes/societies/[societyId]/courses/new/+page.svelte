@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import BackButton from '$lib/components/BackButton.svelte';
 

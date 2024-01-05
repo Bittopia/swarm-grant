@@ -8,14 +8,14 @@
 </script>
 
 <div>
-	<div id={triggeredBy} class="flex gap-2 mb-6 relative">
+	<div id={triggeredBy} class="text-slate-800 dark:text-white flex gap-2 mb-6 relative">
 		<Avatar size="xs" />
 		<span>{truncateWalletAddress(address)}</span>
 	</div>
 
 	<Popover
 		triggeredBy={`#${triggeredBy}`}
-		class="w-86 text-sm font-light text-gray-500 bg-white dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800"
+		class="w-86 text-sm font-light bg-white text-slate-800 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800"
 		style="z-index: 9999;"
 		placement="bottom-start"
 	>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Container from '$lib/components/Container/Container.svelte';
-	import { Button, Heading } from 'flowbite-svelte';
+	import { Heading, Button } from 'flowbite-svelte';
 	import { CirclePlusOutline } from 'flowbite-svelte-icons';
 	import SocietyBox from '$lib/components/SocietyBox/SocietyBox.svelte';
 	import { goto } from '$app/navigation';

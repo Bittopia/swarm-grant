@@ -63,7 +63,7 @@
 				<div class="w-full">
 					<section class="w-full p-8 rounded-xl" style="border: 1px solid #424148">
 						<div class="w-full flex items-center justify-between">
-							<h1 class="text-3xl font-bold">{module?.name}</h1>
+							<h1 class="text-slate-900 dark:text-white text-3xl font-bold">{module?.name}</h1>
 							{#if canAddQuestions}
 								<Button
 									as="a"
@@ -79,14 +79,14 @@
 								</Button>
 							{/if}
 						</div>
-						<p class="text-gray-500 mt-4 mb-8">{module?.description}</p>
+						<p class="text-slate-700 dark:text-gray-500 mt-4 mb-8">{module?.description}</p>
 
 						{#if module?.content}
-							<section class="flex flex-col items-center gap-4">
+							<section class="flex flex-col items-center gap-4 text-slate-700 dark:text-white">
 								<MarkdownContent content={snarkdown(module?.content)} />
 							</section>
 						{:else}
-							<p class="w-full text-gray-500">No content created yet.</p>
+							<p class="w-full text-slate-700 dark:text-gray-500">No content created yet.</p>
 						{/if}
 					</section>
 				</div>

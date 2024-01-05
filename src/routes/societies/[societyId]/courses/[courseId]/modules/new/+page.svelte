@@ -97,7 +97,7 @@
 					</div>
 				</form>
 			</section>
-			<section>
+			<section class="text-slate-700 dark:text-white">
 				<Heading tag="h2" class="mb-8">Preview</Heading>
 				{#if content}
 					<MarkdownContent content={snarkdown(content)} />

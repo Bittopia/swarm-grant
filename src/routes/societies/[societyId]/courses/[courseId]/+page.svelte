@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Container from '$lib/components/Container/Container.svelte';
-	import { Avatar, Button } from 'flowbite-svelte';
 	import { page } from '$app/stores';
+	import { Button } from 'flowbite-svelte';
 	import ProfilePopover from '$lib/components/ProfilePopover/ProfilePopover.svelte';
 	import BackButton from '$lib/components/BackButton.svelte';
 	import { CirclePlusOutline } from 'flowbite-svelte-icons';
@@ -25,12 +25,12 @@
 		<div class="w-full flex gap-8 mt-8">
 			<div class="w-1/3">
 				<section class="w-full p-8 rounded-xl" style="border: 1px solid #424148">
-					<h1 class="text-3xl font-bold">{course.name}</h1>
-					<p class="text-gray-500 mt-4">{course.description}</p>
-					<p class="mt-4">Start Date: {course.startDate}</p>
+					<h1 class="text-slate-950 dark:text-white text-3xl font-bold">{course.name}</h1>
+					<p class="text-slate-800 dark:text-gray-500 mt-4">{course.description}</p>
+					<p class="text-slate-800 dark:text-gray-500 mt-4">Start Date: {course.startDate}</p>
 
 					<div class="flex gap-4 mt-8">
-						<span>Educator: </span>
+						<span class="text-slate-800 dark:text-gray-500">Educator: </span>
 						<ProfilePopover
 							triggeredBy={`educator-${course.id}-${course.educator}`}
 							address={course.educator}
@@ -67,14 +67,18 @@
 									style="border: 1px solid #424148"
 								>
 									<div class="w-full p-4 rounded-lg">
-										<h3 class="text-xl font-bold">{course.modules[id].name}</h3>
-										<p class="text-gray-500 mt-4">{course.modules[id].description}</p>
+										<h3 class="text-slate-900 dark:text-white text-xl font-bold">
+											{course.modules[id].name}
+										</h3>
+										<p class="text-slate-700 dark:text-gray-500 mt-4">
+											{course.modules[id].description}
+										</p>
 									</div>
 								</a>
 							{/each}
 						</section>
 					{:else}
-						<p class="w-full text-gray-500">No modules created yet.</p>
+						<p class="w-full text-slate-700 dark:text-gray-500">No modules created yet.</p>
 					{/if}
 				</section>
 			</div>

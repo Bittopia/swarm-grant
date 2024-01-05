@@ -2,7 +2,7 @@
 	import type { PageData } from './$types.js';
 	import { enhance } from '$app/forms';
 
-	import { Avatar, Button, DropdownDivider, Textarea } from 'flowbite-svelte';
+	import { Avatar, Button, DropdownDivider, Heading, Label, Textarea } from 'flowbite-svelte';
 
 	import CopyToClipboard from '$lib/components/ProfilePopover/CopyToClipboard.svelte';
 	import MarkdownContent from '$lib/components/MarkdownContent/MarkdownContent.svelte';
@@ -25,10 +25,10 @@
 		<section style="flex-grow: 1;">
 			<div class="flex flex-col gap-4 p-4 rounded-xl w-full" style="border: 1px solid #424148">
 				<Avatar />
-				<div class="flex items-center gap-4">
+				<Label class="flex items-center gap-4">
 					{truncateWalletAddress(data.user?.web3Address)}
 					<CopyToClipboard text={data.user?.web3Address} />
-				</div>
+				</Label>
 
 				<div class="mt-4">
 					<ul
@@ -38,8 +38,10 @@
 					>
 						<li role="presentation" on:click={() => (selectedTab = 'about')}>
 							<span
-								class={`cursor-pointer hover:text-white pl-2 text-gray-400 ${
-									selectedTab === 'about' ? 'border-s-2 border-primary-500 text-white' : ''
+								class={`cursor-pointer hover:text-slate-900 pl-2 text-slate-700 dark:text-gray-400 ${
+									selectedTab === 'about'
+										? 'border-s-2 border-primary-500 text-slate-800 dark:ktext-white'
+										: ''
 								}`}>About</span
 							>
 						</li>
@@ -61,7 +63,7 @@
 			<div class="flex flex-col gap-4 p-4 rounded-xl w-full" style="border: 1px solid #424148">
 				<div>
 					<header class="flex items-center justify-between">
-						<h2 class="text-xl text-bold">Bio</h2>
+						<Heading level="2" class="text-xl">Bio</Heading>
 						{#if data.canEdit}
 							{#if editingBio}
 								<form
@@ -101,7 +103,7 @@
 								on:input={(e) => (bioContent = e.target.value)}
 							/>
 						{:else if data.user?.bio}
-							<section class="flex flex-col items-center gap-4">
+							<section class="flex flex-col items-center gap-4 text-slate-700 dark:text-white">
 								<MarkdownContent content={snarkdown(data.user?.bio)} />
 							</section>
 						{:else}

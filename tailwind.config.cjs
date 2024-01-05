@@ -7,7 +7,25 @@ const config = {
 	plugins: [
 		require('flowbite/plugin'),
 		require('@tailwindcss/typography'),
-		require('@tailwindcss/forms')
+		require('@tailwindcss/forms'),
+		function ({ addBase, theme }) {
+			function extractColorVars(colorObj, colorGroup = '') {
+				return Object.keys(colorObj).reduce((vars, colorKey) => {
+					const value = colorObj[colorKey];
+
+					const newVars =
+						typeof value === 'string'
+							? { [`--color${colorGroup}-${colorKey}`]: value }
+							: extractColorVars(value, `-${colorKey}`);
+
+					return { ...vars, ...newVars };
+				}, {});
+			}
+
+			addBase({
+				':root': extractColorVars(theme('colors'))
+			});
+		}
 	],
 
 	darkMode: 'class',
@@ -15,30 +33,17 @@ const config = {
 	theme: {
 		extend: {
 			colors: {
-				// flowbite-svelte
-				// primary: {
-				// 	50: '#FFF5F2',
-				// 	100: '#FFF1EE',
-				// 	200: '#FFE4DE',
-				// 	300: '#FFD5CC',
-				// 	400: '#FFBCAD',
-				// 	500: '#FE795D',
-				// 	600: '#EF562F',
-				// 	700: '#EB4F27',
-				// 	800: '#CC4522',
-				// 	900: '#A5371B'
-				// },
 				primary: {
-					50: '#e1faff',
-					100: '#cbf0ff',
-					200: '#9adeff',
-					300: '#64cbff',
-					400: '#3bbcfe',
-					500: '#50A1FF',
-					600: '#50A1FF',
-					700: '#0097e4',
-					800: '#0086cd',
-					900: '#0075b5'
+					50: 'var(--color-primary-50)',
+					100: 'var(--color-primary-100)',
+					200: 'var(--color-primary-200)',
+					300: 'var(--color-primary-300)',
+					400: 'var(--color-primary-400)',
+					500: 'var(--color-primary-500)',
+					600: 'var(--color-primary-600)',
+					700: 'var(--color-primary-700)',
+					800: 'var(--color-primary-800)',
+					900: 'var(--color-primary-900)'
 				},
 				gray: {
 					500: '#DCDFDE'

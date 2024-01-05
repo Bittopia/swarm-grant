@@ -2,10 +2,10 @@
 	import { enhance } from '$app/forms';
 	import Container from '$lib/components/Container/Container.svelte';
 	import { Alert, Button, Heading, Input, Label, Textarea } from 'flowbite-svelte';
+	import BackButton from '$lib/components/BackButton.svelte';
 	import { modal } from '$lib/web3/modal';
 
 	import { page } from '$app/stores';
-	import BackButton from '$lib/components/BackButton.svelte';
 
 	const user = $page.data.user;
 
@@ -27,7 +27,6 @@
 	</div>
 	<section id="society-new">
 		<Heading level="2" class="mb-4">New Society</Heading>
-		<!-- Define list of societies -->
 		<section class="mt-10">
 			<form
 				method="post"

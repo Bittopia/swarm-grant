@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Container from '$lib/components/Container/Container.svelte';
-	import { Button, Spinner } from 'flowbite-svelte';
+	import { Spinner } from 'flowbite-svelte';
+	import Button from '$lib/components/Button.svelte';
 	import { page } from '$app/stores';
 	import type { SocietyType } from '$lib/types/society';
 	import ProfilePopover from '$lib/components/ProfilePopover/ProfilePopover.svelte';
@@ -31,9 +32,9 @@
 		<div class="w-full flex gap-8 mt-8">
 			<div class="w-1/3">
 				<section class="w-full p-8 rounded-xl" style="border: 1px solid #424148">
-					<h1 class="text-3xl font-bold">{data.name}</h1>
-					<p class="text-gray-500 mt-4">{data.description}</p>
-					<p class="text-gray-500 mt-4">{data.members?.length ?? 0} members</p>
+					<h1 class="text-slate-950 dark:text-white text-3xl font-bold">{data.name}</h1>
+					<p class="text-slate-800 dark:text-gray-500 mt-4">{data.description}</p>
+					<p class="text-slate-800 dark:text-gray-500 mt-4">{data.members?.length ?? 0} members</p>
 					<div class="flex justify-center">
 						<Button
 							class="mt-8 max-w-full px-10 text-md rounded-full"
@@ -70,13 +71,7 @@
 					<div class="w-full flex items-center justify-between mb-8">
 						<h2 class="text-3xl font-bold">Courses</h2>
 						{#if data?.isMember}
-							<Button
-								as="a"
-								href={`/societies/${societyId}/courses/new`}
-								color="primary"
-								size="sm"
-								class="rounded-full px-4"
-							>
+							<Button as="a" href={`/societies/${societyId}/courses/new`} class="rounded-full px-4">
 								<div class="flex gap-2 items-center">
 									<CirclePlusOutline />
 									<span>Add new course</span>
@@ -97,8 +92,12 @@
 													address={data.courses[id].educator}
 												/>
 											{/if}
-											<h3 class="text-xl font-bold">{data.courses[id].name}</h3>
-											<p class="text-gray-500 mt-4">{data.courses[id].description}</p>
+											<h3 class="text-slate-900 dark:text-white text-xl font-bold">
+												{data.courses[id].name}
+											</h3>
+											<p class="text-slate-700 dark:text-gray-500 mt-4">
+												{data.courses[id].description}
+											</p>
 										</div>
 									</a>
 								{/if}

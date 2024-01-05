@@ -6,8 +6,8 @@
 	import '$lib/web3/modal';
 </script>
 
-<main class="w-full h-full overflow-hidden" style="background-color: #191820;">
-	<Navbar let:hidden let:toggle style="background-color: #181624;">
+<main class="w-full h-full overflow-hidden bg-white dark:bg-[#191820]">
+	<Navbar let:hidden let:toggle class="bg-[#181624]">
 		<NavBrand href="/">
 			<img src="/Logo.png" alt="Bittopia's logo" style="width: 220px" />
 		</NavBrand>
