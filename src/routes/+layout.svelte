@@ -12,7 +12,9 @@
 			<img src="/Logo.png" alt="Bittopia's logo" style="width: 220px" />
 		</NavBrand>
 		<div class="flex items-center">
-			<DarkMode size="sm" />
+			<div class="me-2">
+				<DarkMode size="sm" />
+			</div>
 			{#if $page.status !== 401}
 				<w3m-button size="sm" balance="hide" />
 			{/if}
