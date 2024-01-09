@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Container from '$lib/components/Container/Container.svelte';
-	import { Spinner } from 'flowbite-svelte';
-	import Button from '$lib/components/Button.svelte';
+	import { Spinner, Button } from 'flowbite-svelte';
 	import { page } from '$app/stores';
 	import type { SocietyType } from '$lib/types/society';
 	import ProfilePopover from '$lib/components/ProfilePopover/ProfilePopover.svelte';
@@ -69,7 +68,7 @@
 			<div class="w-2/3">
 				<section class="w-full p-8 rounded-xl">
 					<div class="w-full flex items-center justify-between mb-8">
-						<h2 class="text-3xl font-bold">Courses</h2>
+						<h2 class="text-slate-900 dark:text-white text-3xl font-bold">Courses</h2>
 						{#if data?.isMember}
 							<Button as="a" href={`/societies/${societyId}/courses/new`} class="rounded-full px-4">
 								<div class="flex gap-2 items-center">
@@ -104,7 +103,7 @@
 							{/each}
 						</section>
 					{:else}
-						<p class="w-full text-gray-500">No courses created yet.</p>
+						<p class="w-full text-slate-500 dark:text-gray-500">No courses created yet.</p>
 					{/if}
 				</section>
 			</div>
