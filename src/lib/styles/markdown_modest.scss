@@ -200,6 +200,9 @@
 	li {
     		list-style-type: disc;
 	}
+	li+li {
+    		padding-top: 0.65em;
+	}
 
 	h1,
 	h2,
