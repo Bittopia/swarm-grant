@@ -46,7 +46,7 @@
 			class="mt-8 p-4 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
 			style="border: 1px solid #424148"
 		>
-			<Heading tag="h2">Adding a question for Swarm module</Heading>
+			<Heading tag="h2">Adding a question to your module</Heading>
 			<div>
 				<Label for="question" class="mb-2">What's the question?</Label>
 				<Input
