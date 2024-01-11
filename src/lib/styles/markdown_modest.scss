@@ -229,5 +229,12 @@
 	pre,
 	code {
 		background-color: #fafafa;
+		position: relative;
+    		background: rgb(36, 35, 46);
+    		border-radius: 5px;
+    		padding: 0.1rem 0.3rem;
+    		display: inline-block;
+    		font-size: 0.9em;
+    		color: #fff;
 	}
 }
