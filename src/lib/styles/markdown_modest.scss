@@ -247,4 +247,12 @@
 	     	font-size: 0.9em;
 		color: #fff;
 	}
+	@media (min-width: 1536px) {
+    		.container {
+        	max-width: 900px;
+    		}
+    		nav .container {
+    		max-width: 1536px!important;
+		}
+	}
 }
