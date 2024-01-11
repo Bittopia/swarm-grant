@@ -200,7 +200,7 @@
 	li {
     		list-style-type: disc;
 	}
-	li+li {
+	li+li, ul+ul {
     		padding-top: 0.65em;
 	}
 
