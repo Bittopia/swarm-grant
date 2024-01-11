@@ -22,7 +22,7 @@
 		</div>
 	</div>
 	<section id="society-new">
-		<Heading level="2" class="mb-4">New module for course XYZ</Heading>
+		<Heading level="2" class="mb-4">Adding a new module</Heading>
 		<!-- Define list of societies -->
 		<section class="mt-10 grid gap-8 grid-cols-2">
 			<section id="module-form">
