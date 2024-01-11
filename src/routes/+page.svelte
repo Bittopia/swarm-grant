@@ -16,7 +16,7 @@
 <Container>
 	<section id="society-list">
 		<div class="w-full flex items-center justify-between">
-			<Heading level="2" class="mb-4 fw-400">Decentralized Autonomous Societies</Heading>
+			<Heading level="2" class="mb-4 mt-5">Decentralized Autonomous Societies</Heading>
 			<Button class="w-[200px] rounded-full px-0" on:click={newSociety}>
 				<div class="flex gap-2 items-center">
 					<CirclePlusOutline />
