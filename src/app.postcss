@@ -31,3 +31,52 @@
         --color-primary-900: #0075b5;
     }
 }
+/* DAS Description Color */
+	.das-des, p, li {
+		color: #87868c!important;
+		}
+
+/* Reduce the width on large screens */
+
+	@media (min-width: 1536px) {
+    		.container {
+        	max-width: 1100px!important;
+    		}
+    		nav .container {
+    		max-width: 1536px!important;
+		}
+	}
+
+
+/* Load bittopia custom fonts */
+
+	@font-face {
+		font-family: Trenda;
+		src: url(/fonts/trenda-reg.woff);
+		font-weight: 400;
+	    font-display: swap;
+	}
+	@font-face {
+		font-family: Trenda;
+		src: url(/fonts/trenda-light.woff);
+		font-weight: 100;
+	    font-display: swap;
+	}
+	@font-face {
+		font-family: Trenda;
+		src: url(/fonts/trenda-bold.woff);
+		font-weight: 700;
+	    font-display: swap;
+	}
+	@font-face {
+		font-family: Trenda;
+		src: url(/fonts/trenda-black.woff);
+		font-weight: 900;
+	    font-display: swap;
+	}
+	h1, h2, h3, h4, h5 {
+	font-family: 'Trenda';
+	}
+	h1 {
+	font-weight: 400!important;
+	}

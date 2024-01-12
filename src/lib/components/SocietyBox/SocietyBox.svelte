@@ -11,6 +11,6 @@
 		style="border: 1px solid #424148"
 	>
 		<Heading tag="h4">{society.name}</Heading>
-		<p class="mt-4 line-clamp-3 text-gray-800 dark:text-white">{society.description}</p>
+		<p class="mt-4 line-clamp-3 text-gray-800 dark:text-white das-des">{society.description}</p>
 	</div>
 </a>

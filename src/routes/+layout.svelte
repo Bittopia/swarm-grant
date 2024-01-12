@@ -6,10 +6,10 @@
 	import '$lib/web3/modal';
 </script>
 
-<main class="w-full h-full overflow-hidden bg-white dark:bg-[#191820]">
-	<Navbar let:hidden let:toggle class="bg-[#181624]">
+<main class="w-full h-full overflow-hidden bg-white dark:bg-[#0A090D]">
+	<Navbar let:hidden let:toggle class="bg-[#000111]">
 		<NavBrand href="/">
-			<img src="/Logo.png" alt="Bittopia's logo" style="width: 220px" />
+			<img src="/Logo.png" alt="Bittopia's logo" style="width: 300px" />
 		</NavBrand>
 		<div class="flex items-center">
 			<div class="me-2">

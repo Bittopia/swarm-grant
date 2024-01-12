@@ -66,7 +66,7 @@
 									href={`/societies/${societyId}/courses/${courseId}/modules/${id}`}
 									style="border: 1px solid #424148"
 								>
-									<div class="w-full p-4 rounded-lg">
+									<div class="w-full p-8 rounded-lg">
 										<h3 class="text-slate-900 dark:text-white text-xl font-bold">
 											{course.modules[id].name}
 										</h3>
