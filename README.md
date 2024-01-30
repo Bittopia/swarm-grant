@@ -1,4 +1,13 @@
-# create-svelte
+# Bittopia University: Swarm Grant
+This app was built using the Swarm protocol. We would like to thank the Swarm team and community for supporting us in creating a decentralized autonomous university where knowledge is protected and preserved using P2P and decentralized networks.
+
+## DAC
+Imagine if every field of knowledge was able to form its own economy and society, standing on the shoulders of passionate individuals that have contributed to its growth. That is how we have designed the courses at Bittopia University. Each course is decentralized with its own governance and financial system.
+
+## DAS
+We have considered the importance of clubs and societies and their role in bringing people together. With the help of decentralized technologies, we can introduce a private and secure space for people to collaborate and share ideas.
+
+## create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
