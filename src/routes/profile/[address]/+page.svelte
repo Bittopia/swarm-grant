@@ -222,6 +222,7 @@
 						{/if}
 					{/if}
 				</header>
+				<DropdownDivider class="my-4" />
 				<body>
 					{#if editingInterests}
 						<Textarea
@@ -272,6 +273,7 @@
 						{/if}
 					{/if}
 				</header>
+				<DropdownDivider class="my-4" />
 				<body>
 					{#if editingLocation}
 						<Textarea
