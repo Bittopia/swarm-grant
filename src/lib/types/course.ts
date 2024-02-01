@@ -8,7 +8,8 @@ export const CourseSchema = z.object({
 	startDate: z.string(),
 	societyId: z.string(),
 	modules: z.record(z.string(), ModuleSchema).optional(),
-	educator: z.string()
+	educator: z.string(),
+	members: z.array(z.string()).optional()
 });
 
 export type CourseType = z.infer<typeof CourseSchema>;

@@ -5,12 +5,16 @@
 
 	export let address: string;
 	export let triggeredBy: string;
+	export let showWalletAddress: boolean = true;
+	export let size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' = 'xs';
 </script>
 
 <div>
-	<div id={triggeredBy} class="text-slate-800 dark:text-white flex gap-2 mb-6 relative">
-		<Avatar size="xs" />
-		<span>{truncateWalletAddress(address)}</span>
+	<div id={triggeredBy} class="text-slate-800 dark:text-white flex gap-2 relative">
+		<Avatar {size} />
+		{#if showWalletAddress}
+			{truncateWalletAddress(address)}
+		{/if}
 	</div>
 
 	<Popover

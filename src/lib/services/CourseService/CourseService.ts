@@ -19,4 +19,20 @@ export class CourseService {
 	async get(soceityId: string, courseId: string) {
 		return this.courseRepo.get(soceityId, courseId);
 	}
+
+	async join(societyId: string, courseId: string, web3Address: string) {
+		return await this.courseRepo.join(societyId, courseId, web3Address);
+	}
+
+	async leave(societyId: string, courseId: string, web3Address: string) {
+		const response = await this.courseRepo.leave(societyId, courseId, web3Address);
+		console.log('leave response', response);
+		return response;
+	}
+
+	async isMember(societyId: string, courseId: string, web3Address: string) {
+		const course = await this.get(societyId, courseId);
+
+		return course?.members?.includes(web3Address);
+	}
 }
