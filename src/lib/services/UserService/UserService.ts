@@ -14,4 +14,16 @@ export class UserService {
 	async updateBio(address: string, bio: string) {
 		return this.userRepo.updateBio(address, bio);
 	}
+
+	async updateInterests(address: string, interests: string) {
+		return this.userRepo.updateInterests(address, interests);
+	}
+
+	async updateName(address: string, name: string) {
+		return this.userRepo.updateName(address, name);
+	}
+
+	async updateLocation(address: string, location: string) {
+		return this.userRepo.updateLocation(address, location);
+	}
 }
