@@ -88,11 +88,11 @@
 					{:else}
 						<div class="max-w-[10rem] truncate">
 							{#if nameContent && nameContent.length > 0}
-								<span class="text-slate-900 dark:text-white">
+								<span class="text-slate-900 dark:text-white profile-heading">
 									{nameContent}
 								</span>
 							{:else}
-								<span class="text-slate-600 dark:text-gray-400">No name yet</span>
+								<span class="text-slate-600 dark:text-gray-400 profile-heading">No name yet</span>
 							{/if}
 						</div>
 						{#if data.canEdit}
@@ -140,7 +140,7 @@
 			<div class="flex flex-col gap-4 p-4 rounded-xl w-full" style="border: 1px solid #424148">
 				<div>
 					<header class="flex items-center justify-between">
-						<Heading level="2" class="text-xl">Bio</Heading>
+						<Heading level="2" class="text-xl profile-heading">Bio</Heading>
 						{#if data.canEdit}
 							{#if editingBio}
 								<form
@@ -192,7 +192,7 @@
 			</div>
 			<div class="flex flex-col gap-4 p-4 rounded-xl w-full" style="border: 1px solid #424148">
 				<header class="flex items-center justify-between">
-					<Heading level="2" class="text-xl">Interests</Heading>
+					<Heading level="2" class="text-xl profile-heading">Interests</Heading>
 					{#if data.canEdit}
 						{#if editingInterests}
 							<form
@@ -243,7 +243,7 @@
 			</div>
 			<div class="flex flex-col gap-4 p-4 rounded-xl w-full" style="border: 1px solid #424148">
 				<header class="flex items-center justify-between">
-					<Heading level="2" class="text-xl">Location</Heading>
+					<Heading level="2" class="text-xl profile-heading">Location</Heading>
 					{#if data.canEdit}
 						{#if editingLocation}
 							<form
