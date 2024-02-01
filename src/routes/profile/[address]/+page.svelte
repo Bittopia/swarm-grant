@@ -181,7 +181,7 @@
 								autoFocus
 							/>
 						{:else if data.user?.bio}
-							<section class="flex flex-col gap-4 text-slate-700 dark:text-white">
+							<section class="flex flex-col gap-4 text-slate-700 dark:text-gray-400">
 								<MarkdownContent content={snarkdown(data.user?.bio)} />
 							</section>
 						{:else}
@@ -222,7 +222,7 @@
 						{/if}
 					{/if}
 				</header>
-				<DropdownDivider class="my-4" />
+				<DropdownDivider class="my-3" />
 				<body>
 					{#if editingInterests}
 						<Textarea
@@ -233,7 +233,7 @@
 							autoFocus
 						/>
 					{:else if data.user?.interests}
-						<section class="flex flex-col gap-4 text-slate-700 dark:text-white">
+						<section class="flex flex-col gap-4 text-slate-700 dark:text-gray-400">
 							<MarkdownContent content={snarkdown(data.user?.interests)} />
 						</section>
 					{:else}
@@ -273,7 +273,7 @@
 						{/if}
 					{/if}
 				</header>
-				<DropdownDivider class="my-4" />
+				<DropdownDivider class="my-3" />
 				<body>
 					{#if editingLocation}
 						<Textarea
@@ -284,7 +284,7 @@
 							autoFocus
 						/>
 					{:else if data.user?.location}
-						<section class="flex flex-col gap-4 text-slate-700 dark:text-white">
+						<section class="flex flex-col gap-4 text-slate-700 dark:text-gray-400">
 							<MarkdownContent content={snarkdown(data.user?.location)} />
 						</section>
 					{:else}
