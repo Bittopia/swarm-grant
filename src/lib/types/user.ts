@@ -6,7 +6,10 @@ export const UserSchema = z.object({
 	nonce: z.string(),
 	chainId: z.number(),
 	societies: z.record(z.string(), SocietySchema).optional(),
-	bio: z.string().optional()
+	bio: z.string().optional(),
+	name: z.string().optional(),
+	interests: z.string().optional(),
+	location: z.string().optional()
 });
 
 export const AuthUserSchema = UserSchema.omit({ societies: true });

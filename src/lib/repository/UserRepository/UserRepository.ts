@@ -73,4 +73,40 @@ export class UserRepository {
 		await this.redisService.setData('reference', reference);
 		return users[address];
 	}
+
+	async updateInterests(address: string, interests: string) {
+		const data = await this.all();
+		const users = data.users;
+
+		users[address].interests = interests;
+
+		const { reference } = await this.beeService.mutate({ data: { ...data, users } });
+
+		await this.redisService.setData('reference', reference);
+		return users[address];
+	}
+
+	async updateName(address: string, name: string) {
+		const data = await this.all();
+		const users = data.users;
+
+		users[address].name = name;
+
+		const { reference } = await this.beeService.mutate({ data: { ...data, users } });
+
+		await this.redisService.setData('reference', reference);
+		return users[address];
+	}
+
+	async updateLocation(address: string, location: string) {
+		const data = await this.all();
+		const users = data.users;
+
+		users[address].location = location;
+
+		const { reference } = await this.beeService.mutate({ data: { ...data, users } });
+
+		await this.redisService.setData('reference', reference);
+		return users[address];
+	}
 }
