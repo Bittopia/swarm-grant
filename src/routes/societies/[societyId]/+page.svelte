@@ -91,7 +91,7 @@
 													address={data.courses[id].educator}
 												/>
 											{/if}
-											<h3 class="text-slate-900 dark:text-white text-xl font-bold">
+											<h3 class="text-slate-900 dark:text-white text-xl font-bold mt-6">
 												{data.courses[id].name}
 											</h3>
 											<p class="text-slate-700 dark:text-gray-500 mt-4">

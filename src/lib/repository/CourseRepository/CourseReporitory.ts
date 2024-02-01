@@ -43,6 +43,11 @@ export class CourseRepository {
 
 		const { reference } = await this.beeService.mutate({ data: { ...data, societies } });
 
+		console.log(
+			'LS -> src/lib/repository/CourseRepository/CourseReporitory.ts:44 -> reference: ',
+			reference
+		);
+
 		await this.redisService.setData('reference', reference);
 		return societies[course.societyId].courses?.[course.id as string];
 	}
@@ -77,6 +82,49 @@ export class CourseRepository {
 			return true;
 		} catch (e) {
 			return false;
+		}
+	}
+
+	async join(societyId: string, courseId: string, web3Address: string) {
+		try {
+			const course = await this.get(societyId, courseId);
+
+			if (!course) {
+				return { success: false };
+			}
+
+			if (!course.members) {
+				course.members = [];
+			}
+
+			await this.update({ ...course, members: [...course.members, web3Address] });
+
+			return { success: true };
+		} catch (e) {
+			return { success: false };
+		}
+	}
+
+	async leave(societyId: string, courseId: string, web3Address: string) {
+		try {
+			const course = await this.get(societyId, courseId);
+
+			if (!course) {
+				return { success: false };
+			}
+
+			if (!course.members) {
+				course.members = [];
+			}
+
+			await this.update({
+				...course,
+				members: course.members.filter((member) => member !== web3Address)
+			});
+
+			return { success: true };
+		} catch (e) {
+			return { success: false };
 		}
 	}
 }

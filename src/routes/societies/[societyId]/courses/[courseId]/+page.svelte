@@ -1,16 +1,22 @@
 <script lang="ts">
 	import Container from '$lib/components/Container/Container.svelte';
 	import { page } from '$app/stores';
-	import { Button } from 'flowbite-svelte';
+	import { Button, Spinner } from 'flowbite-svelte';
 	import ProfilePopover from '$lib/components/ProfilePopover/ProfilePopover.svelte';
 	import BackButton from '$lib/components/BackButton.svelte';
 	import { CirclePlusOutline } from 'flowbite-svelte-icons';
+	import { Badge } from 'flowbite-svelte';
+	import { toggleCourseEnroll } from '$lib/utils/course.js';
 
 	export let data;
 	export let { societyId, courseId } = $page.params;
 
-	const course = data.course;
-	const canCreateModules = data.canCreateModules;
+	let joinLoading = false;
+
+	$: course = data.course;
+	$: canCreateModules = data.canCreateModules;
+	$: members = course?.members ?? [];
+	$: isMemberOfSociety = data.isMemberOfSociety;
 </script>
 
 <Container>
@@ -29,12 +35,70 @@
 					<p class="text-slate-800 dark:text-gray-500 mt-4">{course.description}</p>
 					<p class="text-slate-800 dark:text-gray-500 mt-4">Start Date: {course.startDate}</p>
 
-					<div class="flex gap-4 mt-8">
+					<div class="flex gap-4 mt-8 mb-6">
 						<span class="text-slate-800 dark:text-gray-500">Educator: </span>
 						<ProfilePopover
 							triggeredBy={`educator-${course.id}-${course.educator}`}
 							address={course.educator}
 						/>
+					</div>
+					<div class="flex flex-col gap-4 mt-2">
+						<span class="text-slate-800 dark:text-gray-500"
+							>Members <Badge color="dark">{members?.length ?? 0}</Badge></span
+						>
+						<div
+							class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-2 w-max"
+						>
+							{#each members.slice(0, 9) as member}
+								<ProfilePopover
+									triggeredBy={`member-${course.id}-${member}`}
+									address={member}
+									showWalletAddress={false}
+									size="sm"
+								/>
+							{/each}
+
+							{#if members?.length >= 9}
+								<span class="mt-auto underline text-primary-500 cursor-pointer">
+									{members.length - 9} more
+								</span>
+							{/if}
+						</div>
+
+						{#if isMemberOfSociety}
+							<div class="flex justify-center">
+								<Button
+									class="mt-8 max-w-full px-10 text-md rounded-full"
+									disabled={joinLoading}
+									on:click={async () => {
+										try {
+											joinLoading = true;
+											if (course != null) {
+												await toggleCourseEnroll({
+													user: data?.user,
+													societyId,
+													courseId: course.id,
+													alreadyMember: data?.isMember ?? false
+												});
+											}
+										} catch (error) {
+											//TODO: Handle error
+											console.log({ error });
+										} finally {
+											joinLoading = false;
+										}
+									}}
+								>
+									{#if joinLoading}
+										<Spinner />
+									{:else if data.isMember}
+										Leave
+									{:else}
+										Enroll
+									{/if}
+								</Button>
+							</div>
+						{/if}
 					</div>
 				</section>
 			</div>
