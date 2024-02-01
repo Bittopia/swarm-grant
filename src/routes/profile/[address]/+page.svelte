@@ -92,7 +92,7 @@
 									{nameContent}
 								</span>
 							{:else}
-								<span class="text-gray-400">No name yet</span>
+								<span class="text-slate-600 dark:text-gray-400">No name yet</span>
 							{/if}
 						</div>
 						{#if data.canEdit}
