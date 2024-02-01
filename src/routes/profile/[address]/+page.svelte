@@ -181,7 +181,7 @@
 								autoFocus
 							/>
 						{:else if data.user?.bio}
-							<section class="flex flex-col items-center gap-4 text-slate-700 dark:text-white">
+							<section class="flex flex-col gap-4 text-slate-700 dark:text-white">
 								<MarkdownContent content={snarkdown(data.user?.bio)} />
 							</section>
 						{:else}
@@ -232,7 +232,7 @@
 							autoFocus
 						/>
 					{:else if data.user?.interests}
-						<section class="flex flex-col items-center gap-4 text-slate-700 dark:text-white">
+						<section class="flex flex-col gap-4 text-slate-700 dark:text-white">
 							<MarkdownContent content={snarkdown(data.user?.interests)} />
 						</section>
 					{:else}
@@ -282,7 +282,7 @@
 							autoFocus
 						/>
 					{:else if data.user?.location}
-						<section class="flex flex-col items-center gap-4 text-slate-700 dark:text-white">
+						<section class="flex flex-col gap-4 text-slate-700 dark:text-white">
 							<MarkdownContent content={snarkdown(data.user?.location)} />
 						</section>
 					{:else}
