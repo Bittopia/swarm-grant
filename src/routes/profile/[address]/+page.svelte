@@ -139,7 +139,7 @@
 		<section class="flex flex-col gap-4 w-full md:w-[70%] md:max-w-[70%]">
 			<div class="flex flex-col gap-4 p-8 rounded-xl w-full" style="border: 1px solid #424148">
 				<div>
-					<header class="flex items-center justify-between">
+					<header class="flex items-center justify-between py-4">
 						<Heading level="2" class="text-xl profile-heading">Bio</Heading>
 						{#if data.canEdit}
 							{#if editingBio}
@@ -170,7 +170,6 @@
 							{/if}
 						{/if}
 					</header>
-					<DropdownDivider class="my-4" />
 					<body>
 						{#if editingBio}
 							<Textarea
@@ -181,7 +180,7 @@
 								autoFocus
 							/>
 						{:else if data.user?.bio}
-							<section class="flex flex-col gap-4 text-slate-700 dark:text-gray-400">
+							<section class="flex flex-col gap-4 text-slate-700 dark:text-gray-400 py-2">
 								<MarkdownContent content={snarkdown(data.user?.bio)} />
 							</section>
 						{:else}
@@ -191,7 +190,7 @@
 				</div>
 			</div>
 			<div class="flex flex-col gap-4 p-8 rounded-xl w-full" style="border: 1px solid #424148">
-				<header class="flex items-center justify-between">
+				<header class="flex items-center justify-between py-4">
 					<Heading level="2" class="text-xl profile-heading">Interests</Heading>
 					{#if data.canEdit}
 						{#if editingInterests}
@@ -233,7 +232,7 @@
 							autoFocus
 						/>
 					{:else if data.user?.interests}
-						<section class="flex flex-col gap-4 text-slate-700 dark:text-gray-400">
+						<section class="flex flex-col gap-4 text-slate-700 dark:text-gray-400 py-2">
 							<MarkdownContent content={snarkdown(data.user?.interests)} />
 						</section>
 					{:else}
@@ -242,7 +241,7 @@
 				</body>
 			</div>
 			<div class="flex flex-col gap-4 p-8 rounded-xl w-full" style="border: 1px solid #424148">
-				<header class="flex items-center justify-between">
+				<header class="flex items-center justify-between py-4">
 					<Heading level="2" class="text-xl profile-heading">Location</Heading>
 					{#if data.canEdit}
 						{#if editingLocation}
@@ -284,7 +283,7 @@
 							autoFocus
 						/>
 					{:else if data.user?.location}
-						<section class="flex flex-col gap-4 text-slate-700 dark:text-gray-400">
+						<section class="flex flex-col gap-4 text-slate-700 dark:text-gray-400 py-2">
 							<MarkdownContent content={snarkdown(data.user?.location)} />
 						</section>
 					{:else}
