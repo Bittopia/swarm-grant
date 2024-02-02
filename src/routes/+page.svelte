@@ -12,7 +12,9 @@
 		goto('/societies/new');
 	}
 </script>
-
+<svelte:head>
+    <title>Bittopia | Swarm Grant</title>
+</svelte:head>
 <Container>
 	<section id="society-list">
 		<div class="w-full flex items-center justify-between">
