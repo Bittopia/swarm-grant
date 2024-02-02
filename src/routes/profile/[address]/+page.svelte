@@ -45,7 +45,7 @@
 <div class="w-full flex flex-col justify-center items-center">
 	<div class="flex flex-col md:flex-row gap-8 w-8/12 h-full py-4">
 		<section class="w-full max-w-full md:w-[30%] md:max-w-[30%]">
-			<div class="flex flex-col gap-4 p-4 rounded-xl w-full" style="border: 1px solid #424148">
+			<div class="flex flex-col gap-4 p-8 rounded-xl w-full" style="border: 1px solid #424148">
 				<Avatar />
 				<div class="flex gap-2 items-center">
 					{#if editingName}
@@ -137,7 +137,7 @@
 			</div>
 		</section>
 		<section class="flex flex-col gap-4 w-full md:w-[70%] md:max-w-[70%]">
-			<div class="flex flex-col gap-4 p-4 rounded-xl w-full" style="border: 1px solid #424148">
+			<div class="flex flex-col gap-4 p-8 rounded-xl w-full" style="border: 1px solid #424148">
 				<div>
 					<header class="flex items-center justify-between">
 						<Heading level="2" class="text-xl profile-heading">Bio</Heading>
@@ -190,7 +190,7 @@
 					</body>
 				</div>
 			</div>
-			<div class="flex flex-col gap-4 p-4 rounded-xl w-full" style="border: 1px solid #424148">
+			<div class="flex flex-col gap-4 p-8 rounded-xl w-full" style="border: 1px solid #424148">
 				<header class="flex items-center justify-between">
 					<Heading level="2" class="text-xl profile-heading">Interests</Heading>
 					{#if data.canEdit}
@@ -241,7 +241,7 @@
 					{/if}
 				</body>
 			</div>
-			<div class="flex flex-col gap-4 p-4 rounded-xl w-full" style="border: 1px solid #424148">
+			<div class="flex flex-col gap-4 p-8 rounded-xl w-full" style="border: 1px solid #424148">
 				<header class="flex items-center justify-between">
 					<Heading level="2" class="text-xl profile-heading">Location</Heading>
 					{#if data.canEdit}
