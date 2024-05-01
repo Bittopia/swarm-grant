@@ -7,12 +7,12 @@ import { mainnet, arbitrum } from 'viem/chains';
 import { PUBLIC_WALLET_CONNECT_PROJECT_ID } from '$env/static/public';
 import { invalidateAll } from '$app/navigation';
 
-const projectId = PUBLIC_WALLET_CONNECT_PROJECT_ID;
+const projectId = '50cc71af34fb387c1661c4a396abc9f2';
 
 const metadata = {
 	name: 'Web3Modal',
-	description: 'Web3Modal Example',
-	url: 'https://web3modal.com',
+	description: 'Bittopia University',
+	url: 'https://swarm.bittopia.app',
 	icons: ['https://avatars.githubusercontent.com/u/37784886']
 };
 
