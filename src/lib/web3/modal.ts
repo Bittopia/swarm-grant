@@ -3,11 +3,9 @@ import { createSIWEConfig } from '@web3modal/siwe';
 import type { SIWECreateMessageArgs, SIWEVerifyMessageArgs } from '@web3modal/core';
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react';
 import { mainnet, arbitrum } from 'viem/chains';
-
-import { PUBLIC_WALLET_CONNECT_PROJECT_ID } from '$env/static/public';
 import { invalidateAll } from '$app/navigation';
 
-const projectId = '50cc71af34fb387c1661c4a396abc9f2';
+const projectId = '9d77cf62e90d47e5cd3ec13af82fff1c';
 
 const metadata = {
 	name: 'Web3Modal',
