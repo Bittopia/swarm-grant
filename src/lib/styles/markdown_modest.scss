@@ -206,7 +206,7 @@
     		padding-top: 0.65em;
 	}
 	ul {
-    		margin-bottom: 15px;
+    		margin: 15px 0px 15px 0px;
 	}
 	h1,
 	h2,
@@ -215,6 +215,7 @@
 	h5,
 	h6 {
 		font-family: Arimo, Helvetica, sans-serif;
+		margin: 1.414rem 0 .5rem;
 	}
 
 	h1,
@@ -232,13 +233,15 @@
 
 	pre,
 	code {
-		position: relative;
-    		background: rgb(36, 35, 46);
-    		border-radius: 5px;
-    		padding: 0.1rem 0.3rem;
-    		display: inline-block;
-    		font-size: 0.9em;
-    		color: #fff;
+	    	position: relative;
+	    	background-color: rgba(13,13,13,var(--tw-bg-opacity));
+	    	border-radius: 5px;
+	    	padding: 0.5rem 0.3rem;
+	    	display: block; /* Each <code> will start on a new line */
+	    	font-size: 0.9em;
+	    	color: #1c64f2; /* White text for contrast */
+	    	white-space: pre-wrap; /* Preserves formatting and wraps text */
+		margin: 0.3rem 0.1rem;
 	}
 	codeline {
 		display: block;
