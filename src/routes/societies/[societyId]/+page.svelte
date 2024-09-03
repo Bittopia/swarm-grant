@@ -8,6 +8,7 @@
 	import { toggleSociety } from '$lib/utils/society';
 	import BackButton from '$lib/components/BackButton.svelte';
 	import { CirclePlusOutline } from 'flowbite-svelte-icons';
+	import DotsMenu from '$lib/components/DotsMenu.svelte';
 
 	interface Data extends SocietyType {
 		isMember: boolean;
@@ -30,7 +31,11 @@
 		</div>
 		<div class="w-full flex gap-8 mt-8">
 			<div class="w-1/3">
-				<section class="w-full p-8 rounded-xl" style="border: 1px solid #424148">
+				<section class="w-full p-8 rounded-xl relative" style="border: 1px solid #424148">
+					<DotsMenu
+						editHref={$page.url.pathname + '/edit'}
+						onDelete={() => console.log('delete')}
+					/>
 					<h1 class="text-slate-950 dark:text-white text-3xl font-bold">{data.name}</h1>
 					<p class="text-slate-800 dark:text-gray-500 mt-4">{data.description}</p>
 					<p class="text-slate-800 dark:text-gray-500 mt-4">{data.members?.length ?? 0} members</p>

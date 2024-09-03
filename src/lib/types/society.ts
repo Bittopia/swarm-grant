@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { CourseSchema } from '$lib/types/course';
+import { z } from "zod";
+import { CourseSchema } from "$lib/types/course";
 
 export const SocietySchema = z.object({
 	id: z.string(),
@@ -7,8 +7,9 @@ export const SocietySchema = z.object({
 	description: z.string(),
 	courses: z.record(z.string(), CourseSchema).optional(),
 	creator: z.string(),
-	members: z.array(z.string()).optional()
+	members: z.array(z.string()).optional(),
 });
 
 export type SocietyType = z.infer<typeof SocietySchema>;
-export type NewSocietyType = Omit<SocietyType, 'id' | 'courses' | 'members'>;
+export type NewSocietyType = Omit<SocietyType, "id" | "courses" | "members">;
+export type UpdateSocietyType = Partial<NewSocietyType>;
