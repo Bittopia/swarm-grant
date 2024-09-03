@@ -1,17 +1,9 @@
 <script lang="ts">
 	import type { PageData } from './$types.js';
 	import { enhance } from '$app/forms';
+	import { env } from '$env/dynamic/public';
 
-	import {
-		Avatar,
-		Button,
-		DropdownDivider,
-		Heading,
-		Input,
-		Label,
-		Textarea,
-		Spinner
-	} from 'flowbite-svelte';
+	import { Avatar, Button, Heading, Input, Label, Textarea, Spinner } from 'flowbite-svelte';
 	import { UserEditOutline, BookSolid } from 'flowbite-svelte-icons';
 
 	import CopyToClipboard from '$lib/components/ProfilePopover/CopyToClipboard.svelte';
@@ -20,6 +12,8 @@
 	import snarkdown from 'snarkdown';
 
 	import truncateWalletAddress from '$lib/utils/truncateWalletAddress.js';
+	import FileUpload from '$lib/components/FileUpload.svelte';
+	import LoadingModal from '$lib/components/LoadingModal.svelte';
 
 	let selectedTab = 'about';
 	let editingBio = false;
@@ -34,19 +28,64 @@
 	let editingName = false;
 	let savingName = false;
 
+	let uploadingAvatar = false;
+	let avatarFileInput: HTMLInputElement;
+
 	export let data: PageData;
 
 	let bioContent = data.user?.bio || '';
 	let interestsContent = data.user?.interests || '';
 	let locationContent = data.user?.location || '';
 	let nameContent = data.user?.name || '';
+	$: avatarUrl = data.user?.avatar || undefined;
+
+	async function uploadAvatarHandler(file: File | undefined) {
+		if (!file) return;
+
+		const formData = new FormData();
+		formData.append('file', file);
+
+		uploadingAvatar = true;
+		try {
+			const response = await fetch(`${env.PUBLIC_FILE_UPLOAD_SERVICE_URL}/upload-image`, {
+				method: 'POST',
+				body: formData
+			});
+
+			if (response.ok) {
+				const { permalink } = await response.json();
+
+				const r = await fetch(`/profile/${data.user?.web3Address}`, {
+					method: 'PUT',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ avatarUrl: permalink })
+				});
+
+				if (r.ok) {
+					avatarUrl = permalink;
+				} else {
+					console.error('Failed to update avatar');
+				}
+			} else {
+				console.error('Failed to upload avatar');
+			}
+		} catch (error) {
+			console.error('Failed to upload avatar', error);
+		} finally {
+			uploadingAvatar = false;
+			avatarFileInput.value = '';
+		}
+	}
 </script>
 
 <div class="w-full flex flex-col justify-center items-center">
 	<div class="flex flex-col md:flex-row gap-8 w-8/12 h-full py-4">
 		<section class="w-full max-w-full md:w-[30%] md:max-w-[30%]">
 			<div class="flex flex-col gap-4 p-8 rounded-xl w-full" style="border: 1px solid #424148">
-				<Avatar />
+				<LoadingModal open={uploadingAvatar} dismissable={false} />
+				<FileUpload onFileSelected={uploadAvatarHandler} bind:ref={avatarFileInput}>
+					<Avatar src={avatarUrl} alt="Avatar" />
+				</FileUpload>
 				<div class="flex gap-2 items-center">
 					{#if editingName}
 						<form

@@ -1,4 +1,4 @@
-import type { UserRepository } from '$lib/repository/UserRepository/UserRepository';
+import type { UserRepository } from "$lib/repository/UserRepository/UserRepository";
 
 export class UserService {
 	userRepo: UserRepository;
@@ -25,5 +25,9 @@ export class UserService {
 
 	async updateLocation(address: string, location: string) {
 		return this.userRepo.updateLocation(address, location);
+	}
+
+	async updateAvatar(address: string, avatarUrl: string) {
+		return this.userRepo.updateAvatar(address, avatarUrl);
 	}
 }
