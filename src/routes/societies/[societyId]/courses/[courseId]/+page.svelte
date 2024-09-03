@@ -7,6 +7,7 @@
 	import { CirclePlusOutline } from 'flowbite-svelte-icons';
 	import { Badge } from 'flowbite-svelte';
 	import { toggleCourseEnroll } from '$lib/utils/course.js';
+	import DotsMenu from '$lib/components/DotsMenu.svelte';
 
 	export let data;
 	export let { societyId, courseId } = $page.params;
@@ -126,10 +127,13 @@
 						<section class="flex flex-col items-center gap-4">
 							{#each Object.keys(course.modules) as id}
 								<a
-									class="w-full rounded-xl"
+									class="w-full rounded-xl relative"
 									href={`/societies/${societyId}/courses/${courseId}/modules/${id}`}
 									style="border: 1px solid #424148"
 								>
+									<DotsMenu
+										editHref={`/societies/${societyId}/courses/${courseId}/modules/${id}/edit`}
+									/>
 									<div class="w-full p-8 rounded-lg">
 										<h3 class="text-slate-900 dark:text-white text-xl font-bold">
 											{course.modules[id].name}
