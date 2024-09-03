@@ -11,7 +11,7 @@
 	<div class="p-4" role="button">
 		<DotsHorizontalOutline class={`${className}`} />
 	</div>
-	<Dropdown>
+	<Dropdown trigger="hover">
 		<DropdownItem class="flex items-center gap-2" href={editHref}>
 			<EditOutline class="w-4 h-4" />
 			Edit

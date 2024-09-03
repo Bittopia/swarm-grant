@@ -88,7 +88,11 @@
 						<section class="flex flex-col items-center gap-4">
 							{#each Object.keys(data.courses) as id}
 								{#if data?.courses[id]}
-									<a class="w-full" href={`/societies/${data.id}/courses/${id}`}>
+									<a class="w-full relative" href={`/societies/${data.id}/courses/${id}`}>
+										<DotsMenu
+											editHref={$page.url.pathname + '/courses/' + id + '/edit'}
+											onDelete={() => console.log('delete')}
+										/>
 										<div class="w-full p-8 rounded-xl" style="border: 1px solid #424148">
 											{#if data.courses[id]?.educator}
 												<ProfilePopover
