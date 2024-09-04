@@ -1,10 +1,14 @@
-import type { BeeService } from '$lib/services/BeeService/BeeService';
-import type { RedisService } from '$lib/services/RedisService/RedisService';
-import type { ModuleType, NewModuleType } from '$lib/types/module';
+import type { BeeService } from "$lib/services/BeeService/BeeService";
+import type { RedisService } from "$lib/services/RedisService/RedisService";
+import type {
+	ModuleType,
+	NewModuleType,
+	UpdateModuleType,
+} from "$lib/types/module";
 
-import societyRepository from '$lib/repository/SocietyRepository';
-import { uuid } from 'uuidv4';
-import set from 'lodash.set';
+import societyRepository from "$lib/repository/SocietyRepository";
+import { uuid } from "uuidv4";
+import set from "lodash.set";
 
 export class ModuleRepository {
 	private beeService: BeeService;
@@ -12,7 +16,7 @@ export class ModuleRepository {
 
 	constructor({
 		beeService,
-		redisService
+		redisService,
 	}: {
 		beeService: BeeService;
 		redisService: RedisService;
@@ -28,32 +32,63 @@ export class ModuleRepository {
 		try {
 			const id = uuid();
 
-			set(societies, [module.societyId, 'courses', module.courseId, 'modules', id], {
-				id,
-				...module
+			set(
+				societies,
+				[module.societyId, "courses", module.courseId, "modules", id],
+				{
+					id,
+					...module,
+				},
+			);
+
+			const { reference } = await this.beeService.mutate({
+				data: { ...data, societies },
 			});
 
-			const { reference } = await this.beeService.mutate({ data: { ...data, societies } });
-
-			await this.redisService.setData('reference', reference);
-			return societies[module.societyId as string].courses?.[module.courseId].modules?.[id];
+			await this.redisService.setData("reference", reference);
+			return societies[module.societyId as string].courses?.[module.courseId]
+				.modules?.[id];
 		} catch (e) {
-			throw new Error('Not able to save module', e as Error);
+			throw new Error("Not able to save module", e as Error);
 		}
 	}
 
-	async update(module: ModuleType) {
+	async update(module: UpdateModuleType) {
 		const data = await societyRepository.all();
 		const societies = data.societies;
 
-		set(societies, [module.societyId, 'courses', module.courseId, 'modules', module.id], module);
+		if (!module.societyId) {
+			return null;
+		}
 
-		const { reference } = await this.beeService.mutate({ data: { ...data, societies } });
+		if (!module.courseId) {
+			return null;
+		}
 
-		await this.redisService.setData('reference', reference);
-		return societies[module.societyId].courses?.[module.courseId as string].modules?.[
-			module.id as string
-		];
+		if (!module.id) {
+			return null;
+		}
+
+		const updatedModule: Record<string, any> = {};
+
+		if (module.name) updatedModule.name = module.name;
+		if (module.description) updatedModule.description = module.description;
+		if (module.content) updatedModule.content = module.content;
+		if (module.image) updatedModule.image = module.image;
+
+		set(
+			societies,
+			[module.societyId, "courses", module.courseId, "modules", module.id],
+			updatedModule,
+		);
+
+		const { reference } = await this.beeService.mutate({
+			data: { ...data, societies },
+		});
+
+		await this.redisService.setData("reference", reference);
+		return societies[module.societyId].courses?.[module.courseId as string]
+			.modules?.[module.id as string];
 	}
 
 	async all(societyId: string, courseId: string) {
@@ -82,12 +117,14 @@ export class ModuleRepository {
 
 			set(
 				societies,
-				[module.societyId, 'courses', module.courseId, 'modules', module.id],
-				undefined
+				[module.societyId, "courses", module.courseId, "modules", module.id],
+				undefined,
 			);
 
-			const { reference } = await this.beeService.mutate({ data: { ...data, societies } });
-			await this.redisService.setData('reference', reference);
+			const { reference } = await this.beeService.mutate({
+				data: { ...data, societies },
+			});
+			await this.redisService.setData("reference", reference);
 			return true;
 		} catch (e) {
 			return false;

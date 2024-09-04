@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import Container from '$lib/components/Container/Container.svelte';
-	import { Alert, Button, Heading, Input, Label, Textarea } from 'flowbite-svelte';
+	import { Alert, Button, Fileupload, Heading, Input, Label, Textarea } from 'flowbite-svelte';
 	import snarkdown from 'snarkdown';
 	import MarkdownContent from '$lib/components/MarkdownContent/MarkdownContent.svelte';
 	import { page } from '$app/stores';
@@ -47,6 +47,10 @@
 						class="w-full p-4 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
 						style="border: 1px solid #424148"
 					>
+						<div>
+							<Label for="name" class="mb-2">What's the module image?</Label>
+							<Fileupload name="imageFile" disabled={requesting} accept="image/*" />
+						</div>
 						<div>
 							<Label for="name" class="mb-2">What's the module name?</Label>
 							<Input
