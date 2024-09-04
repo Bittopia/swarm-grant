@@ -4,8 +4,19 @@
 	import BackButton from '$lib/components/BackButton.svelte';
 
 	import Container from '$lib/components/Container/Container.svelte';
-	import { Alert, Button, Heading, Input, Label, Textarea, Datepicker } from 'flowbite-svelte';
-	const { societyId } = $page.params;
+	import {
+		Alert,
+		Button,
+		Heading,
+		Input,
+		Label,
+		Textarea,
+		Datepicker,
+		Fileupload
+	} from 'flowbite-svelte';
+	const { societyId, courseId } = $page.params;
+
+	const returnTo = $page.url.searchParams.get('returnTo');
 
 	let requesting = false;
 	export let form;
@@ -15,7 +26,7 @@
 	<div class="w-full mb-4">
 		<div class="flex items-center justify-between">
 			<div class="flex items-center gap-4">
-				<BackButton href={`/societies/${societyId}`} />
+				<BackButton href={returnTo || `/societies/${societyId}/courses/${courseId}`} />
 			</div>
 		</div>
 	</div>
@@ -38,8 +49,13 @@
 					class="w-full mt-8 p-4 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
 					style="border: 1px solid #424148"
 				>
-					<Input type="hidden" name="id" value={$page.data.course.id} />
+					<Input type="hidden" name="id" value={courseId} />
 					<Input type="hidden" name="societyId" value={societyId} />
+
+					<div>
+						<Label for="name" class="mb-2">What's the society image?</Label>
+						<Fileupload name="imageFile" disabled={requesting} accept="image/*" />
+					</div>
 					<div>
 						<Label for="name" class="mb-2">What's the course name?</Label>
 						<Input
@@ -99,9 +115,9 @@
 
 					<div class="flex items-center justify-end w-full gap-4">
 						<BackButton
-							href={`/societies/${$page.params.societyId}`}
+							href={returnTo || `/societies/${$page.params.societyId}`}
 							disabled={requesting}
-							text="Back to courses list"
+							text={returnTo ? 'Back to courses list' : 'Back to course'}
 						/>
 						<Button disabled={requesting} type="submit" class="rounded-full px-8">Submit</Button>
 					</div>

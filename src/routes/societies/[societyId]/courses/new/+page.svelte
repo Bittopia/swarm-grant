@@ -4,7 +4,16 @@
 	import BackButton from '$lib/components/BackButton.svelte';
 
 	import Container from '$lib/components/Container/Container.svelte';
-	import { Alert, Button, Heading, Input, Label, Textarea, Datepicker } from 'flowbite-svelte';
+	import {
+		Alert,
+		Button,
+		Heading,
+		Input,
+		Label,
+		Textarea,
+		Datepicker,
+		Fileupload
+	} from 'flowbite-svelte';
 	const { societyId } = $page.params;
 
 	let requesting = false;
@@ -38,6 +47,10 @@
 					class="w-full mt-8 p-4 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
 					style="border: 1px solid #424148"
 				>
+					<div>
+						<Label for="name" class="mb-2">What's the society image?</Label>
+						<Fileupload name="imageFile" disabled={requesting} accept="image/*" />
+					</div>
 					<div>
 						<Label for="name" class="mb-2">What's the course name?</Label>
 						<Input

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Container from '$lib/components/Container/Container.svelte';
 	import { page } from '$app/stores';
-	import { Button, Spinner } from 'flowbite-svelte';
+	import { Avatar, Button, Spinner } from 'flowbite-svelte';
 	import ProfilePopover from '$lib/components/ProfilePopover/ProfilePopover.svelte';
 	import BackButton from '$lib/components/BackButton.svelte';
 	import { CirclePlusOutline } from 'flowbite-svelte-icons';
@@ -31,7 +31,22 @@
 		</div>
 		<div class="w-full flex gap-8 mt-8">
 			<div class="w-1/3">
-				<section class="w-full p-8 rounded-xl" style="border: 1px solid #424148">
+				<section class="w-full p-8 rounded-xl relative" style="border: 1px solid #424148">
+					<DotsMenu
+						editHref={`${$page.url.pathname}/edit`}
+						onDelete={() => console.log('delete')}
+					/>
+					{#if course.image}
+						<div class="my-4">
+							<Avatar
+								src={course.image}
+								alt="Society image"
+								size="xl"
+								class="w-full rounded-sm h-48 object-cover"
+							/>
+						</div>
+					{/if}
+
 					<h1 class="text-slate-950 dark:text-white text-3xl font-bold">{course.name}</h1>
 					<p class="text-slate-800 dark:text-gray-500 mt-4">{course.description}</p>
 					<p class="text-slate-800 dark:text-gray-500 mt-4">Start Date: {course.startDate}</p>

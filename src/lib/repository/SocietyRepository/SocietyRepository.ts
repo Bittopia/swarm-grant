@@ -39,7 +39,7 @@ export class SocietyRepository {
 		const data = await this.all();
 		const societies = data.societies;
 
-		let updatedSociety: UpdateSocietyType = {};
+		let updatedSociety: Record<string, any> = {};
 
 		if (society.name) updatedSociety.name = society.name;
 		if (society.description) updatedSociety.description = society.description;

@@ -1,6 +1,10 @@
 import type { BeeService } from "$lib/services/BeeService/BeeService";
 import type { RedisService } from "$lib/services/RedisService/RedisService";
-import type { CourseType, NewCourseType } from "$lib/types/course";
+import type {
+	CourseType,
+	NewCourseType,
+	UpdateCourseType,
+} from "$lib/types/course";
 
 import { uuid } from "uuidv4";
 import societyRepository from "$lib/repository/SocietyRepository";
@@ -37,11 +41,23 @@ export class CourseRepository {
 		return societies[course.societyId as string].courses?.[id];
 	}
 
-	async update(course: CourseType) {
+	async update(course: UpdateCourseType) {
 		const data = await societyRepository.all();
 		const societies = data.societies;
 
-		set(societies, [course.societyId, "courses", course.id], course);
+		if (!course.societyId) {
+			return null;
+		}
+
+		const updatedCourse: Record<string, any> = {};
+
+		if (course.image) updatedCourse.image = course.image;
+		if (course.name) updatedCourse.name = course.name;
+		if (course.description) updatedCourse.description = course.description;
+		if (course.startDate) updatedCourse.startDate = course.startDate;
+		if (course.educator) updatedCourse.educator = course.educator;
+
+		set(societies, [course.societyId, "courses", course.id], updatedCourse);
 
 		const { reference } = await this.beeService.mutate({
 			data: { ...data, societies },

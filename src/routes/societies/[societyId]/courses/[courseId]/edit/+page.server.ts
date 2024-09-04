@@ -5,8 +5,10 @@ import {
 	type RequestEvent,
 	redirect,
 } from "@sveltejs/kit";
-import type { CourseType } from "$lib/types/course";
+import type { UpdateCourseType } from "$lib/types/course";
 import courseRepository from "$lib/repository/CourseRepository";
+import FileService from "$lib/services/FileService";
+import courseService from "$lib/services/CourseService";
 
 export const load: ServerLoad = async ({ locals, parent, params }) => {
 	await parent();
@@ -33,7 +35,7 @@ export const actions = {
 		const data: FormData = await request?.formData();
 
 		try {
-			const course = Object.fromEntries(data) as unknown as CourseType;
+			const course = Object.fromEntries(data) as unknown as UpdateCourseType;
 
 			if (
 				!course.id ||
@@ -46,7 +48,11 @@ export const actions = {
 				return { error: "Please fill in all fields" };
 			}
 
-			await courseRepository.update(course);
+			if (course.imageFile && course.imageFile.size > 0) {
+				course.image = await FileService.uploadImage(course.imageFile);
+			}
+
+			await courseService.update(course);
 		} catch (error) {
 			if (error instanceof Error) {
 				return fail(500, {
@@ -56,6 +62,9 @@ export const actions = {
 			}
 		}
 
-		throw redirect(302, `/societies/${params.societyId}`);
+		throw redirect(
+			302,
+			`/societies/${params.societyId}/courses/${params.courseId}`,
+		);
 	},
 };
