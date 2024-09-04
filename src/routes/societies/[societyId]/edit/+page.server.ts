@@ -7,6 +7,7 @@ import {
 } from "@sveltejs/kit";
 import type { UpdateSocietyType } from "$lib/types/society";
 import societyService from "$lib/services/SocietyService";
+import FileService from "$lib/services/FileService";
 
 export const load: ServerLoad = async ({ locals, parent, params }) => {
 	await parent();
@@ -47,15 +48,19 @@ export const actions = {
 		try {
 			const society = Object.fromEntries(data) as unknown as UpdateSocietyType;
 
-			if (!society.name || !society.description) {
+			if (!society.id || !society.name || !society.description) {
 				return fail(400, {
 					error:
 						"You must provide a name and description for your society, please try again",
 				});
 			}
 
+			if (society.imageFile && society.imageFile.size > 0) {
+				society.image = await FileService.uploadImage(society.imageFile);
+			}
+
 			society.creator = user.web3Address;
-			await societyService.update(params.societyId, society);
+			await societyService.update(society);
 		} catch (error: any) {
 			return fail(500, {
 				description: data.get("description"),

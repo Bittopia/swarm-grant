@@ -1,9 +1,5 @@
 import type { SocietyRepository } from "$lib/repository/SocietyRepository/SocietyRepository";
-import type {
-	NewSocietyType,
-	SocietyType,
-	UpdateSocietyType,
-} from "$lib/types/society";
+import type { NewSocietyType, UpdateSocietyType } from "$lib/types/society";
 
 export class SocietyService {
 	societyRepo: SocietyRepository;
@@ -25,8 +21,8 @@ export class SocietyService {
 		return societies[societyId];
 	}
 
-	async update(id: string, society: UpdateSocietyType) {
-		return await this.societyRepo.update(id, society);
+	async update(society: UpdateSocietyType) {
+		return await this.societyRepo.update(society);
 	}
 
 	async delete(societyId: string) {

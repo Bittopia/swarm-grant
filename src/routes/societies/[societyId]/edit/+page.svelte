@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import Container from '$lib/components/Container/Container.svelte';
-	import { Alert, Button, Heading, Input, Label, Textarea } from 'flowbite-svelte';
+	import { Alert, Button, Fileupload, Heading, Input, Label, Textarea } from 'flowbite-svelte';
 	import BackButton from '$lib/components/BackButton.svelte';
 	import { modal } from '$lib/web3/modal';
 
@@ -44,10 +44,15 @@
 					};
 				}}
 			>
+				<Input type="hidden" name="id" value={$page.data.society.id} />
 				<div
 					class="w-full mt-8 p-4 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
 					style="border: 1px solid #424148"
 				>
+					<div>
+						<Label for="name" class="mb-2">What's the society image?</Label>
+						<Fileupload name="imageFile" disabled={requesting} accept="image/*" />
+					</div>
 					<div>
 						<Label for="name" class="mb-2">What's the society name?</Label>
 						<Input

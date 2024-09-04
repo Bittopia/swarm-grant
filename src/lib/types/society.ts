@@ -8,8 +8,13 @@ export const SocietySchema = z.object({
 	courses: z.record(z.string(), CourseSchema).optional(),
 	creator: z.string(),
 	members: z.array(z.string()).optional(),
+	image: z.string().optional(),
 });
 
 export type SocietyType = z.infer<typeof SocietySchema>;
-export type NewSocietyType = Omit<SocietyType, "id" | "courses" | "members">;
-export type UpdateSocietyType = Partial<NewSocietyType>;
+export type NewSocietyType = Omit<SocietyType, "id" | "courses" | "members"> & {
+	imageFile?: File;
+};
+export type UpdateSocietyType = Partial<NewSocietyType> & {
+	id: string;
+};

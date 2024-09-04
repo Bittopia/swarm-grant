@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Container from '$lib/components/Container/Container.svelte';
-	import { Spinner, Button } from 'flowbite-svelte';
+	import { Spinner, Button, Avatar } from 'flowbite-svelte';
 	import { page } from '$app/stores';
 	import type { SocietyType } from '$lib/types/society';
 	import ProfilePopover from '$lib/components/ProfilePopover/ProfilePopover.svelte';
@@ -36,6 +36,17 @@
 						editHref={$page.url.pathname + '/edit'}
 						onDelete={() => console.log('delete')}
 					/>
+
+					{#if data.image}
+						<div class="my-4">
+							<Avatar
+								src={data.image}
+								alt="Society image"
+								size="xl"
+								class="w-full rounded-sm h-48 object-cover"
+							/>
+						</div>
+					{/if}
 					<h1 class="text-slate-950 dark:text-white text-3xl font-bold">{data.name}</h1>
 					<p class="text-slate-800 dark:text-gray-500 mt-4">{data.description}</p>
 					<p class="text-slate-800 dark:text-gray-500 mt-4">{data.members?.length ?? 0} members</p>

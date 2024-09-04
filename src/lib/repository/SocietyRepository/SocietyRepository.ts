@@ -35,7 +35,7 @@ export class SocietyRepository {
 		return societyWithId;
 	}
 
-	async update(id: string, society: UpdateSocietyType) {
+	async update(society: UpdateSocietyType) {
 		const data = await this.all();
 		const societies = data.societies;
 
@@ -43,9 +43,10 @@ export class SocietyRepository {
 
 		if (society.name) updatedSociety.name = society.name;
 		if (society.description) updatedSociety.description = society.description;
+		if (society.image) updatedSociety.image = society.image;
 
-		societies[id] = {
-			...societies[id],
+		societies[society.id] = {
+			...societies[society.id],
 			...updatedSociety,
 		};
 
@@ -54,7 +55,7 @@ export class SocietyRepository {
 		});
 
 		await this.redisService.setData("reference", reference);
-		return societies[id as string];
+		return societies[society.id as string];
 	}
 
 	async all() {
