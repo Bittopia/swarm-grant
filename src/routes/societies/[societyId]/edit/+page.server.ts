@@ -68,6 +68,6 @@ export const actions = {
 			});
 		}
 
-		throw redirect(301, `/`);
+		throw redirect(301, `/societies/${params.societyId}`);
 	},
 };
