@@ -67,7 +67,7 @@
 							{#if canAddQuestions}
 								<Button
 									as="a"
-									href={`/societies/${societyId}/courses/${courseId}/modules/${module?.id}/questions/new`}
+									href={`/societies/${societyId}/courses/${courseId}/modules/${moduleId}/questions/new`}
 									color="primary"
 									size="sm"
 									class="rounded-full"
