@@ -3,9 +3,9 @@
 	import Container from '$lib/components/Container/Container.svelte';
 	import { Alert, Button, Fileupload, Heading, Input, Label, Textarea } from 'flowbite-svelte';
 	import BackButton from '$lib/components/BackButton.svelte';
-	import { modal } from '$lib/web3/modal';
-
+	import FormSpinner from '$lib/components/FormSpinner.svelte';
 	import { page } from '$app/stores';
+	import { modal } from '$lib/web3/modal';
 
 	const user = $page.data.user;
 
@@ -27,7 +27,10 @@
 	</div>
 	<section id="society-new">
 		<Heading level="2" class="mb-4">New Society</Heading>
-		<section class="mt-10">
+		<section class="mt-10 relative">
+			{#if requesting}
+				<FormSpinner />
+			{/if}
 			<form
 				method="post"
 				action="?/newSociety"

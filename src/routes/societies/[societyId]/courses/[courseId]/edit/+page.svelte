@@ -4,6 +4,7 @@
 	import BackButton from '$lib/components/BackButton.svelte';
 
 	import Container from '$lib/components/Container/Container.svelte';
+	import FormSpinner from '$lib/components/FormSpinner.svelte';
 	import {
 		Alert,
 		Button,
@@ -32,7 +33,10 @@
 	</div>
 	<section id="society-new">
 		<Heading level="2" class="mb-4">Update course</Heading>
-		<section class="mt-10">
+		<section class="mt-10 relative">
+			{#if requesting}
+				<FormSpinner />
+			{/if}
 			<form
 				method="post"
 				action="?/editCourse"

@@ -6,6 +6,7 @@
 	import MarkdownContent from '$lib/components/MarkdownContent/MarkdownContent.svelte';
 	import { page } from '$app/stores';
 	import BackButton from '$lib/components/BackButton.svelte';
+	import FormSpinner from '$lib/components/FormSpinner.svelte';
 	const { societyId, courseId } = $page.params;
 
 	let requesting = false;
@@ -38,7 +39,11 @@
 							requesting = false;
 						};
 					}}
+					class="relative"
 				>
+					{#if requesting}
+						<FormSpinner />
+					{/if}
 					<Input type="hidden" name="societyId" value={societyId} />
 					<Input type="hidden" name="courseId" value={courseId} />
 					<div
