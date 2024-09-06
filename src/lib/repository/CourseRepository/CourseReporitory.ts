@@ -57,7 +57,10 @@ export class CourseRepository {
 		if (course.startDate) updatedCourse.startDate = course.startDate;
 		if (course.educator) updatedCourse.educator = course.educator;
 
-		set(societies, [course.societyId, "courses", course.id], updatedCourse);
+		set(societies, [course.societyId, "courses", course.id], {
+			...societies[course.societyId].courses?.[course.id],
+			...updatedCourse,
+		});
 
 		const { reference } = await this.beeService.mutate({
 			data: { ...data, societies },

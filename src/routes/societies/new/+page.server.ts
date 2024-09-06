@@ -33,15 +33,16 @@ export const actions = {
 		try {
 			const society = Object.fromEntries(data) as unknown as NewSocietyType;
 
+			console.log(
+				"[LS] -> src/routes/societies/new/+page.server.ts:34 -> society: ",
+				society,
+			);
+
 			if (!society.name || !society.description) {
 				return fail(400, {
 					error:
 						"You must provide a name and description for your society, please try again",
 				});
-			}
-
-			if (society.imageFile && society.imageFile.size > 0) {
-				society.image = await FileService.uploadImage(society.imageFile);
 			}
 
 			society.creator = user.web3Address;

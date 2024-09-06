@@ -58,10 +58,6 @@ export const actions = {
 				return { error: "Please fill in all fields" };
 			}
 
-			if (course.imageFile && course.imageFile.size > 0) {
-				course.image = await FileService.uploadImage(course.imageFile);
-			}
-
 			await courseService.update(course);
 		} catch (error) {
 			if (error instanceof Error) {

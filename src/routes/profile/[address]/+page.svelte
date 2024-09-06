@@ -15,6 +15,8 @@
 	import FileUpload from '$lib/components/FileUpload.svelte';
 	import LoadingModal from '$lib/components/LoadingModal.svelte';
 	import BackButton from '$lib/components/BackButton.svelte';
+	import { getPresignedUrl, uploadFile } from '$lib/utils/file';
+	import { uuid } from 'uuidv4';
 
 	let selectedTab = 'about';
 	let editingBio = false;
@@ -40,41 +42,66 @@
 	let nameContent = data.user?.name || '';
 	$: avatarUrl = data.user?.avatar || undefined;
 
+	// async function uploadAvatarHandler(file: File | undefined) {
+	// 	if (!file || !data.canEdit) return;
+	//
+	// 	const formData = new FormData();
+	// 	formData.append('file', file);
+	//
+	// 	uploadingAvatar = true;
+	// 	try {
+	// 		const response = await fetch(`${env.PUBLIC_FILE_UPLOAD_SERVICE_URL}/upload-image`, {
+	// 			method: 'POST',
+	// 			body: formData
+	// 		});
+	//
+	// 		if (response.ok) {
+	// 			const { permalink } = await response.json();
+	//
+	// 			const r = await fetch(`/profile/${data.user?.web3Address}`, {
+	// 				method: 'PUT',
+	// 				headers: { 'Content-Type': 'application/json' },
+	// 				body: JSON.stringify({ avatarUrl: permalink })
+	// 			});
+	//
+	// 			if (r.ok) {
+	// 				avatarUrl = permalink;
+	// 			} else {
+	// 				console.error('Failed to update avatar');
+	// 			}
+	// 		} else {
+	// 			console.error('Failed to upload avatar');
+	// 		}
+	// 	} catch (error) {
+	// 		console.error('Failed to upload avatar', error);
+	// 	} finally {
+	// 		uploadingAvatar = false;
+	// 		avatarFileInput.value = '';
+	// 	}
+	// }
+
 	async function uploadAvatarHandler(file: File | undefined) {
 		if (!file || !data.canEdit) return;
 
-		const formData = new FormData();
-		formData.append('file', file);
-
-		uploadingAvatar = true;
 		try {
-			const response = await fetch(`${env.PUBLIC_FILE_UPLOAD_SERVICE_URL}/upload-image`, {
-				method: 'POST',
-				body: formData
+			uploadingAvatar = true;
+
+			const { url } = await uploadFile(file, data.user?.jwt);
+
+			const r = await fetch(`/profile/${data.user?.web3Address}`, {
+				method: 'PUT',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ avatarUrl: url })
 			});
 
-			if (response.ok) {
-				const { permalink } = await response.json();
-
-				const r = await fetch(`/profile/${data.user?.web3Address}`, {
-					method: 'PUT',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ avatarUrl: permalink })
-				});
-
-				if (r.ok) {
-					avatarUrl = permalink;
-				} else {
-					console.error('Failed to update avatar');
-				}
+			if (r.ok) {
+				avatarUrl = url;
 			} else {
-				console.error('Failed to upload avatar');
+				console.error('Failed to update avatar');
 			}
 		} catch (error) {
-			console.error('Failed to upload avatar', error);
 		} finally {
 			uploadingAvatar = false;
-			avatarFileInput.value = '';
 		}
 	}
 </script>

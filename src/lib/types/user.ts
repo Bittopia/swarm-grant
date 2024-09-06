@@ -16,4 +16,4 @@ export const UserSchema = z.object({
 export const AuthUserSchema = UserSchema.omit({ societies: true });
 
 export type UserType = z.infer<typeof UserSchema>;
-export type AuthUserType = z.infer<typeof AuthUserSchema>;
+export type AuthUserType = z.infer<typeof AuthUserSchema> & { jwt: string };

@@ -79,7 +79,12 @@ export class ModuleRepository {
 		set(
 			societies,
 			[module.societyId, "courses", module.courseId, "modules", module.id],
-			updatedModule,
+			{
+				...societies[module.societyId].courses?.[module.courseId].modules?.[
+					module.id
+				],
+				...updatedModule,
+			},
 		);
 
 		const { reference } = await this.beeService.mutate({

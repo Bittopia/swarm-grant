@@ -61,10 +61,6 @@ export const actions = {
 				});
 			}
 
-			if (society.imageFile && society.imageFile.size > 0) {
-				society.image = await FileService.uploadImage(society.imageFile);
-			}
-
 			society.creator = user.web3Address;
 			await societyService.update(society);
 		} catch (error: any) {

@@ -12,9 +12,7 @@ export const SocietySchema = z.object({
 });
 
 export type SocietyType = z.infer<typeof SocietySchema>;
-export type NewSocietyType = Omit<SocietyType, "id" | "courses" | "members"> & {
-	imageFile?: File;
-};
+export type NewSocietyType = Omit<SocietyType, "id" | "courses" | "members">;
 export type UpdateSocietyType = Partial<NewSocietyType> & {
 	id: string;
 };

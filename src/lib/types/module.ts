@@ -14,9 +14,7 @@ export const ModuleSchema = z.object({
 });
 
 export type ModuleType = z.infer<typeof ModuleSchema>;
-export type NewModuleType = Omit<ModuleType, "id"> & {
-	imageFile?: File;
-};
+export type NewModuleType = Omit<ModuleType, "id">;
 export type UpdateModuleType = Partial<NewModuleType> & {
 	id: string;
 };

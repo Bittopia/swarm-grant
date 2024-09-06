@@ -5,6 +5,7 @@
 
 	import Container from '$lib/components/Container/Container.svelte';
 	import FormSpinner from '$lib/components/FormSpinner.svelte';
+	import { uploadFile } from '$lib/utils/file.js';
 	import {
 		Alert,
 		Button,
@@ -18,6 +19,7 @@
 	const { societyId } = $page.params;
 
 	let requesting = false;
+	let files: FileList;
 	export let form;
 </script>
 
@@ -38,8 +40,13 @@
 			<form
 				method="post"
 				action="?/newCourse"
-				use:enhance={() => {
+				use:enhance={async ({ formData }) => {
 					requesting = true;
+
+					if (files && files.length) {
+						const { url } = await uploadFile(files[0], $page.data?.user?.jwt);
+						formData.set('image', url);
+					}
 
 					return async ({ update }) => {
 						await update();
@@ -53,7 +60,11 @@
 				>
 					<div>
 						<Label for="name" class="mb-2">What's the society image?</Label>
-						<Fileupload name="imageFile" disabled={requesting} accept="image/*" />
+						<Fileupload
+							disabled={requesting}
+							accept="image/*"
+							on:change={(e) => (files = e.target.files)}
+						/>
 					</div>
 					<div>
 						<Label for="name" class="mb-2">What's the course name?</Label>

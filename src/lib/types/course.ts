@@ -15,9 +15,7 @@ export const CourseSchema = z.object({
 });
 
 export type CourseType = z.infer<typeof CourseSchema>;
-export type NewCourseType = Omit<CourseType, "id" | "modules" | "members"> & {
-	imageFile?: File;
-};
+export type NewCourseType = Omit<CourseType, "id" | "modules" | "members">;
 export type UpdateCourseType = Partial<NewCourseType> & {
 	id: string;
 	members?: string[];

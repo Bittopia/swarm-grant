@@ -82,10 +82,6 @@ export const actions = {
 				return fail(400, { error: "Please fill in all fields" });
 			}
 
-			if (module.imageFile && module.imageFile.size > 0) {
-				module.image = await FileService.uploadImage(module.imageFile);
-			}
-
 			await moduleService.update(module);
 		} catch (error) {
 			if (error instanceof TypeError) {

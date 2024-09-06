@@ -7,9 +7,11 @@
 	import { page } from '$app/stores';
 	import BackButton from '$lib/components/BackButton.svelte';
 	import FormSpinner from '$lib/components/FormSpinner.svelte';
+	import { uploadFile } from '$lib/utils/file.js';
 	const { societyId, courseId } = $page.params;
 
 	let requesting = false;
+	let files: FileList;
 	export let form;
 	let content = '';
 </script>
@@ -30,8 +32,13 @@
 				<form
 					method="post"
 					action="?/newModule"
-					use:enhance={() => {
+					use:enhance={async ({ formData }) => {
 						requesting = true;
+
+						if (files && files.length) {
+							const { url } = await uploadFile(files[0], $page.data?.user?.jwt);
+							formData.set('image', url);
+						}
 
 						return async ({ update }) => {
 							await update();
@@ -52,7 +59,11 @@
 					>
 						<div>
 							<Label for="name" class="mb-2">What's the module image?</Label>
-							<Fileupload name="imageFile" disabled={requesting} accept="image/*" />
+							<Fileupload
+								disabled={requesting}
+								accept="image/*"
+								on:change={(e) => (files = e.target.files)}
+							/>
 						</div>
 						<div>
 							<Label for="name" class="mb-2">What's the module name?</Label>

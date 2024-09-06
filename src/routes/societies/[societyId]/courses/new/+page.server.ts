@@ -8,7 +8,6 @@ import {
 import type { NewCourseType } from "$lib/types/course";
 import ObjectPathResolverUtil from "$lib/utils/ObjectPathResolver";
 import courseRepository from "$lib/repository/CourseRepository";
-import FileService from "$lib/services/FileService";
 
 export const load: ServerLoad = async ({ locals, parent }) => {
 	await parent();
@@ -35,10 +34,6 @@ export const actions = {
 				!course.educator
 			) {
 				return { error: "Please fill in all fields" };
-			}
-
-			if (course.imageFile && course.imageFile.size > 0) {
-				course.image = await FileService.uploadImage(course.imageFile);
 			}
 
 			course.creator = locals.user.web3Address;

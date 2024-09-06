@@ -6,6 +6,7 @@
 	import FormSpinner from '$lib/components/FormSpinner.svelte';
 	import { page } from '$app/stores';
 	import { modal } from '$lib/web3/modal';
+	import { uploadFile } from '$lib/utils/file.js';
 
 	const user = $page.data.user;
 
@@ -14,6 +15,7 @@
 	}
 
 	let requesting = false;
+	let files: FileList;
 	export let form;
 
 	let name = $page.data.society.name;
@@ -37,8 +39,13 @@
 			<form
 				method="post"
 				action="?/editSociety"
-				use:enhance={() => {
+				use:enhance={async ({ formData }) => {
 					requesting = true;
+
+					if (files && files.length) {
+						const { url } = await uploadFile(files[0], user?.jwt);
+						formData.set('image', url);
+					}
 
 					return async ({ update }) => {
 						await update();
@@ -54,7 +61,11 @@
 				>
 					<div>
 						<Label for="name" class="mb-2">What's the society image?</Label>
-						<Fileupload name="imageFile" disabled={requesting} accept="image/*" />
+						<Fileupload
+							disabled={requesting}
+							accept="image/*"
+							on:change={(e) => (files = e.target.files)}
+						/>
 					</div>
 					<div>
 						<Label for="name" class="mb-2">What's the society name?</Label>
