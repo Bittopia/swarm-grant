@@ -9,6 +9,7 @@ export const CourseSchema = z.object({
 	societyId: z.string(),
 	modules: z.record(z.string(), ModuleSchema).optional(),
 	educator: z.string(),
+	creator: z.string(),
 	members: z.array(z.string()).optional(),
 	image: z.string().optional(),
 });

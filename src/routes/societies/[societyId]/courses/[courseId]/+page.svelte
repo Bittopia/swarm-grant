@@ -32,10 +32,12 @@
 		<div class="w-full flex gap-8 mt-8">
 			<div class="w-1/3">
 				<section class="w-full p-8 rounded-xl relative" style="border: 1px solid #424148">
-					<DotsMenu
-						editHref={`${$page.url.pathname}/edit`}
-						onDelete={() => console.log('delete')}
-					/>
+					{#if data.canEditCourse}
+						<DotsMenu
+							editHref={`${$page.url.pathname}/edit`}
+							onDelete={() => console.log('delete')}
+						/>
+					{/if}
 					{#if course.image}
 						<div class="my-4">
 							<Avatar
@@ -146,9 +148,11 @@
 									href={`/societies/${societyId}/courses/${courseId}/modules/${id}`}
 									style="border: 1px solid #424148"
 								>
-									<DotsMenu
-										editHref={`/societies/${societyId}/courses/${courseId}/modules/${id}/edit`}
-									/>
+									{#if course.creator === data.user.web3Address}
+										<DotsMenu
+											editHref={`/societies/${societyId}/courses/${courseId}/modules/${id}/edit`}
+										/>
+									{/if}
 									<div class="w-full p-8 rounded-lg">
 										<h3 class="text-slate-900 dark:text-white text-xl font-bold">
 											{course.modules[id].name}

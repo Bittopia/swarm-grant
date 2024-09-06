@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const QuestionSchema = z.object({
 	id: z.string(),
@@ -7,8 +7,9 @@ export const QuestionSchema = z.object({
 	rightOption: z.string(),
 	courseId: z.string(),
 	societyId: z.string(),
-	moduleId: z.string()
+	moduleId: z.string(),
+	creator: z.string(),
 });
 
 export type QuestionType = z.infer<typeof QuestionSchema>;
-export type NewQuestionType = Omit<QuestionType, 'id'>;
+export type NewQuestionType = Omit<QuestionType, "id">;

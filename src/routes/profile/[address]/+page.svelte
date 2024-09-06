@@ -40,7 +40,7 @@
 	$: avatarUrl = data.user?.avatar || undefined;
 
 	async function uploadAvatarHandler(file: File | undefined) {
-		if (!file) return;
+		if (!file || !data.canEdit) return;
 
 		const formData = new FormData();
 		formData.append('file', file);
@@ -82,10 +82,14 @@
 	<div class="flex flex-col md:flex-row gap-8 w-8/12 h-full py-4">
 		<section class="w-full max-w-full md:w-[30%] md:max-w-[30%]">
 			<div class="flex flex-col gap-4 p-8 rounded-xl w-full" style="border: 1px solid #424148">
-				<LoadingModal open={uploadingAvatar} dismissable={false} />
-				<FileUpload onFileSelected={uploadAvatarHandler} bind:ref={avatarFileInput}>
+				{#if data.canEdit}
+					<LoadingModal open={uploadingAvatar} dismissable={false} />
+					<FileUpload onFileSelected={uploadAvatarHandler} bind:ref={avatarFileInput}>
+						<Avatar src={avatarUrl} alt="Avatar" />
+					</FileUpload>
+				{:else}
 					<Avatar src={avatarUrl} alt="Avatar" />
-				</FileUpload>
+				{/if}
 				<div class="flex gap-2 items-center">
 					{#if editingName}
 						<form

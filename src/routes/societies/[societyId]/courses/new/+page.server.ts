@@ -19,7 +19,7 @@ export const load: ServerLoad = async ({ locals, parent }) => {
 };
 
 export const actions = {
-	newCourse: async ({ request }: RequestEvent) => {
+	newCourse: async ({ locals, request }: RequestEvent) => {
 		const [, societyId] = ObjectPathResolverUtil.getObjectPathFromUrl(
 			request.url,
 		) as string[];
@@ -40,6 +40,8 @@ export const actions = {
 			if (course.imageFile && course.imageFile.size > 0) {
 				course.image = await FileService.uploadImage(course.imageFile);
 			}
+
+			course.creator = locals.user.web3Address;
 
 			await courseRepository.save({ ...course, societyId });
 		} catch (error) {

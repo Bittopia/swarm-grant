@@ -13,7 +13,7 @@ export const load: ServerLoad = async ({ locals, parent, params }) => {
 	await parent();
 
 	if (!locals.user) {
-		throw error(401, "You must be logged in to create a new society");
+		throw error(401, "You must be logged in to edit a new society");
 	}
 
 	if (!params.societyId) {
@@ -21,6 +21,12 @@ export const load: ServerLoad = async ({ locals, parent, params }) => {
 	}
 
 	const society = await societyService.get(params.societyId);
+
+	const isSocietyCreator = locals.user.web3Address === society.creator;
+
+	if (!isSocietyCreator) {
+		throw error(401, "You must be the creator of the society to edit it");
+	}
 
 	return { society };
 };

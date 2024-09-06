@@ -2,22 +2,17 @@
 	import Container from '$lib/components/Container/Container.svelte';
 	import { Spinner, Button, Avatar } from 'flowbite-svelte';
 	import { page } from '$app/stores';
-	import type { SocietyType } from '$lib/types/society';
 	import ProfilePopover from '$lib/components/ProfilePopover/ProfilePopover.svelte';
-	import type { PageData } from '../../$types';
 	import { toggleSociety } from '$lib/utils/society';
 	import BackButton from '$lib/components/BackButton.svelte';
 	import { CirclePlusOutline } from 'flowbite-svelte-icons';
 	import DotsMenu from '$lib/components/DotsMenu.svelte';
 
-	interface Data extends SocietyType {
-		isMember: boolean;
-	}
+	export let { societyId } = $page.params;
+
+	export let data;
 
 	let joinLoading = false;
-
-	export let data: PageData & Data;
-	export let { societyId } = $page.params;
 </script>
 
 <Container>
@@ -32,10 +27,12 @@
 		<div class="w-full flex gap-8 mt-8">
 			<div class="w-1/3">
 				<section class="w-full p-8 rounded-xl relative" style="border: 1px solid #424148">
-					<DotsMenu
-						editHref={$page.url.pathname + '/edit'}
-						onDelete={() => console.log('delete')}
-					/>
+					{#if data.canEditSociety}
+						<DotsMenu
+							editHref={$page.url.pathname + '/edit'}
+							onDelete={() => console.log('delete')}
+						/>
+					{/if}
 
 					{#if data.image}
 						<div class="my-4">
@@ -60,7 +57,7 @@
 									await toggleSociety({
 										user: data?.user,
 										societyId,
-										alreadyMember: data?.isMember
+										alreadyMember: data?.isMember ?? false
 									});
 								} catch (error) {
 									//TODO: Handle error
@@ -85,7 +82,7 @@
 				<section class="w-full p-8 rounded-xl">
 					<div class="w-full flex items-center justify-between mb-8">
 						<h2 class="text-slate-900 dark:text-white text-3xl font-bold">Courses</h2>
-						{#if data?.isMember}
+						{#if data.isMember || data.creator === data.user.web3Address}
 							<Button as="a" href={`/societies/${societyId}/courses/new`} class="rounded-full px-4">
 								<div class="flex gap-2 items-center">
 									<CirclePlusOutline />
@@ -100,10 +97,12 @@
 							{#each Object.keys(data.courses) as id}
 								{#if data?.courses[id]}
 									<a class="w-full relative" href={`/societies/${data.id}/courses/${id}`}>
-										<DotsMenu
-											editHref={`${$page.url.pathname}/courses/${id}/edit?returnTo=${$page.url.pathname}`}
-											onDelete={() => console.log('delete')}
-										/>
+										{#if data.courses[id].creator === data.user.web3Address}
+											<DotsMenu
+												editHref={`${$page.url.pathname}/courses/${id}/edit?returnTo=${$page.url.pathname}`}
+												onDelete={() => console.log('delete')}
+											/>
+										{/if}
 										<div class="w-full p-8 rounded-xl" style="border: 1px solid #424148">
 											{#if data.courses[id]?.educator}
 												<ProfilePopover

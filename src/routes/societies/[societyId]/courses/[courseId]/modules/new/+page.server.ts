@@ -18,7 +18,7 @@ export const load: ServerLoad = async ({ locals, parent }) => {
 };
 
 export const actions = {
-	newModule: async ({ request, params }: RequestEvent) => {
+	newModule: async ({ locals, request, params }: RequestEvent) => {
 		const data: FormData = await request?.formData();
 
 		try {
@@ -31,6 +31,8 @@ export const actions = {
 			if (module.imageFile && module.imageFile.size > 0) {
 				module.image = await FileService.uploadImage(module.imageFile);
 			}
+
+			module.creator = locals.user.web3Address;
 
 			await moduleService.save(module);
 		} catch (error) {

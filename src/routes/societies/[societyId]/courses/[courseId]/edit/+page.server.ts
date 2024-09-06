@@ -27,6 +27,16 @@ export const load: ServerLoad = async ({ locals, parent, params }) => {
 
 	const course = await courseRepository.get(params.societyId, params.courseId);
 
+	if (!course) {
+		throw error(404, "Course not found");
+	}
+
+	const isCourseCreator = locals.user.web3Address === course?.creator;
+
+	if (!isCourseCreator) {
+		throw error(401, "You must be the creator of the course to edit it");
+	}
+
 	return { course };
 };
 

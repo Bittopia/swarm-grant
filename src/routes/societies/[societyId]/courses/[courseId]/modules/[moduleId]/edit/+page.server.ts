@@ -7,6 +7,7 @@ import {
 } from "@sveltejs/kit";
 import type { UpdateModuleType } from "$lib/types/module";
 import moduleService from "$lib/services/ModuleService";
+import courseService from "$lib/services/CourseService";
 import FileService from "$lib/services/FileService";
 
 export const load: ServerLoad = async ({ locals, parent, params }) => {
@@ -33,6 +34,20 @@ export const load: ServerLoad = async ({ locals, parent, params }) => {
 		params.courseId,
 		params.moduleId,
 	);
+
+	if (!module) {
+		throw error(404, "Module not found");
+	}
+
+	const course = await courseService.get(params.societyId, params.courseId);
+
+	const canEditModule =
+		locals.user?.web3Address === module?.creator ||
+		course?.creator === locals.user?.web3Address;
+
+	if (!canEditModule) {
+		throw error(401, `You must be the creator of the module to edit it`);
+	}
 
 	return { module };
 };

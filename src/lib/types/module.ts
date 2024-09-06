@@ -10,6 +10,7 @@ export const ModuleSchema = z.object({
 	societyId: z.string(),
 	questions: z.record(z.string(), QuestionSchema).optional(),
 	image: z.string().optional(),
+	creator: z.string(),
 });
 
 export type ModuleType = z.infer<typeof ModuleSchema>;
