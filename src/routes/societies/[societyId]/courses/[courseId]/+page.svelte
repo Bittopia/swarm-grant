@@ -148,7 +148,7 @@
 									href={`/societies/${societyId}/courses/${courseId}/modules/${id}`}
 									style="border: 1px solid #424148"
 								>
-									{#if course.creator === data.user.web3Address}
+									{#if course.creator === data.user?.web3Address}
 										<DotsMenu
 											editHref={`/societies/${societyId}/courses/${courseId}/modules/${id}/edit`}
 										/>

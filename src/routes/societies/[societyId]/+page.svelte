@@ -82,7 +82,7 @@
 				<section class="w-full p-8 rounded-xl">
 					<div class="w-full flex items-center justify-between mb-8">
 						<h2 class="text-slate-900 dark:text-white text-3xl font-bold">Courses</h2>
-						{#if data.isMember || data.creator === data.user.web3Address}
+						{#if data.isMember || data.creator === data.user?.web3Address}
 							<Button as="a" href={`/societies/${societyId}/courses/new`} class="rounded-full px-4">
 								<div class="flex gap-2 items-center">
 									<CirclePlusOutline />
@@ -97,7 +97,7 @@
 							{#each Object.keys(data.courses) as id}
 								{#if data?.courses[id]}
 									<a class="w-full relative" href={`/societies/${data.id}/courses/${id}`}>
-										{#if data.courses[id].creator === data.user.web3Address}
+										{#if data.courses[id].creator === data.user?.web3Address}
 											<DotsMenu
 												editHref={`${$page.url.pathname}/courses/${id}/edit?returnTo=${$page.url.pathname}`}
 												onDelete={() => console.log('delete')}
