@@ -14,6 +14,7 @@
 	import truncateWalletAddress from '$lib/utils/truncateWalletAddress.js';
 	import FileUpload from '$lib/components/FileUpload.svelte';
 	import LoadingModal from '$lib/components/LoadingModal.svelte';
+	import BackButton from '$lib/components/BackButton.svelte';
 
 	let selectedTab = 'about';
 	let editingBio = false;
@@ -79,6 +80,9 @@
 </script>
 
 <div class="w-full flex flex-col justify-center items-center">
+	<div class="justify-self-start w-8/12">
+		<BackButton href="/" />
+	</div>
 	<div class="flex flex-col md:flex-row gap-8 w-8/12 h-full py-4">
 		<section class="w-full max-w-full md:w-[30%] md:max-w-[30%]">
 			<div class="flex flex-col gap-4 p-8 rounded-xl w-full" style="border: 1px solid #424148">
