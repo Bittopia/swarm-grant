@@ -97,7 +97,7 @@
 							{#each Object.keys(data.courses) as id}
 								{#if data?.courses[id]}
 									<a class="w-full relative" href={`/societies/${data.id}/courses/${id}`}>
-										{#if data.courses[id].creator === data.user?.web3Address}
+										{#if data.courses[id].creator === data.user?.web3Address || data.canEditSociety}
 											<DotsMenu
 												editHref={`${$page.url.pathname}/courses/${id}/edit?returnTo=${$page.url.pathname}`}
 												onDelete={() => console.log('delete')}
