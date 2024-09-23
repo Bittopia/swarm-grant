@@ -61,9 +61,9 @@ export const actions = {
 				});
 			}
 
-			const image = data.get("image");
+			const image = data.get("image") as File;
 
-			if (image) {
+			if (image && image.size) {
 				const url = await FileService.uploadFile(
 					new File([image], `society-${society.id}-${user.web3Address}`),
 				);

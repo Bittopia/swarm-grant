@@ -58,6 +58,15 @@ export const actions = {
 				return { error: "Please fill in all fields" };
 			}
 
+			const image = data.get("image") as File;
+
+			if (image && image.size) {
+				const url = await FileService.uploadFile(
+					new File([image], `course-${course.name}`),
+				);
+
+				course.image = url;
+			}
 			await courseService.update(course);
 		} catch (error) {
 			if (error instanceof Error) {

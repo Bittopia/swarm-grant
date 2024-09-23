@@ -45,10 +45,10 @@
 				use:enhance={async ({ formData }) => {
 					requesting = true;
 
-					if (files && files.length) {
-						const { url } = await uploadFile(files[0], $page.data?.user?.jwt);
-						formData.set('image', url);
-					}
+					// if (files && files.length) {
+					// 	const { url } = await uploadFile(files[0], $page.data?.user?.jwt);
+					// 	formData.set('image', url);
+					// }
 
 					return async ({ update }) => {
 						await update();
@@ -64,8 +64,9 @@
 					<Input type="hidden" name="societyId" value={societyId} />
 
 					<div>
-						<Label for="name" class="mb-2">What's the society image?</Label>
+						<Label for="image" class="mb-2">What's the society image?</Label>
 						<Fileupload
+							name="image"
 							disabled={requesting}
 							accept="image/*"
 							on:change={(e) => (files = e.target.files)}
