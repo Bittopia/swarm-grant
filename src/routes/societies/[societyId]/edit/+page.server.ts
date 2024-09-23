@@ -61,6 +61,16 @@ export const actions = {
 				});
 			}
 
+			const image = data.get("image");
+
+			if (image) {
+				const url = await FileService.uploadFile(
+					new File([image], `society-${society.id}-${user.web3Address}`),
+				);
+
+				society.image = url;
+			}
+
 			society.creator = user.web3Address;
 			await societyService.update(society);
 		} catch (error: any) {

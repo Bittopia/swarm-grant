@@ -19,25 +19,8 @@ export class PinataRepository implements FileRepository {
 	async uploadFile(file: File) {
 		const upload = await pinata.upload.file(file);
 
-		console.log(
-			"[LS] -> src/lib/repository/PinataRepository/PinataRepository.ts:20 -> upload: ",
-			upload,
-		);
-
 		const hash = upload.IpfsHash;
 
-		const data = await pinata.gateways.get(hash).optimizeImage({
-			format: "webp",
-			width: 200,
-			height: 200,
-			quality: 50,
-		});
-
-		console.log(
-			"[LS] -> src/lib/repository/PinataRepository/PinataRepository.ts:16 -> data: ",
-			data,
-		);
-
-		return `https://${env.PINATA_GATEWAY}/ipfs/${hash}?img-format=webp&w=200&h=200&quality=50&img-fit=cover`;
+		return `https://${env.PINATA_GATEWAY}/ipfs/${hash}`;
 	}
 }

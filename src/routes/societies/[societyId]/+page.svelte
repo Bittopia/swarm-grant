@@ -37,7 +37,7 @@
 					{#if data.image}
 						<div class="my-4">
 							<Avatar
-								src={data.image}
+								src={data.image + '?img-format=webp'}
 								alt="Society image"
 								size="xl"
 								class="w-full rounded-sm h-48 object-cover"

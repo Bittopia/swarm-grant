@@ -49,10 +49,5 @@ export const POST: RequestHandler = async ({ request, locals, params }) => {
 		new File([file], `avatar-${address}`),
 	);
 
-	console.log(
-		"[LS] -> src/routes/profile/[address]/+server.ts:40 -> url: ",
-		url,
-	);
-
 	return new Response(JSON.stringify({ url }), { status: 200 });
 };

@@ -132,7 +132,7 @@
 						<Avatar src={avatarUrl} alt="Avatar" />
 					</FileUpload>
 				{:else}
-					<Avatar src={avatarUrl} alt="Avatar" />
+					<Avatar src={avatarUrl + '?img-format=webp&w=200&h=200&quality=50'} alt="Avatar" />
 				{/if}
 				<div class="flex gap-2 items-center">
 					{#if editingName}
