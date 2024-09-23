@@ -82,6 +82,16 @@ export const actions = {
 				return fail(400, { error: "Please fill in all fields" });
 			}
 
+			const image = data.get("image") as File;
+
+			if (image && image.size) {
+				const url = await FileService.uploadFile(
+					new File([image], `module-${module.name}`),
+				);
+
+				module.image = url;
+			}
+
 			await moduleService.update(module);
 		} catch (error) {
 			if (error instanceof TypeError) {

@@ -7,6 +7,7 @@ import {
 } from "@sveltejs/kit";
 import type { NewModuleType } from "$lib/types/module";
 import moduleService from "$lib/services/ModuleService";
+import FileService from "$lib/services/FileService";
 
 export const load: ServerLoad = async ({ locals, parent }) => {
 	await parent();
@@ -25,6 +26,16 @@ export const actions = {
 
 			if (!module.name || !module.description || !module.content) {
 				return fail(400, { error: "Please fill in all fields" });
+			}
+
+			const image = data.get("image") as File;
+
+			if (image && image.size) {
+				const url = await FileService.uploadFile(
+					new File([image], `module-${module.name}`),
+				);
+
+				module.image = url;
 			}
 
 			module.creator = locals.user.web3Address;
