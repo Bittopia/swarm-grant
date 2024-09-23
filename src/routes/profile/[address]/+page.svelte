@@ -86,18 +86,31 @@
 		try {
 			uploadingAvatar = true;
 
-			const { url } = await uploadFile(file, data.user?.jwt);
+			// const { url } = await uploadFile(file, data.user?.jwt);
+			const formData = new FormData();
+			formData.append('file', file);
 
-			const r = await fetch(`/profile/${data.user?.web3Address}`, {
-				method: 'PUT',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ avatarUrl: url })
+			const response = await fetch(`/profile/${data.user?.web3Address}`, {
+				method: 'POST',
+				body: formData
 			});
 
-			if (r.ok) {
-				avatarUrl = url;
+			if (response.ok) {
+				const { url } = await response.json();
+
+				const r = await fetch(`/profile/${data.user?.web3Address}`, {
+					method: 'PUT',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ avatarUrl: url })
+				});
+
+				if (r.ok) {
+					avatarUrl = url;
+				} else {
+					console.error('Failed to update avatar');
+				}
 			} else {
-				console.error('Failed to update avatar');
+				console.error('Failed to upload avatar');
 			}
 		} catch (error) {
 		} finally {

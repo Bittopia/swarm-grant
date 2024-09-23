@@ -1,4 +1,4 @@
-import type { FileRepository } from "$lib/repository/FileRepository/FileRepository";
+import type { FileRepository } from "$lib/domain/FileRepository";
 
 export class FileService {
 	fileRepo: FileRepository;
@@ -13,5 +13,9 @@ export class FileService {
 
 	async uploadImage(file: File) {
 		return this.fileRepo.uploadImage(file);
+	}
+
+	async uploadFile(file: File) {
+		return this.fileRepo.uploadFile(file);
 	}
 }

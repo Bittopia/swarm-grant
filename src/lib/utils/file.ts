@@ -27,6 +27,34 @@ export async function getPresignedUrl(
 	return { url: presignedUrl };
 }
 
+// This function is using a centralized file upload service (DigitalOcean) and has been replaced by the Pinata service (pinata.cloud)
+// export async function uploadFile(
+// 	file: File,
+// 	authToken: string,
+// ): Promise<{ url: string }> {
+// 	const fileExtension = file.name.split(".").pop();
+// 	const randomFilename = `${uuid()}.${fileExtension}`;
+//
+// 	const { url } = await getPresignedUrl(randomFilename, authToken);
+//
+// 	const response = await fetch(url, {
+// 		method: "PUT",
+// 		headers: {
+// 			"x-amz-acl": "public-read",
+// 			"Content-Type": file.type,
+// 		},
+// 		body: file,
+// 	});
+//
+// 	if (!response.ok) {
+// 		throw new Error("Failed to upload file");
+// 	}
+//
+// 	const cdn_url = `${env.PUBLIC_FILE_CDN_URL}/${randomFilename}`;
+//
+// 	return { url: cdn_url };
+// }
+
 export async function uploadFile(
 	file: File,
 	authToken: string,
@@ -49,7 +77,5 @@ export async function uploadFile(
 		throw new Error("Failed to upload file");
 	}
 
-	const cdn_url = `${env.PUBLIC_FILE_CDN_URL}/${randomFilename}`;
-
-	return { url: cdn_url };
+	return { url };
 }
