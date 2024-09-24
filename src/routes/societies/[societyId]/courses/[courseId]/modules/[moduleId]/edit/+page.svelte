@@ -7,14 +7,76 @@
 	import { page } from '$app/stores';
 	import BackButton from '$lib/components/BackButton.svelte';
 	import FormSpinner from '$lib/components/FormSpinner.svelte';
-	import { uploadFile } from '$lib/utils/file.js';
+	import { uploadVideo } from '$lib/utils/file.js';
+	import VideoUploadModal from '$lib/components/VideoUploadModal.svelte';
+	import { uuid } from 'uuidv4';
 	const { societyId, courseId, moduleId } = $page.params;
 
 	let requesting = false;
 	let files: FileList;
-	export let form;
+	let showVideoUploadModal = false;
+	let videos = [];
+	let uploadLoading = false;
 
+	export let form;
 	let content = $page.data.module.content;
+
+	async function handleVideoUpload(
+		video_file: File,
+		thumbnail_file: File,
+		title: string,
+		description: string
+	) {
+		if (!video_file) return;
+
+		const abortController = new AbortController();
+
+		let thumbnail_url = '';
+		let video_url = '';
+
+		uploadLoading = true;
+		try {
+			const { url } = await uploadVideo(video_file, $page.data.user.jwt, abortController);
+			video_url = url;
+		} catch (error) {
+			console.log(error);
+			uploadLoading = false;
+			return;
+		}
+
+		if (thumbnail_file) {
+			const formData = new FormData();
+			formData.append('file', thumbnail_file);
+
+			const thumbnail_response = await fetch('/file', {
+				method: 'POST',
+				body: formData
+			});
+
+			if (!thumbnail_response.ok) {
+				throw new Error('Failed to upload thumbnail');
+			}
+
+			const { url: thumb_url } = await thumbnail_response.json();
+
+			thumbnail_url = thumb_url;
+		}
+
+		videos.push({
+			id: uuid(),
+			url: video_url,
+			title,
+			description,
+			thumbnail: thumbnail_url
+		});
+
+		uploadLoading = false;
+		showVideoUploadModal = false;
+
+		content += `\n### ${title}\n<video controls ${
+			thumbnail_url ? `poster="${thumbnail_url}"` : ''
+		}><source src="${video_url}" type="video/mp4"> Your browser does not support the video tag. </video>\n`;
+	}
 </script>
 
 <Container>
@@ -94,7 +156,17 @@
 							/>
 						</div>
 						<div>
-							<Label for="content" class="mb-2">Write down the module content.</Label>
+							<div class="flex items-end justify-between gap-4 mb-4">
+								<Label for="content" class="mb-2">Write down the module content.</Label>
+								<Button
+									on:click={() => {
+										showVideoUploadModal = true;
+									}}
+									class="mt-4"
+								>
+									Upload video
+								</Button>
+							</div>
 							<Textarea
 								bind:value={content}
 								on:input={(e) => (content = e.target.value)}
@@ -134,4 +206,12 @@
 		</section>
 		<!-- End list of societies-->
 	</section>
+	{#if showVideoUploadModal}
+		<VideoUploadModal
+			bind:open={showVideoUploadModal}
+			onClose={() => (showVideoUploadModal = false)}
+			onUpload={handleVideoUpload}
+			{uploadLoading}
+		/>
+	{/if}
 </Container>

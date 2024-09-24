@@ -11,8 +11,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 	if (token) {
 		try {
 			const payload = jwt.verify(token, JWT_SECRET) as UserType;
+			console.log("[LS] -> src/hooks.server.ts:13 -> payload: ", payload);
 
 			const user = await userService.get(payload.web3Address);
+			console.log("[LS] -> src/hooks.server.ts:16 -> user: ", user);
 
 			event.locals.user = {
 				...user,

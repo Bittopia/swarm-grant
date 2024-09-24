@@ -2,6 +2,7 @@ import type { BeeService } from "$lib/services/BeeService/BeeService";
 import type { RedisService } from "$lib/services/RedisService/RedisService";
 import type {
 	ModuleType,
+	ModuleVideoType,
 	NewModuleType,
 	UpdateModuleType,
 } from "$lib/types/module";
@@ -75,6 +76,21 @@ export class ModuleRepository {
 		if (module.description) updatedModule.description = module.description;
 		if (module.content) updatedModule.content = module.content;
 		if (module.image) updatedModule.image = module.image;
+
+		if (module.videos) {
+			const current_videos =
+				societies[module.societyId].courses?.[module.courseId].modules?.[
+					module.id
+				]?.videos;
+
+			let videos: ModuleVideoType[] = [];
+
+			if (current_videos) {
+				videos = [...current_videos, ...videos];
+			}
+
+			updatedModule.videos = videos;
+		}
 
 		set(
 			societies,

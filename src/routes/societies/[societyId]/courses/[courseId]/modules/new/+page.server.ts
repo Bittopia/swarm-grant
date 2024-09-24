@@ -38,6 +38,13 @@ export const actions = {
 				module.image = url;
 			}
 
+			if (module.videos) {
+				console.log({ videos: module.videos });
+				const videos = JSON.parse(module.videos);
+
+				module.videos = videos;
+			}
+
 			module.creator = locals.user.web3Address;
 
 			await moduleService.save(module);

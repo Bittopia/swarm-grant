@@ -92,6 +92,13 @@ export const actions = {
 				module.image = url;
 			}
 
+			if (module.videos) {
+				console.log({ videos: module.videos });
+				const videos = JSON.parse(module.videos);
+
+				module.videos = videos;
+			}
+
 			await moduleService.update(module);
 		} catch (error) {
 			if (error instanceof TypeError) {
