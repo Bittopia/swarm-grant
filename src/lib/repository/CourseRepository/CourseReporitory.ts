@@ -56,6 +56,7 @@ export class CourseRepository {
 		if (course.description) updatedCourse.description = course.description;
 		if (course.startDate) updatedCourse.startDate = course.startDate;
 		if (course.educator) updatedCourse.educator = course.educator;
+		if (course.members) updatedCourse.members = course.members;
 
 		set(societies, [course.societyId, "courses", course.id], {
 			...societies[course.societyId].courses?.[course.id],
