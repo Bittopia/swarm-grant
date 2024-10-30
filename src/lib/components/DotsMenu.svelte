@@ -9,7 +9,7 @@
 
 <div class="absolute right-0 top-0">
 	<div class="p-4" role="button">
-		<DotsHorizontalOutline class={`${className}`} />
+		<DotsHorizontalOutline class={`text-black dark:text-white ${className}`} />
 	</div>
 	<Dropdown trigger="hover">
 		<DropdownItem class="flex items-center gap-2" href={editHref}>
