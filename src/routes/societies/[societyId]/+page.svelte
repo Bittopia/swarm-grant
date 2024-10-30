@@ -103,19 +103,36 @@
 												onDelete={() => console.log('delete')}
 											/>
 										{/if}
-										<div class="w-full p-8 rounded-xl" style="border: 1px solid #424148">
-											{#if data.courses[id]?.educator}
-												<ProfilePopover
-													triggeredBy={`profile-popover-${id}`}
-													address={data.courses[id].educator}
-												/>
-											{/if}
-											<h3 class="text-slate-900 dark:text-white text-xl font-bold mt-6">
-												{data.courses[id].name}
-											</h3>
-											<p class="text-slate-700 dark:text-gray-500 mt-4">
-												{data.courses[id].description}
-											</p>
+										<div class="flex w-full gap-6 p-4 rounded-xl" style="border: 1px solid #424148">
+											<div>
+												{#if data.courses[id].image}
+													<img
+														src={data.courses[id].image + '?img-format=webp'}
+														alt="Course banner"
+														class="h-32 object-cover rounded-xl aspect-square"
+													/>
+												{:else}
+													<div class="h-32 bg-slate-900 rounded-xl aspect-square" />
+												{/if}
+											</div>
+
+											<div>
+												<h3 class="text-slate-900 dark:text-white text-xl font-bold mt-6">
+													{data.courses[id].name}
+												</h3>
+												{#if data.courses[id]?.educator}
+													<div class="flex gap-2 items-center">
+														<span>Educator: </span>
+														<ProfilePopover
+															triggeredBy={`profile-popover-${id}`}
+															address={data.courses[id].educator}
+														/>
+													</div>
+												{/if}
+												<p class="text-slate-700 dark:text-gray-500 mt-4">
+													{data.courses[id].description}
+												</p>
+											</div>
 										</div>
 									</a>
 								{/if}
