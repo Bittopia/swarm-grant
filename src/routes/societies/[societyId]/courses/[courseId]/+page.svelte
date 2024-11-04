@@ -71,7 +71,7 @@
 						>
 							{#each members.slice(0, 9) as member}
 								<ProfilePopover
-									triggeredBy={`member-${course.id}-${member}`}
+									triggeredBy={`member-${course.id}-${member?.web3Address}`}
 									name={member?.name}
 									web3Address={member?.web3Address}
 									avatar={member?.avatar}
@@ -104,6 +104,10 @@
 												});
 											}
 										} catch (error) {
+											console.log(
+												'[LS] -> src/routes/societies/[societyId]/courses/[courseId]/+page.svelte:106 -> error: ',
+												error
+											);
 											//TODO: Handle error
 											console.log({ error });
 										} finally {
