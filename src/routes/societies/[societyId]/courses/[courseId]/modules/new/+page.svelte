@@ -119,10 +119,10 @@
 						class="w-full p-4 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
 						style="border: 1px solid #424148"
 					>
-						<div>
-							<Label for="image" class="mb-2">What's the module image?</Label>
-							<Fileupload name="image" disabled={requesting} accept="image/*" bind:files />
-						</div>
+						<!-- <div> -->
+						<!-- 	<Label for="image" class="mb-2">What's the module image?</Label> -->
+						<!-- 	<Fileupload name="image" disabled={requesting} accept="image/*" bind:files /> -->
+						<!-- </div> -->
 						<div>
 							<Label for="name" class="mb-2">What's the module name?</Label>
 							<Input
