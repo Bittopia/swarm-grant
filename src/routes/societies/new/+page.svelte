@@ -16,6 +16,7 @@
 
 	let requesting = false;
 	let files: FileList;
+	console.log('[LS] -> src/routes/societies/new/+page.svelte:18 -> files: ', files);
 	export let form;
 </script>
 
@@ -55,14 +56,23 @@
 					class="w-full mt-8 p-4 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
 					style="border: 1px solid #424148"
 				>
-					<div>
-						<Label for="image" class="mb-2">What's the society image?</Label>
-						<Fileupload
-							name="image"
-							disabled={requesting}
-							accept="image/*"
-							on:change={(e) => (files = e.target.files)}
-						/>
+					<div class="flex items-center gap-4">
+						{#if files && files.length}
+							<img
+								src={URL.createObjectURL(files[0])}
+								alt="selected banner"
+								class="w-72 h-72 object-cover rounded"
+							/>
+						{/if}
+						<div class="w-full">
+							<Label for="image" class="mb-2">What's the society image?</Label>
+							<Fileupload
+								name="image"
+								disabled={requesting}
+								accept="image/*"
+								on:change={(e) => (files = e.target.files)}
+							/>
+						</div>
 					</div>
 					<div>
 						<Label for="name" class="mb-2">What's the society name?</Label>

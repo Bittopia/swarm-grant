@@ -59,9 +59,8 @@
 					style="border: 1px solid #424148"
 				>
 					<div>
-						<Label for="image" class="mb-2">What's the society image?</Label>
+						<Label for="name" class="mb-2">What's the course image?</Label>
 						<Fileupload
-							name="image"
 							disabled={requesting}
 							accept="image/*"
 							on:change={(e) => (files = e.target.files)}
