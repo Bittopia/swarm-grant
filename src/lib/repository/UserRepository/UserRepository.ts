@@ -25,6 +25,13 @@ export class UserRepository {
 		return users[address];
 	}
 
+  async getAll() {
+    const data = await this.all();
+    const users = data.users;
+
+    return users
+  }
+
 	async save(user: UserType) {
 		const data = await this.all();
 		const users = data.users;

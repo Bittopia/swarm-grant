@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { ModuleSchema } from "$lib/types/module";
+import { UserSchema } from "./user";
 
 export const CourseSchema = z.object({
 	id: z.string(),
@@ -9,8 +10,10 @@ export const CourseSchema = z.object({
 	societyId: z.string(),
 	modules: z.record(z.string(), ModuleSchema).optional(),
 	educator: z.string(),
+	educator_user: z.object(UserSchema).optional(),
 	creator: z.string(),
 	members: z.array(z.string()).optional(),
+	users: z.array(UserSchema).optional(),
 	image: z.string().optional(),
 });
 

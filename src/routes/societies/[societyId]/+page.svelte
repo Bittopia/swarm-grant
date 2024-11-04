@@ -125,7 +125,9 @@
 														<span>Educator: </span>
 														<ProfilePopover
 															triggeredBy={`profile-popover-${id}`}
-															address={data.courses[id].educator}
+															avatar={data.courses[id].educator_user?.avatar}
+															name={data.courses[id].educator_user?.name}
+															web3Address={data.courses[id].educator}
 														/>
 													</div>
 												{/if}

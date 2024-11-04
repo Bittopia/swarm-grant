@@ -16,7 +16,7 @@
 
 	$: course = data.course;
 	$: canCreateModules = data.canCreateModules;
-	$: members = course?.members ?? [];
+	$: members = course?.users ?? [];
 	$: isMemberOfSociety = data.isMemberOfSociety;
 </script>
 
@@ -57,7 +57,9 @@
 						<span class="text-slate-800 dark:text-gray-500">Educator: </span>
 						<ProfilePopover
 							triggeredBy={`educator-${course.id}-${course.educator}`}
-							address={course.educator}
+							avatar={course.educator_user?.avatar}
+							name={course.educator_user?.name}
+							web3Address={course.educator}
 						/>
 					</div>
 					<div class="flex flex-col gap-4 mt-2">
@@ -70,8 +72,10 @@
 							{#each members.slice(0, 9) as member}
 								<ProfilePopover
 									triggeredBy={`member-${course.id}-${member}`}
-									address={member}
-									showWalletAddress={false}
+									name={member?.name}
+									web3Address={member?.web3Address}
+									avatar={member?.avatar}
+									showName={false}
 									size="sm"
 								/>
 							{/each}

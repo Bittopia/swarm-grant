@@ -1,5 +1,10 @@
 import type { SocietyRepository } from "$lib/repository/SocietyRepository/SocietyRepository";
-import type { NewSocietyType, UpdateSocietyType } from "$lib/types/society";
+import type { CourseType } from "$lib/types/course";
+import type {
+	NewSocietyType,
+	SocietyType,
+	UpdateSocietyType,
+} from "$lib/types/society";
 
 export class SocietyService {
 	societyRepo: SocietyRepository;
@@ -13,12 +18,36 @@ export class SocietyService {
 
 	async all() {
 		const data = await this.societyRepo.all();
-		return data.societies;
+		let societies = data.societies;
+		let users = data.users;
+
+		const society_ids = Object.keys(societies);
+
+		if (societies) {
+			society_ids.forEach((society_id) => {
+				let courses = societies[society_id].courses;
+
+				if (courses) {
+					const course_ids = Object.keys(courses);
+
+					courses = course_ids.forEach((course_id: CourseType) => {
+						const course = courses[course_id];
+
+						course.educator_user = users[course.educator];
+
+						societies[society_id].courses[course_id] = course;
+					});
+				}
+			});
+		}
+
+		return societies;
 	}
 
 	async get(societyId: string) {
 		const societies = await this.all();
-		return societies[societyId];
+		const society = societies[societyId];
+		return society;
 	}
 
 	async update(society: UpdateSocietyType) {

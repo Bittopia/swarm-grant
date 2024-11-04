@@ -74,8 +74,25 @@ export class CourseRepository {
 	async all(societyId: string) {
 		const data = await societyRepository.all();
 		const societies = data.societies;
+		const users = Object.values(data.users);
 
 		if (societies[societyId]) {
+			const courses = societies[societyId].courses;
+
+			for (const courseId in courses) {
+				courses[courseId].users = courses[courseId].members?.map(
+					(memberAddress: string) =>
+						users.find((user) => user.web3Address === memberAddress) ??
+						memberAddress,
+				);
+
+				courses[courseId].educator_user = users.find(
+					(user) => user.web3Address === courses[courseId].educator,
+				);
+
+				console.log({ courses });
+			}
+
 			return societies[societyId].courses;
 		}
 		return {};

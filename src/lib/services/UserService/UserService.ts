@@ -11,6 +11,10 @@ export class UserService {
 		return this.userRepo.get(address);
 	}
 
+  async getAll() {
+    return this.userRepo.getAll()
+  }
+
 	async updateBio(address: string, bio: string) {
 		return this.userRepo.updateBio(address, bio);
 	}
