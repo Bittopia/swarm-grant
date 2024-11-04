@@ -14,8 +14,8 @@
 			on:change={(e) => onFileSelected(e.currentTarget.files?.[0])}
 			bind:this={ref}
 		/>
-		<div class="absolute bottom-0 right-0">
-			<EditOutline class="dark:text-white text-primary-900" size="sm" />
+		<div class="absolute bottom-0 right-2">
+			<EditOutline class="dark:text-white text-primary-900" size="lg" />
 		</div>
 	</label>
 </div>
