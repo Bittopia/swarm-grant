@@ -18,6 +18,28 @@
 	let video_title = '';
 	let video_description = '';
 
+	const loading_phrases = [
+		'Empowering knowledge without borders—decentralized education gives learning back to the people.',
+		'Learning reimagined: Where knowledge flows freely, without gatekeepers or limits.',
+		'In a decentralized world, education is a right, not a privilege. Unlock your potential, one byte at a time.'
+	];
+
+	let current_loading_phrase = loading_phrases[0];
+
+	$: {
+		console.log('upload loading', uploadLoading);
+		if (uploadLoading) {
+			const interval = setInterval(() => {
+				if (!uploadLoading) {
+					clearInterval(interval);
+				}
+				console.log('holaaaa');
+				current_loading_phrase =
+					loading_phrases[Math.floor(Math.random() * loading_phrases.length)];
+			}, 30000);
+		}
+	}
+
 	$: uploadDisabled = !video_value || !video_title || uploadLoading;
 
 	$: {
@@ -233,7 +255,7 @@
 				>
 					<div class="flex gap-4">
 						{#if uploadLoading}
-							<FormSpinner />
+							<FormSpinner bind:phrase={current_loading_phrase} />
 						{/if}
 
 						<span> Upload</span>
