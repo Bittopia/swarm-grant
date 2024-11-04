@@ -63,14 +63,29 @@
 					<Input type="hidden" name="id" value={courseId} />
 					<Input type="hidden" name="societyId" value={societyId} />
 
-					<div>
-						<Label for="image" class="mb-2">What's the society image?</Label>
-						<Fileupload
-							name="image"
-							disabled={requesting}
-							accept="image/*"
-							on:change={(e) => (files = e.target.files)}
-						/>
+					<div class="flex items-center gap-4">
+						{#if files && files.length}
+							<img
+								src={URL.createObjectURL(files[0])}
+								alt="selected banner"
+								class="w-48 h-48 object-cover rounded"
+							/>
+						{:else if $page.data.course.image}
+							<img
+								src={$page.data.course.image}
+								alt="selected banner"
+								class="w-48 h-48 object-cover rounded"
+							/>
+						{/if}
+						<div class="w-full">
+							<Label for="image" class="mb-2">What's the course image?</Label>
+							<Fileupload
+								name="image"
+								disabled={requesting}
+								accept="image/*"
+								on:change={(e) => (files = e.target.files)}
+							/>
+						</div>
 					</div>
 					<div>
 						<Label for="name" class="mb-2">What's the course name?</Label>
