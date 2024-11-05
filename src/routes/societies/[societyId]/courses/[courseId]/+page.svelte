@@ -162,10 +162,10 @@
 										/>
 									{/if}
 									<div class="w-full p-8 rounded-lg">
-										<h3 class="text-slate-900 dark:text-white text-xl font-bold">
+										<h3 class="text-slate-900 dark:text-white text-2xl font-bold">
 											{course.modules[id].name}
 										</h3>
-										<p class="text-slate-700 dark:text-gray-500 mt-4">
+										<p class="text-slate-700 dark:text-gray-500 mt-4 mb-4">
 											{course.modules[id].description}
 										</p>
 									</div>
