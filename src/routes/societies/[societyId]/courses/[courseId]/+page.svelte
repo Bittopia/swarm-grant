@@ -31,7 +31,7 @@
 		</div>
 		<div class="w-full flex gap-8 mt-8">
 			<div class="w-1/3">
-				<section class="w-full p-8 rounded-xl relative" style="background: #1b1f23;">
+				<section class="w-full p-8 rounded-xl relative" style="background: #fff;">
 					{#if data.canEditCourse}
 						<DotsMenu
 							editHref={`${$page.url.pathname}/edit`}
@@ -154,7 +154,7 @@
 								<a
 									class="w-full rounded-xl relative"
 									href={`/societies/${societyId}/courses/${courseId}/modules/${id}`}
-									style="background: #1b1f23;">
+									style="background: #fff;">
 
 									{#if course.creator === data.user?.web3Address}
 										<DotsMenu
