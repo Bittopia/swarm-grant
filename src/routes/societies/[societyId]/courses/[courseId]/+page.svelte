@@ -44,7 +44,7 @@
 								src={course.image}
 								alt="Society image"
 								size="xl"
-								class="w-full rounded-sm h-48 object-cover"
+								class="w-full rounded-xl h-48 object-cover"
 							/>
 						</div>
 					{/if}
