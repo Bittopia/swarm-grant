@@ -271,7 +271,7 @@
 								<MarkdownContent content={snarkdown(data.user?.bio)} />
 							</section>
 						{:else}
-							<p class="w-full text-gray-400">User bio is empty yet</p>
+							<p class="w-full text-gray-400">User bio is empty.</p>
 						{/if}
 					</body>
 				</div>
@@ -322,7 +322,7 @@
 							<MarkdownContent content={snarkdown(data.user?.interests)} />
 						</section>
 					{:else}
-						<p class="w-full text-gray-400">User interests is empty yet</p>
+						<p class="w-full text-gray-400">User interests is empty.</p>
 					{/if}
 				</body>
 			</div>
@@ -372,7 +372,7 @@
 							<MarkdownContent content={snarkdown(data.user?.location)} />
 						</section>
 					{:else}
-						<p class="w-full text-gray-400">User location is empty yet</p>
+						<p class="w-full text-gray-400">User location is empty.</p>
 					{/if}
 				</body>
 			</div>
