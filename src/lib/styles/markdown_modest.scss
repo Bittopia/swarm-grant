@@ -278,6 +278,9 @@
 	.bg-white {
 	  	background-color: #f3f2ef!important;
 	}
+	.dark .bg-white {
+	  	background-color: rgb(10 9 13 / var(--tw-bg-opacity)) !important;
+	}
 	.dark #module {
 	    background: rgb(27, 31, 35)!important;
 	}
