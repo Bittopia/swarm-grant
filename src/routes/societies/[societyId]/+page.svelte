@@ -117,11 +117,11 @@
 											</div>
 
 											<div>
-												<h3 class="text-slate-900 dark:text-white text-xl font-bold mt-6">
+												<h3 class="text-slate-900 dark:text-white text-2xl font-bold mt-6">
 													{data.courses[id].name}
 												</h3>
 												{#if data.courses[id]?.educator}
-													<div class="flex gap-2 items-center">
+													<div class="flex gap-2 items-center mt-4 text-md">
 														<span>Educator: </span>
 														<ProfilePopover
 															triggeredBy={`profile-popover-${id}`}
@@ -131,7 +131,7 @@
 														/>
 													</div>
 												{/if}
-												<p class="text-slate-700 dark:text-gray-500 mt-4">
+												<p class="text-slate-700 dark:text-gray-500 mt-4 mb-4">
 													{data.courses[id].description}
 												</p>
 											</div>
