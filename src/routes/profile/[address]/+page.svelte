@@ -227,7 +227,7 @@
 			<div class="flex flex-col gap-4 p-8 rounded-xl w-full" style="background: #1b1f23;">
 				<div>
 					<header class="flex items-center justify-between py-4">
-						<Heading level="2" class="text-xl profile-heading">Bio</Heading>
+						<Heading level="2" class="text-xl profile-heading">👤 About Me</Heading>
 						{#if data.canEdit}
 							{#if editingBio}
 								<form
@@ -271,14 +271,14 @@
 								<MarkdownContent content={snarkdown(data.user?.bio)} />
 							</section>
 						{:else}
-							<p class="w-full text-gray-400">User bio is empty.</p>
+							<p class="w-full text-gray-400">Add a brief bio to introduce yourself.</p>
 						{/if}
 					</body>
 				</div>
 			</div>
 			<div class="flex flex-col gap-4 p-8 rounded-xl w-full" style="background: #1b1f23;">
 				<header class="flex items-center justify-between py-4">
-					<Heading level="2" class="text-xl profile-heading">Interests</Heading>
+					<Heading level="2" class="text-xl profile-heading">🌟 Passions & Hobbies</Heading>
 					{#if data.canEdit}
 						{#if editingInterests}
 							<form
@@ -322,13 +322,13 @@
 							<MarkdownContent content={snarkdown(data.user?.interests)} />
 						</section>
 					{:else}
-						<p class="w-full text-gray-400">User interests is empty.</p>
+						<p class="w-full text-gray-400">Share your interests and hobbies here.</p>
 					{/if}
 				</body>
 			</div>
 			<div class="flex flex-col gap-4 p-8 rounded-xl w-full" style="background: #1b1f23;">
 				<header class="flex items-center justify-between py-4">
-					<Heading level="2" class="text-xl profile-heading">Location</Heading>
+					<Heading level="2" class="text-xl profile-heading">📍 Current Base</Heading>
 					{#if data.canEdit}
 						{#if editingLocation}
 							<form
@@ -372,7 +372,7 @@
 							<MarkdownContent content={snarkdown(data.user?.location)} />
 						</section>
 					{:else}
-						<p class="w-full text-gray-400">User location is empty.</p>
+						<p class="w-full text-gray-400">Let others know where you're based.</p>
 					{/if}
 				</body>
 			</div>
