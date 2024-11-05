@@ -1,7 +1,7 @@
-import type { BeeService } from '$lib/services/BeeService/BeeService';
-import type { RedisService } from '$lib/services/RedisService/RedisService';
-import type { DataType } from '$lib/types/data';
-import type { UserType } from '$lib/types/user';
+import type { BeeService } from "$lib/services/BeeService/BeeService";
+import type { RedisService } from "$lib/services/RedisService/RedisService";
+import type { DataType } from "$lib/types/data";
+import type { UserType } from "$lib/types/user";
 
 export class UserRepository {
 	private beeService: BeeService;
@@ -9,7 +9,7 @@ export class UserRepository {
 
 	constructor({
 		beeService,
-		redisService
+		redisService,
 	}: {
 		beeService: BeeService;
 		redisService: RedisService;
@@ -25,6 +25,13 @@ export class UserRepository {
 		return users[address];
 	}
 
+  async getAll() {
+    const data = await this.all();
+    const users = data.users;
+
+    return users
+  }
+
 	async save(user: UserType) {
 		const data = await this.all();
 		const users = data.users;
@@ -32,10 +39,10 @@ export class UserRepository {
 		const newUser = { [user.web3Address]: user };
 		// merge and save
 		const { reference } = await this.beeService.mutate({
-			data: { ...data, users: { ...users, ...newUser } }
+			data: { ...data, users: { ...users, ...newUser } },
 		});
 
-		await this.redisService.setData('reference', reference);
+		await this.redisService.setData("reference", reference);
 		return newUser;
 	}
 
@@ -45,14 +52,16 @@ export class UserRepository {
 
 		users[user.web3Address] = user;
 
-		const { reference } = await this.beeService.mutate({ data: { ...data, users } });
+		const { reference } = await this.beeService.mutate({
+			data: { ...data, users },
+		});
 
-		await this.redisService.setData('reference', reference);
+		await this.redisService.setData("reference", reference);
 		return users[user.web3Address];
 	}
 
 	async all(): Promise<DataType> {
-		const reference = await this.redisService.getData('reference');
+		const reference = await this.redisService.getData("reference");
 
 		if (!reference) {
 			return { users: {}, societies: {} };
@@ -68,9 +77,11 @@ export class UserRepository {
 
 		users[address].bio = bio;
 
-		const { reference } = await this.beeService.mutate({ data: { ...data, users } });
+		const { reference } = await this.beeService.mutate({
+			data: { ...data, users },
+		});
 
-		await this.redisService.setData('reference', reference);
+		await this.redisService.setData("reference", reference);
 		return users[address];
 	}
 
@@ -80,9 +91,11 @@ export class UserRepository {
 
 		users[address].interests = interests;
 
-		const { reference } = await this.beeService.mutate({ data: { ...data, users } });
+		const { reference } = await this.beeService.mutate({
+			data: { ...data, users },
+		});
 
-		await this.redisService.setData('reference', reference);
+		await this.redisService.setData("reference", reference);
 		return users[address];
 	}
 
@@ -92,9 +105,11 @@ export class UserRepository {
 
 		users[address].name = name;
 
-		const { reference } = await this.beeService.mutate({ data: { ...data, users } });
+		const { reference } = await this.beeService.mutate({
+			data: { ...data, users },
+		});
 
-		await this.redisService.setData('reference', reference);
+		await this.redisService.setData("reference", reference);
 		return users[address];
 	}
 
@@ -104,9 +119,25 @@ export class UserRepository {
 
 		users[address].location = location;
 
-		const { reference } = await this.beeService.mutate({ data: { ...data, users } });
+		const { reference } = await this.beeService.mutate({
+			data: { ...data, users },
+		});
 
-		await this.redisService.setData('reference', reference);
+		await this.redisService.setData("reference", reference);
+		return users[address];
+	}
+
+	async updateAvatar(address: string, avatarUrl: string) {
+		const data = await this.all();
+		const users = data.users;
+
+		users[address].avatar = avatarUrl;
+
+		const { reference } = await this.beeService.mutate({
+			data: { ...data, users },
+		});
+
+		await this.redisService.setData("reference", reference);
 		return users[address];
 	}
 }

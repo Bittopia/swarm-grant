@@ -1,8 +1,8 @@
-import type { BeeService } from '$lib/services/BeeService/BeeService';
-import type { RedisService } from '$lib/services/RedisService/RedisService';
-import type { DataType } from '$lib/types/data';
-import type { NewSocietyType, SocietyType } from '$lib/types/society';
-import { uuid } from 'uuidv4';
+import type { BeeService } from "$lib/services/BeeService/BeeService";
+import type { RedisService } from "$lib/services/RedisService/RedisService";
+import type { DataType } from "$lib/types/data";
+import type { NewSocietyType, UpdateSocietyType } from "$lib/types/society";
+import { uuid } from "uuidv4";
 
 export class SocietyRepository {
 	private beeService: BeeService;
@@ -10,7 +10,7 @@ export class SocietyRepository {
 
 	constructor({
 		beeService,
-		redisService
+		redisService,
 	}: {
 		beeService: BeeService;
 		redisService: RedisService;
@@ -28,27 +28,38 @@ export class SocietyRepository {
 		const societyWithId = { [id]: { id, ...society } };
 
 		const { reference } = await this.beeService.mutate({
-			data: { ...data, societies: { ...societies, ...societyWithId } }
+			data: { ...data, societies: { ...societies, ...societyWithId } },
 		});
 
-		await this.redisService.setData('reference', reference);
+		await this.redisService.setData("reference", reference);
 		return societyWithId;
 	}
 
-	async update(society: SocietyType) {
+	async update(society: UpdateSocietyType) {
 		const data = await this.all();
 		const societies = data.societies;
 
-		societies[society.id as string] = society;
+		let updatedSociety: Record<string, any> = {};
 
-		const { reference } = await this.beeService.mutate({ data: { ...data, societies } });
+		if (society.name) updatedSociety.name = society.name;
+		if (society.description) updatedSociety.description = society.description;
+		if (society.image) updatedSociety.image = society.image;
 
-		await this.redisService.setData('reference', reference);
+		societies[society.id] = {
+			...societies[society.id],
+			...updatedSociety,
+		};
+
+		const { reference } = await this.beeService.mutate({
+			data: { ...data, societies },
+		});
+
+		await this.redisService.setData("reference", reference);
 		return societies[society.id as string];
 	}
 
 	async all() {
-		const reference = await this.redisService.getData('reference');
+		const reference = await this.redisService.getData("reference");
 
 		if (!reference) {
 			return { users: {}, societies: {} };
@@ -64,8 +75,10 @@ export class SocietyRepository {
 			const societies = data.societies;
 
 			delete societies[societyId];
-			const { reference } = await this.beeService.mutate({ data: { ...data, societies } });
-			await this.redisService.setData('reference', reference);
+			const { reference } = await this.beeService.mutate({
+				data: { ...data, societies },
+			});
+			await this.redisService.setData("reference", reference);
 			return true;
 		} catch (e) {
 			return false;
@@ -83,12 +96,16 @@ export class SocietyRepository {
 				society.members = [];
 			}
 
-			society.members = society.members.filter((memberId) => memberId !== web3Address);
+			society.members = society.members.filter(
+				(memberId) => memberId !== web3Address,
+			);
 
 			society.members.push(web3Address);
 
-			const { reference } = await this.beeService.mutate({ data: { ...data, societies } });
-			await this.redisService.setData('reference', reference);
+			const { reference } = await this.beeService.mutate({
+				data: { ...data, societies },
+			});
+			await this.redisService.setData("reference", reference);
 			return { success: true };
 		} catch (e) {
 			return { success: false };
@@ -105,10 +122,14 @@ export class SocietyRepository {
 				society.members = [];
 			}
 
-			society.members = society.members.filter((memberId) => memberId !== web3Address);
+			society.members = society.members.filter(
+				(memberId) => memberId !== web3Address,
+			);
 
-			const { reference } = await this.beeService.mutate({ data: { ...data, societies } });
-			await this.redisService.setData('reference', reference);
+			const { reference } = await this.beeService.mutate({
+				data: { ...data, societies },
+			});
+			await this.redisService.setData("reference", reference);
 			return { success: true };
 		} catch (e) {
 			return { success: false };

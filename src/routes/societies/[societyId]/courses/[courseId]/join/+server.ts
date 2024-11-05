@@ -20,10 +20,6 @@ export const POST: RequestHandler = async ({ locals, params }) => {
 
 	const data = await CourseService.join(societyId, courseId, user.web3Address);
 
-	console.log(
-		'LS -> src/routes/societies/[societyId]/courses/[courseId]/join/+server.ts:21 -> data: ',
-		data
-	);
 
 	return new Response(JSON.stringify(data));
 };

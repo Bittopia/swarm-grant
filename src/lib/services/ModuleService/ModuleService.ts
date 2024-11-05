@@ -1,5 +1,5 @@
-import type { ModuleRepository } from '$lib/repository/ModuleRepository/ModuleRepository';
-import type { NewModuleType } from '$lib/types/module';
+import type { ModuleRepository } from "$lib/repository/ModuleRepository/ModuleRepository";
+import type { NewModuleType, UpdateModuleType } from "$lib/types/module";
 
 export class ModuleService {
 	moduleRepo: ModuleRepository;
@@ -8,8 +8,12 @@ export class ModuleService {
 		this.moduleRepo = moduleRepo;
 	}
 
-	async save(question: NewModuleType) {
-		return this.moduleRepo.save(question);
+	async save(module: NewModuleType) {
+		return this.moduleRepo.save(module);
+	}
+
+	async update(module: UpdateModuleType) {
+		return this.moduleRepo.update(module);
 	}
 
 	async all(societyId: string, courseId: string) {

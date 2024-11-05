@@ -14,7 +14,7 @@
 	color="dark"
 	outline={true}
 	{disabled}
-	class={'py-2 text-md rounded-full' + className}
+	class={'py-2 text-md rounded-full ' + className}
 	style="border: 1px solid #424148"
 >
 	<div class="flex gap-2 items-center">

@@ -1,22 +1,18 @@
 <script lang="ts">
 	import Container from '$lib/components/Container/Container.svelte';
-	import { Spinner, Button } from 'flowbite-svelte';
+	import { Spinner, Button, Avatar } from 'flowbite-svelte';
 	import { page } from '$app/stores';
-	import type { SocietyType } from '$lib/types/society';
 	import ProfilePopover from '$lib/components/ProfilePopover/ProfilePopover.svelte';
-	import type { PageData } from '../../$types';
 	import { toggleSociety } from '$lib/utils/society';
 	import BackButton from '$lib/components/BackButton.svelte';
 	import { CirclePlusOutline } from 'flowbite-svelte-icons';
+	import DotsMenu from '$lib/components/DotsMenu.svelte';
 
-	interface Data extends SocietyType {
-		isMember: boolean;
-	}
+	export let { societyId } = $page.params;
+
+	export let data;
 
 	let joinLoading = false;
-
-	export let data: PageData & Data;
-	export let { societyId } = $page.params;
 </script>
 
 <Container>
@@ -30,7 +26,24 @@
 		</div>
 		<div class="w-full flex gap-8 mt-8">
 			<div class="w-1/3">
-				<section class="w-full p-8 rounded-xl" style="border: 1px solid #424148">
+				<section class="w-full p-8 rounded-xl relative" style="border: 1px solid #424148">
+					{#if data.canEditSociety}
+						<DotsMenu
+							editHref={$page.url.pathname + '/edit'}
+							onDelete={() => console.log('delete')}
+						/>
+					{/if}
+
+					{#if data.image}
+						<div class="my-4">
+							<Avatar
+								src={data.image + '?img-format=webp'}
+								alt="Society image"
+								size="xl"
+								class="w-full rounded-sm h-48 object-cover"
+							/>
+						</div>
+					{/if}
 					<h1 class="text-slate-950 dark:text-white text-3xl font-bold">{data.name}</h1>
 					<p class="text-slate-800 dark:text-gray-500 mt-4">{data.description}</p>
 					<p class="text-slate-800 dark:text-gray-500 mt-4">{data.members?.length ?? 0} members</p>
@@ -44,7 +57,7 @@
 									await toggleSociety({
 										user: data?.user,
 										societyId,
-										alreadyMember: data?.isMember
+										alreadyMember: data?.isMember ?? false
 									});
 								} catch (error) {
 									//TODO: Handle error
@@ -69,7 +82,7 @@
 				<section class="w-full p-8 rounded-xl">
 					<div class="w-full flex items-center justify-between mb-8">
 						<h2 class="text-slate-900 dark:text-white text-3xl font-bold">Courses</h2>
-						{#if data?.isMember}
+						{#if data.isMember || data.creator === data.user?.web3Address}
 							<Button as="a" href={`/societies/${societyId}/courses/new`} class="rounded-full px-4">
 								<div class="flex gap-2 items-center">
 									<CirclePlusOutline />
@@ -83,20 +96,45 @@
 						<section class="flex flex-col items-center gap-4">
 							{#each Object.keys(data.courses) as id}
 								{#if data?.courses[id]}
-									<a class="w-full" href={`/societies/${data.id}/courses/${id}`}>
-										<div class="w-full p-8 rounded-xl" style="border: 1px solid #424148">
-											{#if data.courses[id]?.educator}
-												<ProfilePopover
-													triggeredBy={`profile-popover-${id}`}
-													address={data.courses[id].educator}
-												/>
-											{/if}
-											<h3 class="text-slate-900 dark:text-white text-xl font-bold mt-6">
-												{data.courses[id].name}
-											</h3>
-											<p class="text-slate-700 dark:text-gray-500 mt-4">
-												{data.courses[id].description}
-											</p>
+									<a class="w-full relative" href={`/societies/${data.id}/courses/${id}`}>
+										{#if data.courses[id].creator === data.user?.web3Address || data.canEditSociety}
+											<DotsMenu
+												editHref={`${$page.url.pathname}/courses/${id}/edit?returnTo=${$page.url.pathname}`}
+												onDelete={() => console.log('delete')}
+											/>
+										{/if}
+										<div class="flex w-full gap-6 p-4 rounded-xl" style="border: 1px solid #424148">
+											<div>
+												{#if data.courses[id].image}
+													<img
+														src={data.courses[id].image + '?img-format=webp'}
+														alt="Course banner"
+														class="h-32 object-cover rounded-xl aspect-square"
+													/>
+												{:else}
+													<div class="h-32 bg-slate-900 rounded-xl aspect-square" />
+												{/if}
+											</div>
+
+											<div>
+												<h3 class="text-slate-900 dark:text-white text-xl font-bold mt-6">
+													{data.courses[id].name}
+												</h3>
+												{#if data.courses[id]?.educator}
+													<div class="flex gap-2 items-center">
+														<span>Educator: </span>
+														<ProfilePopover
+															triggeredBy={`profile-popover-${id}`}
+															avatar={data.courses[id].educator_user?.avatar}
+															name={data.courses[id].educator_user?.name}
+															web3Address={data.courses[id].educator}
+														/>
+													</div>
+												{/if}
+												<p class="text-slate-700 dark:text-gray-500 mt-4">
+													{data.courses[id].description}
+												</p>
+											</div>
 										</div>
 									</a>
 								{/if}

@@ -4,10 +4,22 @@
 	import BackButton from '$lib/components/BackButton.svelte';
 
 	import Container from '$lib/components/Container/Container.svelte';
-	import { Alert, Button, Heading, Input, Label, Textarea, Datepicker } from 'flowbite-svelte';
+	import FormSpinner from '$lib/components/FormSpinner.svelte';
+	import { uploadFile } from '$lib/utils/file.js';
+	import {
+		Alert,
+		Button,
+		Heading,
+		Input,
+		Label,
+		Textarea,
+		Datepicker,
+		Fileupload
+	} from 'flowbite-svelte';
 	const { societyId } = $page.params;
 
 	let requesting = false;
+	let files: FileList;
 	export let form;
 </script>
 
@@ -21,12 +33,20 @@
 	</div>
 	<section id="society-new">
 		<Heading level="2" class="mb-4">New course</Heading>
-		<section class="mt-10">
+		<section class="mt-10 relative">
+			{#if requesting}
+				<FormSpinner />
+			{/if}
 			<form
 				method="post"
 				action="?/newCourse"
-				use:enhance={() => {
+				use:enhance={async ({ formData }) => {
 					requesting = true;
+
+					// if (files && files.length) {
+					// 	const { url } = await uploadFile(files[0], $page.data?.user?.jwt);
+					// 	formData.set('image', url);
+					// }
 
 					return async ({ update }) => {
 						await update();
@@ -38,6 +58,24 @@
 					class="w-full mt-8 p-4 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
 					style="border: 1px solid #424148"
 				>
+					<div class="flex items-center gap-4">
+						{#if files && files.length}
+							<img
+								src={URL.createObjectURL(files[0])}
+								alt="selected banner"
+								class="w-48 h-48 object-cover rounded"
+							/>
+						{/if}
+						<div class="w-full">
+							<Label for="image" class="mb-2">What's the course image?</Label>
+							<Fileupload
+								name="image"
+								disabled={requesting}
+								accept="image/*"
+								on:change={(e) => (files = e.target.files)}
+							/>
+						</div>
+					</div>
 					<div>
 						<Label for="name" class="mb-2">What's the course name?</Label>
 						<Input

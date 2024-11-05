@@ -1,5 +1,5 @@
-import type { CourseRepository } from '$lib/repository/CourseRepository/CourseReporitory';
-import type { NewCourseType } from '$lib/types/course';
+import type { CourseRepository } from "$lib/repository/CourseRepository/CourseReporitory";
+import type { NewCourseType, UpdateCourseType } from "$lib/types/course";
 
 export class CourseService {
 	courseRepo: CourseRepository;
@@ -8,8 +8,12 @@ export class CourseService {
 		this.courseRepo = courseRepo;
 	}
 
-	async save(question: NewCourseType) {
-		return this.courseRepo.save(question);
+	async save(course: NewCourseType) {
+		return this.courseRepo.save(course);
+	}
+
+	async update(course: UpdateCourseType) {
+		return this.courseRepo.update(course);
 	}
 
 	async all(societyId: string) {
@@ -25,8 +29,12 @@ export class CourseService {
 	}
 
 	async leave(societyId: string, courseId: string, web3Address: string) {
-		const response = await this.courseRepo.leave(societyId, courseId, web3Address);
-		console.log('leave response', response);
+		const response = await this.courseRepo.leave(
+			societyId,
+			courseId,
+			web3Address,
+		);
+		console.log("leave response", response);
 		return response;
 	}
 

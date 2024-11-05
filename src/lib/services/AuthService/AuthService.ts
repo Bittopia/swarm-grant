@@ -1,11 +1,11 @@
-import type { AuthRepository } from '$lib/repository/AuthRepository/AuthRepository';
-import type { UserRepository } from '$lib/repository/UserRepository/UserRepository';
-import type { AuthUserType } from '$lib/types/user';
-import { JWT_SECRET } from '$env/static/private';
+import type { AuthRepository } from "$lib/repository/AuthRepository/AuthRepository";
+import type { UserRepository } from "$lib/repository/UserRepository/UserRepository";
+import type { AuthUserType } from "$lib/types/user";
+import { JWT_SECRET } from "$env/static/private";
 
-import { SiweMessage } from 'siwe';
-import { v4 as uuid } from 'uuid';
-import jwt from 'jsonwebtoken';
+import { SiweMessage } from "siwe";
+import { v4 as uuid } from "uuid";
+import jwt from "jsonwebtoken";
 
 export class AuthService {
 	authRepo: AuthRepository;
@@ -48,7 +48,7 @@ export class AuthService {
 			const newUser = {
 				web3Address: data.data.address,
 				nonce: data.data.nonce,
-				chainId: data.data.chainId
+				chainId: data.data.chainId,
 			};
 
 			await this.userRepo.save(newUser);
@@ -62,9 +62,9 @@ export class AuthService {
 				{
 					web3Address: finalUser.web3Address,
 					nonce: finalUser.nonce,
-					chainId: finalUser.chainId
+					chainId: finalUser.chainId,
 				},
-				JWT_SECRET
+				JWT_SECRET,
 			);
 
 			return { isValid, token };

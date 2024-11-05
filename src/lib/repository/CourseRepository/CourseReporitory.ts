@@ -1,10 +1,14 @@
-import type { BeeService } from '$lib/services/BeeService/BeeService';
-import type { RedisService } from '$lib/services/RedisService/RedisService';
-import type { CourseType, NewCourseType } from '$lib/types/course';
+import type { BeeService } from "$lib/services/BeeService/BeeService";
+import type { RedisService } from "$lib/services/RedisService/RedisService";
+import type {
+	CourseType,
+	NewCourseType,
+	UpdateCourseType,
+} from "$lib/types/course";
 
-import { uuid } from 'uuidv4';
-import societyRepository from '$lib/repository/SocietyRepository';
-import set from 'lodash.set';
+import { uuid } from "uuidv4";
+import societyRepository from "$lib/repository/SocietyRepository";
+import set from "lodash.set";
 
 export class CourseRepository {
 	private beeService: BeeService;
@@ -12,7 +16,7 @@ export class CourseRepository {
 
 	constructor({
 		beeService,
-		redisService
+		redisService,
 	}: {
 		beeService: BeeService;
 		redisService: RedisService;
@@ -27,36 +31,68 @@ export class CourseRepository {
 
 		const id = uuid();
 
-		set(societies, [course.societyId, 'courses', id], { id, ...course });
+		set(societies, [course.societyId, "courses", id], { id, ...course });
 
-		const { reference } = await this.beeService.mutate({ data: { ...data, societies } });
+		const { reference } = await this.beeService.mutate({
+			data: { ...data, societies },
+		});
 
-		await this.redisService.setData('reference', reference);
+		await this.redisService.setData("reference", reference);
 		return societies[course.societyId as string].courses?.[id];
 	}
 
-	async update(course: CourseType) {
+	async update(course: UpdateCourseType) {
 		const data = await societyRepository.all();
 		const societies = data.societies;
 
-		set(societies, [course.societyId, 'courses', course.id], course);
+		if (!course.societyId) {
+			return null;
+		}
 
-		const { reference } = await this.beeService.mutate({ data: { ...data, societies } });
+		const updatedCourse: Record<string, any> = {};
 
-		console.log(
-			'LS -> src/lib/repository/CourseRepository/CourseReporitory.ts:44 -> reference: ',
-			reference
-		);
+		if (course.image) updatedCourse.image = course.image;
+		if (course.name) updatedCourse.name = course.name;
+		if (course.description) updatedCourse.description = course.description;
+		if (course.startDate) updatedCourse.startDate = course.startDate;
+		if (course.educator) updatedCourse.educator = course.educator;
+		if (course.members) updatedCourse.members = course.members;
 
-		await this.redisService.setData('reference', reference);
+		set(societies, [course.societyId, "courses", course.id], {
+			...societies[course.societyId].courses?.[course.id],
+			...updatedCourse,
+		});
+
+		const { reference } = await this.beeService.mutate({
+			data: { ...data, societies },
+		});
+
+		await this.redisService.setData("reference", reference);
 		return societies[course.societyId].courses?.[course.id as string];
 	}
 
 	async all(societyId: string) {
 		const data = await societyRepository.all();
 		const societies = data.societies;
+		const users = Object.values(data.users);
 
 		if (societies[societyId]) {
+			const courses = societies[societyId].courses;
+
+			for (const courseId in courses) {
+				courses[courseId].users = courses[courseId].members?.map(
+					(memberAddress: string) =>
+						users.find((user) => user.web3Address === memberAddress) ??
+						memberAddress,
+				);
+
+				courses[courseId].educator_user = users.find(
+					(user) => user.web3Address === courses[courseId].educator,
+				);
+
+				console.log({ courses });
+			}
+
 			return societies[societyId].courses;
 		}
 		return {};
@@ -75,10 +111,12 @@ export class CourseRepository {
 			const data = await societyRepository.all();
 			const societies = data.societies;
 
-			set(societies, [course.societyId, 'courses', course.id], undefined);
+			set(societies, [course.societyId, "courses", course.id], undefined);
 
-			const { reference } = await this.beeService.mutate({ data: { ...data, societies } });
-			await this.redisService.setData('reference', reference);
+			const { reference } = await this.beeService.mutate({
+				data: { ...data, societies },
+			});
+			await this.redisService.setData("reference", reference);
 			return true;
 		} catch (e) {
 			return false;
@@ -97,7 +135,10 @@ export class CourseRepository {
 				course.members = [];
 			}
 
-			await this.update({ ...course, members: [...course.members, web3Address] });
+			await this.update({
+				...course,
+				members: [...course.members, web3Address],
+			});
 
 			return { success: true };
 		} catch (e) {
@@ -119,7 +160,7 @@ export class CourseRepository {
 
 			await this.update({
 				...course,
-				members: course.members.filter((member) => member !== web3Address)
+				members: course.members.filter((member) => member !== web3Address),
 			});
 
 			return { success: true };

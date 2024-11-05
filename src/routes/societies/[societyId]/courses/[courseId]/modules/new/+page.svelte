@@ -1,16 +1,82 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import Container from '$lib/components/Container/Container.svelte';
-	import { Alert, Button, Heading, Input, Label, Textarea } from 'flowbite-svelte';
+	import { Alert, Button, Fileupload, Heading, Input, Label, Textarea } from 'flowbite-svelte';
 	import snarkdown from 'snarkdown';
 	import MarkdownContent from '$lib/components/MarkdownContent/MarkdownContent.svelte';
 	import { page } from '$app/stores';
 	import BackButton from '$lib/components/BackButton.svelte';
+	import FormSpinner from '$lib/components/FormSpinner.svelte';
+	import VideoUploadModal from '$lib/components/VideoUploadModal.svelte';
 	const { societyId, courseId } = $page.params;
+	import { uploadVideo } from '$lib/utils/file';
+	import { uuid } from 'uuidv4';
 
 	let requesting = false;
+	let files: FileList;
+	let showVideoUploadModal = false;
+	let videos = [];
+	let uploadLoading = false;
+
 	export let form;
 	let content = '';
+
+	async function handleVideoUpload(
+		video_file: File,
+		thumbnail_file: File,
+		title: string,
+		description: string
+	) {
+		if (!video_file) return;
+
+		const abortController = new AbortController();
+
+		let thumbnail_url = '';
+		let video_url = '';
+
+		uploadLoading = true;
+		try {
+			const { url } = await uploadVideo(video_file, $page.data.user.jwt, abortController);
+			video_url = url;
+		} catch (error) {
+			console.log(error);
+			uploadLoading = false;
+			return;
+		}
+
+		if (thumbnail_file) {
+			const formData = new FormData();
+			formData.append('file', thumbnail_file);
+
+			const thumbnail_response = await fetch('/file', {
+				method: 'POST',
+				body: formData
+			});
+
+			if (!thumbnail_response.ok) {
+				throw new Error('Failed to upload thumbnail');
+			}
+
+			const { url: thumb_url } = await thumbnail_response.json();
+
+			thumbnail_url = thumb_url;
+		}
+
+		videos.push({
+			id: uuid(),
+			url: video_url,
+			title,
+			description,
+			thumbnail: thumbnail_url
+		});
+
+		uploadLoading = false;
+		showVideoUploadModal = false;
+
+		content += `\n### ${title}\n<video controls ${
+			thumbnail_url ? `poster="${thumbnail_url}"` : ''
+		}><source src="${video_url}" type="video/mp4"> Your browser does not support the video tag. </video>\n`;
+	}
 </script>
 
 <Container>
@@ -29,8 +95,12 @@
 				<form
 					method="post"
 					action="?/newModule"
-					use:enhance={() => {
+					use:enhance={({ formData }) => {
 						requesting = true;
+
+						if (videos?.length > 0) {
+							formData.append('videos', JSON.stringify(videos));
+						}
 
 						return async ({ update }) => {
 							await update();
@@ -38,11 +108,21 @@
 							requesting = false;
 						};
 					}}
+					class="relative"
 				>
+					{#if requesting}
+						<FormSpinner />
+					{/if}
+					<Input type="hidden" name="societyId" value={societyId} />
+					<Input type="hidden" name="courseId" value={courseId} />
 					<div
 						class="w-full p-4 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
 						style="border: 1px solid #424148"
 					>
+						<!-- <div> -->
+						<!-- 	<Label for="image" class="mb-2">What's the module image?</Label> -->
+						<!-- 	<Fileupload name="image" disabled={requesting} accept="image/*" bind:files /> -->
+						<!-- </div> -->
 						<div>
 							<Label for="name" class="mb-2">What's the module name?</Label>
 							<Input
@@ -67,7 +147,17 @@
 							/>
 						</div>
 						<div>
-							<Label for="content" class="mb-2">Write down the module content.</Label>
+							<div class="flex items-end justify-between gap-4 mb-4">
+								<Label for="content" class="mb-2">Write down the module content.</Label>
+								<Button
+									on:click={() => {
+										showVideoUploadModal = true;
+									}}
+									class="mt-4"
+								>
+									Upload video
+								</Button>
+							</div>
 							<Textarea
 								bind:value={content}
 								rows="20"
@@ -106,4 +196,12 @@
 		</section>
 		<!-- End list of societies-->
 	</section>
+	{#if showVideoUploadModal}
+		<VideoUploadModal
+			bind:open={showVideoUploadModal}
+			onClose={() => (showVideoUploadModal = false)}
+			onUpload={handleVideoUpload}
+			{uploadLoading}
+		/>
+	{/if}
 </Container>

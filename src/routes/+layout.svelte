@@ -21,7 +21,7 @@
 			<NavUl {hidden}>
 				{#if $page.data.user}
 					<NavLi
-						href={`/profile/${$page.data.user.web3Address}`}
+						href={`/profile/${$page.data?.user?.web3Address}`}
 						style="font-size: 1rem;"
 						class="text-white dark:text-gray-400">Profile</NavLi
 					>
