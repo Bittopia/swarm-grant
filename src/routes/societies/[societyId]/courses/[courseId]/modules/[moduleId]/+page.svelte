@@ -61,7 +61,7 @@
 			</div>
 			<div class="w-full flex gap-8 mt-8">
 				<div class="w-full">
-					<section class="w-full p-14 rounded-xl" style="border: 1px solid #424148">
+					<section class="w-full p-14 rounded-xl" style="background: #1b1f23;">
 						<div class="w-full flex items-center justify-between">
 							<h1 class="text-slate-900 dark:text-white text-3xl font-bold">{module?.name}</h1>
 							{#if canAddQuestions}
@@ -127,7 +127,7 @@
 					</Button>
 				</div>
 			{/if}
-			<section class="w-full p-8 rounded-xl mt-4" style="border: 1px solid #424148">
+			<section class="w-full p-8 rounded-xl mt-4" style="background: #1b1f23;">
 				{#each Object.keys(questions) as id}
 					<Container>
 						<h3>- {questions[id].question}</h3>
