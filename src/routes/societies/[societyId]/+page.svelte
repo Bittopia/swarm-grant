@@ -26,7 +26,7 @@
 		</div>
 		<div class="w-full flex gap-8 mt-8">
 			<div class="w-1/3">
-				<section class="w-full p-8 rounded-xl relative" style="background: #fff;">
+				<section class="w-full p-8 rounded-xl relative" id="module" style="background: #fff;">
 					{#if data.canEditSociety}
 						<DotsMenu
 							editHref={$page.url.pathname + '/edit'}
@@ -103,7 +103,7 @@
 												onDelete={() => console.log('delete')}
 											/>
 										{/if}
-										<div class="flex w-full gap-6 p-4 rounded-xl" style="background: #fff;">
+										<div class="flex w-full gap-6 p-4 rounded-xl" id="module" style="background: #fff;">
 											<div>
 												{#if data.courses[id].image}
 													<img
