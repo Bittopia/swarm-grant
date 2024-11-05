@@ -121,7 +121,7 @@
 													{data.courses[id].name}
 												</h3>
 												{#if data.courses[id]?.educator}
-													<div class="flex gap-2 items-center mt-4 text-md">
+													<div class="text-slate-900 flex gap-2 items-center mt-4 text-md">
 														<span>Educator: </span>
 														<ProfilePopover
 															triggeredBy={`profile-popover-${id}`}
