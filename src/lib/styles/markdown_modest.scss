@@ -259,3 +259,12 @@
 section#module-content {
     color: #87868c !important;
 }
+
+:is(.dark .dark\:text-white) {
+  --tw-text-opacity: 1;
+  color: rgb(223, 223, 223)!important;
+}
+:is(.dark .dark\:bg-primary-600) {
+  border: 1px solid #bfbfbf!important;
+  background: none!important;
+}
