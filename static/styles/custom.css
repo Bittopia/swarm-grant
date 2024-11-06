@@ -1,0 +1,103 @@
+html {
+		font-size: 18px;
+		max-width: 100%;
+	}
+
+	body {
+		color: #444;
+		font-family: 'Open Sans Condensed', sans-serif;
+		font-weight: 300;
+		margin: 0 auto;
+		max-width: 48rem;
+		line-height: 1.45;
+		padding: 0.25rem;
+	}
+	
+	li {
+    		list-style-type: disc;
+	}
+	li+li, ul+ul {
+    		padding-top: 0.65em;
+	}
+	ul {
+    		margin: 15px 0px 15px 0px;
+	}
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: Arimo, Helvetica, sans-serif;
+		margin: 1.414rem 0 .5rem;
+		color: #FFF!important;
+	}
+
+	h1,
+	h2,
+	h3 {
+		border-bottom: 2px solid #fafafa;
+		margin-bottom: 1.15rem;
+		padding-bottom: 0.5rem;
+	}
+
+	blockquote {
+		border-left: 8px solid #fafafa;
+		padding: 1rem;
+	}
+
+	pre,
+	code {
+	    	position: relative;
+	    	background-color: rgba(13,13,13,var(--tw-bg-opacity));
+	    	border-radius: 5px;
+	    	padding: 0.5rem 0.3rem;
+	    	display: block; /* Each <code> will start on a new line */
+	    	font-size: 0.9em;
+	    	color: #1c64f2; /* White text for contrast */
+	    	white-space: pre-wrap; /* Preserves formatting and wraps text */
+		margin: 0.3rem 0.1rem;
+	}
+	codeline {
+		display: block;
+    		position: relative;
+    		background: rgb(36, 35, 46);
+   		border-radius: 5px;
+	        margin: 1rem 0px;
+	    	padding: 1rem;
+	     	overflow-y: scroll;
+	     	font-size: 0.9em;
+		color: #fff;
+	}
+}
+	section#module-content {
+	    	color: #87868c !important;
+	}
+	
+	:is(.dark .dark\:text-white) {
+	  	color: rgb(223, 223, 223)!important;
+	}
+	:is(.dark .dark\:bg-primary-600) {
+	  	border: 1px solid #bfbfbf!important;
+		background: none!important;
+	}
+	.rounded-full.w-36.h-36.bg-gray-100.dark\:bg-gray-600.text-gray-600.dark\:text-gray-300 {
+	  	object-fit: cover!important;
+	  	object-position: top;
+	  	border: 2px solid #FFF;
+	}
+	.object-cover {
+		object-fit: contain!important;
+	}
+	.bg-white {
+	  	background-color: #f3f2ef!important;
+	}
+	.dark .bg-white {
+	  	background-color: rgb(10 9 13 / var(--tw-bg-opacity)) !important;
+	}
+	.dark #module {
+	    background: rgb(27, 31, 35)!important;
+	}
+	.font-bold {
+	    font-weight: 700 !important;
+	}
