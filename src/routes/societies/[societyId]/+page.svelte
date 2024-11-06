@@ -81,7 +81,7 @@
 			<div class="w-2/3">
 				<section class="w-full p-8 rounded-xl">
 					<div class="w-full flex items-center justify-between mb-8">
-						<h2 class="text-slate-900 dark:text-white text-3xl font-bold">Courses</h2>
+						<h2 class="text-slate-900 dark:text-white text-3xl font-bold">🎓 Courses</h2>
 						{#if data.isMember || data.creator === data.user?.web3Address}
 							<Button as="a" href={`/societies/${societyId}/courses/new`} class="rounded-full px-4">
 								<div class="flex gap-2 items-center">
