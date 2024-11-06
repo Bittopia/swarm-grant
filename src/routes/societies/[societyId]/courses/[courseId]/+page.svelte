@@ -131,7 +131,7 @@
 			<div class="w-2/3">
 				<section class="w-full p-8 rounded-lg">
 					<div class="w-full flex items-center justify-between mb-8">
-						<h2 class="text-slate-900 dark:text-white text-3xl font-bold">Modules</h2>
+						<h2 class="text-slate-900 dark:text-white text-3xl font-bold">🗂️ Modules</h2>
 						{#if canCreateModules}
 							<Button
 								as="a"
