@@ -31,12 +31,18 @@
 
 		const abortController = new AbortController();
 
-		let thumbnail_url = '';
 		let video_url = '';
 
 		uploadLoading = true;
 		try {
-			const { url } = await uploadVideo(video_file, $page.data.user.jwt, abortController);
+			const { url } = await uploadVideo({
+				video_file,
+				thumbnail_file,
+				jwt: $page.data.user.jwt,
+				title,
+				description,
+				abortController
+			});
 			video_url = url;
 		} catch (error) {
 			console.log(error);
@@ -44,38 +50,35 @@
 			return;
 		}
 
-		if (thumbnail_file) {
-			const formData = new FormData();
-			formData.append('file', thumbnail_file);
-
-			const thumbnail_response = await fetch('/file', {
-				method: 'POST',
-				body: formData
-			});
-
-			if (!thumbnail_response.ok) {
-				throw new Error('Failed to upload thumbnail');
-			}
-
-			const { url: thumb_url } = await thumbnail_response.json();
-
-			thumbnail_url = thumb_url;
-		}
+		// if (thumbnail_file) {
+		// 	const formData = new FormData();
+		// 	formData.append('file', thumbnail_file);
+		//
+		// 	const thumbnail_response = await fetch('/file', {
+		// 		method: 'POST',
+		// 		body: formData
+		// 	});
+		//
+		// 	if (!thumbnail_response.ok) {
+		// 		throw new Error('Failed to upload thumbnail');
+		// 	}
+		//
+		// 	const { url: thumb_url } = await thumbnail_response.json();
+		//
+		// 	thumbnail_url = thumb_url;
+		// }
 
 		videos.push({
 			id: uuid(),
 			url: video_url,
 			title,
-			description,
-			thumbnail: thumbnail_url
+			description
 		});
 
 		uploadLoading = false;
 		showVideoUploadModal = false;
 
-		content += `\n### ${title}\n<video controls ${
-			thumbnail_url ? `poster="${thumbnail_url}"` : ''
-		}><source src="${video_url}" type="video/mp4"> Your browser does not support the video tag. </video>\n`;
+		content += `\n### ${title}\n<video controls><source src="${video_url}" type="video/mp4"> Your browser does not support the video tag. </video>\n`;
 	}
 </script>
 
