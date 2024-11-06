@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../app.postcss';
-
+    	import '../static/styles/custom.css';
 	import { Navbar, NavBrand, NavHamburger, NavLi, NavUl, DarkMode } from 'flowbite-svelte';
 	import { page } from '$app/stores';
 	import '$lib/web3/modal';
