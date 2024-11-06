@@ -259,31 +259,4 @@
 	section#module-content {
 	    	color: #87868c !important;
 	}
-	
-	:is(.dark .dark\:text-white) {
-	  	color: rgb(223, 223, 223)!important;
-	}
-	:is(.dark .dark\:bg-primary-600) {
-	  	border: 1px solid #bfbfbf!important;
-		background: none!important;
-	}
-	.rounded-full.w-36.h-36.bg-gray-100.dark\:bg-gray-600.text-gray-600.dark\:text-gray-300 {
-	  	object-fit: cover!important;
-	  	object-position: top;
-	  	border: 2px solid #FFF;
-	}
-	.object-cover {
-		object-fit: contain!important;
-	}
-	.bg-white {
-	  	background-color: #f3f2ef!important;
-	}
-	.dark .bg-white {
-	  	background-color: rgb(10 9 13 / var(--tw-bg-opacity)) !important;
-	}
-	.dark #module {
-	    background: rgb(27, 31, 35)!important;
-	}
-	.font-bold {
-	    font-weight: 700 !important;
-	}
+
