@@ -54,14 +54,29 @@ export async function uploadFile(
 	return { url: cdn_url };
 }
 
-export async function uploadVideo(
-	file: File,
-	jwt: string,
-	abortController?: AbortController,
-) {
+export async function uploadVideo({
+	video_file,
+	title,
+	description,
+	thumbnail_file,
+	jwt,
+	abortController,
+}: {
+	video_file: File;
+	title: string;
+	description: string;
+	thumbnail_file: File;
+	jwt: string;
+	abortController?: AbortController;
+}) {
 	const formData = new FormData();
 
-	formData.append("file", file);
+	console.log({ video_file, title, description, thumbnail_file });
+
+	formData.append("file", video_file);
+	formData.append("title", title);
+	formData.append("description", description);
+	formData.append("thumbnail", thumbnail_file);
 
 	const response = await fetch(`${FILE_UPLOAD_SERVICE_URL}/upload-video`, {
 		method: "POST",
