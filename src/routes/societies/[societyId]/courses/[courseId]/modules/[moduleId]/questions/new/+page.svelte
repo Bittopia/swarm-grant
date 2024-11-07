@@ -43,12 +43,10 @@
 		}}
 	>
 		<div
-			class="mt-8 p-4 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
-			style="border: 1px solid #424148"
-		>
+			<section class="w-full p-8 rounded-xl relative" id="module" style="background: #fff;">
 			<Heading tag="h2">Adding a question to your module</Heading>
 			<div>
-				<Label for="question" class="mb-2">What's the question?</Label>
+				<Label for="question" class="mt-6 mb-4">What's the question?</Label>
 				<Input
 					bind:value={question}
 					name="question"
@@ -67,7 +65,7 @@
 					if (option) addOption(option);
 				}}
 			>
-				<Label for="option" class="mb-2">What are the available options?</Label>
+				<Label for="option" class="mt-6 mb-4">What are the available options?</Label>
 				<div class="w-full flex items-center gap-4">
 					<Input
 						bind:value={option}
