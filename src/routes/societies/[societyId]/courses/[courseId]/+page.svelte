@@ -90,7 +90,7 @@
 						{#if isMemberOfSociety}
 							<div class="flex justify-center">
 								<Button
-									class="mt-8 max-w-full px-10 text-md rounded-full"
+									class="mt-8 max-w-full px-10 text-md rounded-full {data?.isMember ? '' : 'enroll'}"
 									disabled={joinLoading}
 									on:click={async () => {
 										try {
@@ -118,9 +118,9 @@
 									{#if joinLoading}
 										<Spinner />
 									{:else if data.isMember}
-										Leave
+										Opt Out
 									{:else}
-										Enroll
+										Get Started
 									{/if}
 								</Button>
 							</div>
