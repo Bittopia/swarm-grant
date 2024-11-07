@@ -70,9 +70,9 @@
 							{#if joinLoading}
 								<Spinner />
 							{:else if data?.isMember}
-								Leave
+								Leave Society
 							{:else}
-								Join
+								Join Society
 							{/if}
 						</Button>
 
