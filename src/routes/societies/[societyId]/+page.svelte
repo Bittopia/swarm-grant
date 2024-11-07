@@ -49,7 +49,7 @@
 					<p class="text-slate-800 dark:text-gray-500 mt-4">{data.members?.length ?? 0} members</p>
 					<div class="flex justify-center">
 						<Button
-							class="mt-8 max-w-full px-10 text-md rounded-full"
+							class="mt-8 max-w-full px-10 text-md rounded-full {data?.isMember ? '' : 'join'}"
 							disabled={joinLoading}
 							on:click={async () => {
 								try {
@@ -60,7 +60,7 @@
 										alreadyMember: data?.isMember ?? false
 									});
 								} catch (error) {
-									//TODO: Handle error
+									// TODO: Handle error
 									console.log({ error });
 								} finally {
 									joinLoading = false;
@@ -75,6 +75,7 @@
 								Join
 							{/if}
 						</Button>
+
 					</div>
 				</section>
 			</div>
