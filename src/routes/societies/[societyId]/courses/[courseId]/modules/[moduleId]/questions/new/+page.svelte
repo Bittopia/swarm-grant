@@ -43,7 +43,7 @@
 		}}
 	>
 		<div
-			<section class="w-full p-8 rounded-xl relative" id="module" style="background: #fff;">
+			<div class="mt-8 p-8 rounded-xl grid gap-6 mb-6 md:grid-cols-1" id="module" style="background: #fff;">
 			<Heading tag="h2">Adding a question to your module</Heading>
 			<div>
 				<Label for="question" class="mt-6 mb-4">What's the question?</Label>
