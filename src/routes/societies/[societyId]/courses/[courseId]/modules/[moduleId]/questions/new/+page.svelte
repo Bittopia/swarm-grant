@@ -42,7 +42,6 @@
 			};
 		}}
 	>
-		<div
 			<div class="mt-8 p-8 rounded-xl grid gap-6 mb-6 md:grid-cols-1" id="module" style="background: #fff;">
 			<Heading tag="h2">Adding a question to your module</Heading>
 			<div>
