@@ -88,7 +88,7 @@
 						</div>
 
 						{#if isMemberOfSociety}
-							<div class="flex justify-center">
+							<div class="flex justify-center mt-4 mb-8 course-button">
 								<Button
 									class="mt-8 max-w-full px-10 text-md rounded-full {data?.isMember ? '' : 'enroll'}"
 									disabled={joinLoading}
