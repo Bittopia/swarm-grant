@@ -47,7 +47,7 @@
 					<h1 class="text-slate-950 dark:text-white text-3xl font-bold">{data.name}</h1>
 					<p class="text-slate-800 dark:text-gray-500 mt-4">{data.description}</p>
 					<p class="text-slate-800 dark:text-gray-500 mt-4">{data.members?.length ?? 0} members</p>
-					<div class="flex justify-center">
+					<div class="flex justify-center mt-4 mb-8 society-button">
 						<Button
 							class="mt-8 max-w-full px-10 text-md rounded-full {data?.isMember ? '' : 'join'}"
 							disabled={joinLoading}
