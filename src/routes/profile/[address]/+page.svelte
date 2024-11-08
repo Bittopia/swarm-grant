@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types.js';
 	import { enhance } from '$app/forms';
-	import { env } from '$env/dynamic/public';
 
 	import { Avatar, Button, Heading, Input, Label, Textarea, Spinner } from 'flowbite-svelte';
 	import { UserEditOutline, BookSolid } from 'flowbite-svelte-icons';
@@ -15,8 +14,6 @@
 	import FileUpload from '$lib/components/FileUpload.svelte';
 	import LoadingModal from '$lib/components/LoadingModal.svelte';
 	import BackButton from '$lib/components/BackButton.svelte';
-	import { getPresignedUrl, uploadFile } from '$lib/utils/file';
-	import { uuid } from 'uuidv4';
 
 	let selectedTab = 'about';
 	let editingBio = false;
@@ -121,7 +118,7 @@
 
 <div class="w-full flex flex-col justify-center items-center">
 	<div class="justify-self-start w-8/12">
-		<BackButton href="/" />
+		<BackButton onClick={() => window.history.back()} />
 	</div>
 	<div class="flex flex-col md:flex-row gap-8 w-8/12 h-full py-4">
 		<section class="w-full max-w-full md:w-[30%] md:max-w-[30%]">
