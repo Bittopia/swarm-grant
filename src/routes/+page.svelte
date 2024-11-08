@@ -28,7 +28,7 @@
 		</div>
 		<!-- Define list of societies -->
 		{#if data}
-			<section class="mt-10 grid gap-4 grid-cols-3 grid-rows-1 items-stretch">
+			<section class="mt-10 grid gap-4 grid-cols-3 grid-rows-1 items-stretch" id="module" style="background: #fff;">
 				{#each Object.keys(societies) as societyId}
 					<SocietyBox society={societies[societyId]} />
 				{/each}
