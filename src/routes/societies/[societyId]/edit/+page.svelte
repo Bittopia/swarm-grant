@@ -31,7 +31,7 @@
 		</div>
 	</div>
 	<section id="society-new">
-		<Heading level="2" class="mb-4">Update Society</Heading>
+		<Heading level="2" class="mb-4">Edit Society</Heading>
 		<section class="mt-10 relative">
 			{#if requesting}
 				<FormSpinner />
@@ -55,10 +55,7 @@
 				}}
 			>
 				<Input type="hidden" name="id" value={$page.data.society.id} />
-				<div
-					class="w-full mt-8 p-4 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
-					style="border: 1px solid #424148"
-				>
+				<div class="mt-8 p-8 rounded-xl grid gap-6 mb-6 md:grid-cols-1" id="module" style="background: #fff;">
 					<div class="flex items-center gap-4">
 						{#if files && files.length}
 							<img
@@ -91,7 +88,7 @@
 							disabled={requesting}
 							type="text"
 							id="name"
-							placeholder="Eg.: Mathematics Society"
+							placeholder="Eg.: Jungian Society"
 							value={name}
 							required
 						/>
