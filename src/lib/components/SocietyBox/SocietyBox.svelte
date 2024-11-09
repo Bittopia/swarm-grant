@@ -1,4 +1,4 @@
-<script lang="ts">
+	<script lang="ts">
 	import { Heading } from 'flowbite-svelte';
 	import type { SocietyType } from '$lib/types/society';
 
@@ -11,14 +11,14 @@
 			<img
 				src={society.image + '?img-format=webp'}
 				alt="Society banner"
-				class="w-full h-72 object-cover bg-gray-100 dark:bg-gray-600 rounded-lg mt-3"
+				class="w-full h-72 object-cover bg-gray-100 dark:bg-gray-600 rounded-t-lg mt-3"
 			/>
 
 			<hr class="my-4 border-[#424148] mt-8 mb-8" />
 		{:else}
 			<div class="w-full h-72 bg-auto rounded-xl" />
 		{/if}
-		<h4 class="text-2xl font-bold text-gray-900 dark:text-white w-full" classname="pt-8" style="padding-left: 29px;">{society.name}</h4>
-		<p class="mt-4 line-clamp-3 text-gray-800 dark:text-white das-des mb-3" style="padding-top: 3px;">{society.description}</p>
+		<h4 class="text-2xl font-bold text-gray-900 dark:text-white w-full mt-8" style="padding-left: 2rem;">{society.name}</h4>
+		<p class="mt-4 line-clamp-3 text-gray-800 dark:text-white das-des mb-3 p-8" style="padding-top: 3px;">{society.description}</p>
 	</div>
 </a>
