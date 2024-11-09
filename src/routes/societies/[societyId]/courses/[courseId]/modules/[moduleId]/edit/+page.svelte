@@ -60,7 +60,7 @@
 		uploadLoading = false;
 		showVideoUploadModal = false;
 
-		content += `\n### ${title}\n<video controls><source src="${video_url}" type="video/mp4"> Your browser does not support the video tag. </video>\n`;
+		content += `\n### ${title}\n<iframe src="${video_url}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="720" height="480"></iframe>\n`;
 	}
 </script>
 
@@ -102,7 +102,11 @@
 					<Input type="hidden" name="id" value={moduleId} />
 					<Input type="hidden" name="societyId" value={societyId} />
 					<Input type="hidden" name="courseId" value={courseId} />
-					<div class="mt-8 p-8 rounded-xl grid gap-6 mb-6 md:grid-cols-1" id="module" style="background: #fff;">
+					<div
+						class="mt-8 p-8 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
+						id="module"
+						style="background: #fff;"
+					>
 						<div>
 							<Label for="image" class="mb-2">What's the module image?</Label>
 							<Fileupload
