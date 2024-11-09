@@ -5,7 +5,7 @@
 	export let society: SocietyType;
 </script>
 
-<a href={`/societies/${society.id}`}>
+<a href={`/societies/${society.id}`} class="bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-gray-300 w-full rounded-xl h-48 object-cover">
 	<div class="p-6 rounded-xl dark:hover:bg-slate-700 shadow-gray transition-shadow h-full societies-box" id="module" style="background: #fff;" >
 		{#if typeof society.image === 'string' && society.image !== ''}
 			<img
