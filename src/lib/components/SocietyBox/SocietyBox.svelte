@@ -6,7 +6,7 @@
 </script>
 
 <a href={`/societies/${society.id}`}>
-	<div class="p-8 rounded-xl dark:hover:bg-slate-700 shadow-gray transition-shadow h-full societies-box" id="module" style="background: #fff;" >
+	<div class="p-0 rounded-xl dark:hover:bg-slate-700 shadow-gray transition-shadow h-full societies-box" id="module" style="background: #fff;" >
 		{#if typeof society.image === 'string' && society.image !== ''}
 			<img
 				src={society.image + '?img-format=webp'}
@@ -20,6 +20,6 @@
 		{/if}
 
 		<Heading tag="h4" className="mt-8">{society.name}</Heading>
-		<p class="mt-4 line-clamp-3 text-gray-800 dark:text-white das-des mb-3">{society.description}</p>
+		<p class="mt-4 line-clamp-3 text-gray-800 dark:text-white das-des mb-3" style="padding-top: 3px;">{society.description}</p>
 	</div>
 </a>
