@@ -6,10 +6,7 @@
 </script>
 
 <a href={`/societies/${society.id}`}>
-	<div
-		class="p-6 rounded-xl dark:hover:bg-slate-700 shadow-gray transition-shadow h-full"
-		style="border: 1px solid #424148"
-	>
+	<div class="p-6 rounded-xl dark:hover:bg-slate-700 shadow-gray transition-shadow h-full societies-box" id="module" style="background: #fff;" >
 		{#if typeof society.image === 'string' && society.image !== ''}
 			<img
 				src={society.image + '?img-format=webp'}
