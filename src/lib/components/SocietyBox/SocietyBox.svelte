@@ -18,8 +18,7 @@
 		{:else}
 			<div class="w-full h-72 bg-auto rounded-xl" />
 		{/if}
-
-		<Heading tag="h4" className="mt-8">{society.name}</Heading>
+		<h4 class="text-2xl font-bold text-gray-900 dark:text-white w-full" classname="pt-8" style="padding-left: 29px;">{society.name}</h4>
 		<p class="mt-4 line-clamp-3 text-gray-800 dark:text-white das-des mb-3" style="padding-top: 3px;">{society.description}</p>
 	</div>
 </a>
