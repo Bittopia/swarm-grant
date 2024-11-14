@@ -67,6 +67,7 @@
 						        <Fileupload
 						            name="image"
 						            class="image-button"
+							    id="upload-button"
 						            disabled={requesting}
 						            accept="image/*"
 						            on:change={(e) => (files = e.target.files)}
