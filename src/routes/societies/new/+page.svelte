@@ -62,30 +62,33 @@
 							/>
 						{/if}
 						<div class="w-full">
-							<Label for="image" class="mb-2">What's the society image?</Label>
-							<Fileupload
-								name="image"
-								class="image-button"
-								disabled={requesting}
-								accept="image/*"
-								on:change={(e) => (files = e.target.files)}
-							/>
+						    <Label for="image" class="mb-2">Upload an Image for Your Society</Label>
+						    <div class="imageupload-wrapper">
+						        <Fileupload
+						            name="image"
+						            class="image-button"
+						            disabled={requesting}
+						            accept="image/*"
+						            on:change={(e) => (files = e.target.files)}
+						        />
+						    </div>
 						</div>
+
 					</div>
 					<div>
-						<Label for="name" class="mb-2">What's the society name?</Label>
+						<Label for="name" class="mb-2">Name Your Society</Label>
 						<Input
 							maxlength="25"
 							name="name"
 							disabled={requesting}
 							type="text"
 							id="name"
-							placeholder="Eg.: Mathematics Society"
+							placeholder="Eg.: EdTech DAS"
 							required
 						/>
 					</div>
 					<div>
-						<Label for="description" class="mb-2">Give a description for your society.</Label>
+						<Label for="description" class="mb-2">Add a Description for Your Society</Label>
 						<Textarea
 							class="resize-none"
 							rows="8"
@@ -93,7 +96,7 @@
 							disabled={requesting}
 							type="text"
 							id="description"
-							placeholder="Write a description for your society"
+							placeholder="Describe the purpose and vision of your society..."
 							required
 						/>
 					</div>
