@@ -65,6 +65,7 @@
 							<Label for="image" class="mb-2">What's the society image?</Label>
 							<Fileupload
 								name="image"
+								class="image-button"
 								disabled={requesting}
 								accept="image/*"
 								on:change={(e) => (files = e.target.files)}
