@@ -85,7 +85,7 @@
 			<!-- Main content (2/3 on larger screens) -->
 			<div class="md:col-span-2">
 				<section class="w-full p-8 rounded-xl">
-					<div class="w-full flex items-center justify-between mb-8">
+					<div class="w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
 						<h2 class="text-slate-900 dark:text-white text-3xl font-bold">🎓 Courses</h2>
 						{#if data.isMember || data.creator === data.user?.web3Address}
 							<Button as="a" href={`/societies/${societyId}/courses/new`} class="rounded-full px-4">
@@ -96,7 +96,6 @@
 							</Button>
 						{/if}
 					</div>
-
 					{#if data.courses}
 						<section class="flex flex-col items-center gap-4">
 						{#each Object.keys(data.courses) as id}
