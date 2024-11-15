@@ -112,7 +112,7 @@
 
 					<div class="flex items-center justify-end w-full gap-4">
 						<BackButton href="/" disabled={requesting} text="Back to society list" />
-						<Button disabled={requesting} type="submit" class="rounded-full">Submit</Button>
+						<Button disabled={requesting} type="submit" class="rounded-full cta">Submit</Button>
 					</div>
 				</div>
 			</form>
