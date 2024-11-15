@@ -23,7 +23,7 @@
 <Container>
 	<div class="w-full mb-4">
 		<div class="flex items-center justify-between">
-			<div class="flex items-center gap-4">
+			<div class="flex items-center gap-4 mb-5">
 				<BackButton href="/" />
 			</div>
 		</div>
