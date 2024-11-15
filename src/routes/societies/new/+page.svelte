@@ -87,7 +87,9 @@
 							/>
 						{/if}
 						<div class="w-full">
-						    <Label for="image" class="mt-3 mb-4 text-lg">Upload an Image for Your Society</Label>
+						    <Label for="image" class="mt-3 mb-1 text-lg">Upload an Image for Your Society</Label>
+						    <p class="text-md text-gray-500 mb-4">(Recommended 4:3 Ratio)</p>
+
 						    <div class="imageupload-wrapper">
 						        <Fileupload
 						            name="image"
