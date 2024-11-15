@@ -131,7 +131,7 @@
 			<!-- Main Content Section -->
 			<div class="w-full md:w-2/3">
 				<section class="w-full p-8 rounded-lg">
-					<div class="w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
+					<div class="w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-16 md:mb-8 gap-4">
 						<h2 class="text-slate-900 dark:text-white text-3xl font-bold">🗂️ Modules</h2>
 						{#if canCreateModules}
 							<Button
@@ -153,7 +153,7 @@
 						<section class="flex flex-col items-center gap-4">
 							{#each Object.keys(course.modules) as id}
 								<a
-									class="w-full rounded-xl relative"
+									class="w-full p-1 md:p-8 rounded-xl relative"
 									href={`/societies/${societyId}/courses/${courseId}/modules/${id}`}
 									id="module" style="background: #fff;">
 									{#if course.creator === data.user?.web3Address}
@@ -162,7 +162,7 @@
 										/>
 									{/if}
 
-									<div class="flex flex-col md:flex-row w-full gap-4 p-4 rounded-lg md:justify-start">
+									<div class="flex flex-col md:flex-row w-full gap-4 p-8 rounded-lg md:justify-start">
 										<div class="flex justify-start md:w-1/3">
 											{#if course.modules[id].image}
 												<img
@@ -175,8 +175,8 @@
 											{/if}
 										</div>
 
-										<div class="text-center md:text-left md:w-2/3">
-											<h3 class="text-slate-900 dark:text-white text-2xl font-bold">
+										<div class="text-left md:w-2/3">
+											<h3 class="text-slate-900 dark:text-white mb-4 text-2xl font-bold">
 												{course.modules[id].name}
 											</h3>
 											<p class="text-slate-700 dark:text-gray-500 mt-4 mb-4">
