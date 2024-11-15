@@ -43,7 +43,7 @@
 								src={data.image + '?img-format=webp'}
 								alt="Society image"
 								size="xl"
-								class="w-full rounded-xl h-48 object-cover"
+								class="w-full rounded-xl h-48 object-cover aspect-[4/3]"
 							/>
 						</div>
 					{/if}
@@ -115,10 +115,10 @@
 												<img
 													src={data.courses[id].image + '?img-format=webp'}
 													alt="Course banner"
-													class="h-32 object-cover rounded-xl aspect-square"
+													class="h-32 object-cover rounded-xl aspect-[4/3]"
 												/>
 											{:else}
-												<div class="h-32 bg-slate-900 rounded-xl aspect-square" />
+												<div class="h-32 bg-slate-900 rounded-xl aspect-[4/3]" />
 											{/if}
 										</div>
 						
