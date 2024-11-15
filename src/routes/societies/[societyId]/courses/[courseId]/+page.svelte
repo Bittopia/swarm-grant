@@ -23,18 +23,21 @@
 <Container>
 	{#if course}
 		<div class="w-full">
-			<div class="flex items-center justify-between">
+			<div class="flex flex-col md:flex-row items-center justify-between">
 				<div class="flex items-center gap-4">
-					<BackButton href={/societies/${societyId}} />
+					<BackButton href={`/societies/${societyId}`} />
 				</div>
 			</div>
 		</div>
-		<div class="w-full flex gap-8 mt-8">
-			<div class="w-1/3">
+
+		<!-- Responsive Layout -->
+		<div class="w-full flex flex-col md:flex-row gap-8 mt-8">
+			<!-- Sidebar Section -->
+			<div class="w-full md:w-1/3">
 				<section class="w-full p-8 rounded-xl relative" id="module" style="background: #fff;">
 					{#if data.canEditCourse}
 						<DotsMenu
-							editHref={${$page.url.pathname}/edit}
+							editHref={`${$page.url.pathname}/edit`}
 							onDelete={() => console.log('delete')}
 						/>
 					{/if}
@@ -44,7 +47,7 @@
 								src={course.image}
 								alt="Society image"
 								size="xl"
-								class="w-full rounded-xl h-48 object-cover"
+								class="w-full rounded-xl h-auto object-cover aspect-[4/3]"
 							/>
 						</div>
 					{/if}
@@ -56,22 +59,20 @@
 					<div class="flex gap-4 mt-8 mb-6">
 						<span class="text-slate-800 dark:text-gray-500">Educator: </span>
 						<ProfilePopover
-							triggeredBy={educator-${course.id}-${course.educator}}
+							triggeredBy={`educator-${course.id}-${course.educator}`}
 							avatar={course.educator_user?.avatar}
 							name={course.educator_user?.name}
 							web3Address={course.educator}
 						/>
 					</div>
 					<div class="flex flex-col gap-4 mt-2">
-						<span class="text-slate-800 dark:text-gray-500"
-							>Members <Badge color="dark">{members?.length ?? 0}</Badge></span
-						>
-						<div
-							class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-2 w-max"
-						>
+						<span class="text-slate-800 dark:text-gray-500">
+							Members <Badge color="dark">{members?.length ?? 0}</Badge>
+						</span>
+						<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-2 w-max">
 							{#each members.slice(0, 9) as member}
 								<ProfilePopover
-									triggeredBy={member-${course.id}-${member?.web3Address}}
+									triggeredBy={`member-${course.id}-${member?.web3Address}`}
 									name={member?.name}
 									web3Address={member?.web3Address}
 									avatar={member?.avatar}
@@ -108,8 +109,6 @@
 												'[LS] -> src/routes/societies/[societyId]/courses/[courseId]/+page.svelte:106 -> error: ',
 												error
 											);
-											//TODO: Handle error
-											console.log({ error });
 										} finally {
 											joinLoading = false;
 										}
@@ -128,14 +127,16 @@
 					</div>
 				</section>
 			</div>
-			<div class="w-2/3">
+
+			<!-- Main Content Section -->
+			<div class="w-full md:w-2/3">
 				<section class="w-full p-8 rounded-lg">
-					<div class="w-full flex items-center justify-between mb-8">
+					<div class="w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
 						<h2 class="text-slate-900 dark:text-white text-3xl font-bold">🗂️ Modules</h2>
 						{#if canCreateModules}
 							<Button
 								as="a"
-								href={/societies/${societyId}/courses/${courseId}/modules/new}
+								href={`/societies/${societyId}/courses/${courseId}/modules/new`}
 								color="primary"
 								size="sm"
 								class="rounded-full"
@@ -153,21 +154,35 @@
 							{#each Object.keys(course.modules) as id}
 								<a
 									class="w-full rounded-xl relative"
-									href={/societies/${societyId}/courses/${courseId}/modules/${id}}
+									href={`/societies/${societyId}/courses/${courseId}/modules/${id}`}
 									id="module" style="background: #fff;">
-
 									{#if course.creator === data.user?.web3Address}
 										<DotsMenu
-											editHref={/societies/${societyId}/courses/${courseId}/modules/${id}/edit}
+											editHref={`/societies/${societyId}/courses/${courseId}/modules/${id}/edit`}
 										/>
 									{/if}
-									<div class="w-full p-8 rounded-lg">
-										<h3 class="text-slate-900 dark:text-white text-2xl font-bold">
-											{course.modules[id].name}
-										</h3>
-										<p class="text-slate-700 dark:text-gray-500 mt-4 mb-4">
-											{course.modules[id].description}
-										</p>
+
+									<div class="flex flex-col md:flex-row w-full gap-4 p-4 rounded-lg md:justify-start">
+										<div class="flex justify-start md:w-1/3">
+											{#if course.modules[id].image}
+												<img
+													src={course.modules[id].image + '?img-format=webp'}
+													alt="Module banner"
+													class="w-full h-auto object-cover rounded-lg aspect-[4/3]"
+												/>
+											{:else}
+												<div class="w-full h-32 bg-slate-900 rounded-lg aspect-[4/3]" />
+											{/if}
+										</div>
+
+										<div class="text-center md:text-left md:w-2/3">
+											<h3 class="text-slate-900 dark:text-white text-2xl font-bold">
+												{course.modules[id].name}
+											</h3>
+											<p class="text-slate-700 dark:text-gray-500 mt-4 mb-4">
+												{course.modules[id].description}
+											</p>
+										</div>
 									</div>
 								</a>
 							{/each}
