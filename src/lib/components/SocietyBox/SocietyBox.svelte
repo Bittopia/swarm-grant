@@ -11,7 +11,7 @@
 			<img
 				src={society.image + '?img-format=webp'}
 				alt="Society banner"
-				class="w-full h-72 object-cover bg-gray-100 dark:bg-gray-600 rounded-t-lg mt-3"
+				class="w-full aspect-[4/3] object-cover bg-gray-100 dark:bg-gray-600 rounded-t-lg mt-3"
 			/>
 
 		{:else}
