@@ -26,7 +26,7 @@
 		</div>
 
 		<!-- Responsive grid layout -->
-		<div class="w-full grid gap-8 mt-8 grid-cols-1 md:grid-cols-3">
+		<div class="w-full grid gap-8 mt-16 grid-cols-1 md:grid-cols-3">
 			<!-- Sidebar (1/3 on larger screens) -->
 			<div class="md:col-span-1">
 				<section class="w-full p-8 rounded-xl relative" id="module" style="background: #fff;">
