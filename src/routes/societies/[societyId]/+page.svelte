@@ -99,52 +99,54 @@
 
 					{#if data.courses}
 						<section class="flex flex-col items-center gap-4">
-							{#each Object.keys(data.courses) as id}
-								{#if data?.courses[id]}
-									<a class="w-full relative" href={`/societies/${data.id}/courses/${id}`}>
-										{#if data.courses[id].creator === data.user?.web3Address || data.canEditSociety}
-											<DotsMenu
-												editHref={`${$page.url.pathname}/courses/${id}/edit?returnTo=${$page.url.pathname}`}
-												onDelete={() => console.log('delete')}
-											/>
-										{/if}
-										<div class="flex w-full gap-6 p-4 rounded-xl" id="module" style="background: #fff;">
-											<div>
-												{#if data.courses[id].image}
-													<img
-														src={data.courses[id].image + '?img-format=webp'}
-														alt="Course banner"
-														class="h-32 object-cover rounded-xl aspect-square"
-													/>
-												{:else}
-													<div class="h-32 bg-slate-900 rounded-xl aspect-square" />
-												{/if}
-											</div>
-
-											<div>
-												<h3 class="text-slate-900 dark:text-white text-2xl font-bold mt-6">
-													{data.courses[id].name}
-												</h3>
-												{#if data.courses[id]?.educator}
-													<div class="text-slate-900 dark:text-white flex gap-2 items-center mt-4 text-md">
-														<span>Educator: </span>
-														<ProfilePopover
-															triggeredBy={`profile-popover-${id}`}
-															avatar={data.courses[id].educator_user?.avatar}
-															name={data.courses[id].educator_user?.name}
-															web3Address={data.courses[id].educator}
-														/>
-													</div>
-												{/if}
-												<p class="text-slate-700 dark:text-gray-500 mt-4 mb-4">
-													{data.courses[id].description}
-												</p>
-											</div>
+						{#each Object.keys(data.courses) as id}
+							{#if data?.courses[id]}
+								<a class="w-full relative" href={`/societies/${data.id}/courses/${id}`}>
+									{#if data.courses[id].creator === data.user?.web3Address || data.canEditSociety}
+										<DotsMenu
+											editHref={`${$page.url.pathname}/courses/${id}/edit?returnTo=${$page.url.pathname}`}
+											onDelete={() => console.log('delete')}
+										/>
+									{/if}
+									<!-- Responsive layout -->
+									<div class="flex flex-col md:flex-row w-full gap-4 p-4 rounded-xl" id="module" style="background: #fff;">
+										<div class="flex justify-center md:w-1/3">
+											{#if data.courses[id].image}
+												<img
+													src={data.courses[id].image + '?img-format=webp'}
+													alt="Course banner"
+													class="h-32 object-cover rounded-xl aspect-square"
+												/>
+											{:else}
+												<div class="h-32 bg-slate-900 rounded-xl aspect-square" />
+											{/if}
 										</div>
-									</a>
-								{/if}
-							{/each}
+						
+										<div class="text-center md:text-left md:w-2/3">
+											<h3 class="text-slate-900 dark:text-white text-2xl font-bold">
+												{data.courses[id].name}
+											</h3>
+											{#if data.courses[id]?.educator}
+												<div class="text-slate-900 dark:text-white flex gap-2 items-center justify-center md:justify-start mt-4 text-md">
+													<span>Educator: </span>
+													<ProfilePopover
+														triggeredBy={`profile-popover-${id}`}
+														avatar={data.courses[id].educator_user?.avatar}
+														name={data.courses[id].educator_user?.name}
+														web3Address={data.courses[id].educator}
+													/>
+												</div>
+											{/if}
+											<p class="text-slate-700 dark:text-gray-500 mt-4 mb-4">
+												{data.courses[id].description}
+											</p>
+										</div>
+									</div>
+								</a>
+							{/if}
+						{/each}
 						</section>
+
 					{:else}
 						<p class="w-full text-slate-500 dark:text-gray-500">No courses created yet.</p>
 					{/if}
