@@ -24,8 +24,11 @@
 				</div>
 			</div>
 		</div>
-		<div class="w-full flex gap-8 mt-8">
-			<div class="w-1/3">
+
+		<!-- Responsive grid layout -->
+		<div class="w-full grid gap-8 mt-8 grid-cols-1 md:grid-cols-3">
+			<!-- Sidebar (1/3 on larger screens) -->
+			<div class="md:col-span-1">
 				<section class="w-full p-8 rounded-xl relative" id="module" style="background: #fff;">
 					{#if data.canEditSociety}
 						<DotsMenu
@@ -75,11 +78,12 @@
 								Join Society
 							{/if}
 						</Button>
-
 					</div>
 				</section>
 			</div>
-			<div class="w-2/3">
+
+			<!-- Main content (2/3 on larger screens) -->
+			<div class="md:col-span-2">
 				<section class="w-full p-8 rounded-xl">
 					<div class="w-full flex items-center justify-between mb-8">
 						<h2 class="text-slate-900 dark:text-white text-3xl font-bold">🎓 Courses</h2>
@@ -149,3 +153,4 @@
 		</div>
 	{/if}
 </Container>
+
