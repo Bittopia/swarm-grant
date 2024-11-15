@@ -31,7 +31,7 @@
 			<NavHamburger on:click={toggle} />
 		</div>
 	</Navbar>
-	<div class="w-full p-14 overflow-auto" style="height: calc(100% - 4.5rem); padding-bottom:300px; padding-top:50px;">
+	<div class="w-full p-8 md:p-14 overflow-auto" style="height: calc(100% - 4.5rem); padding-bottom:300px; padding-top:50px;">
 		<slot />
 	</div>
 </main>
