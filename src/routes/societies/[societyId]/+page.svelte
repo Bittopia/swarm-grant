@@ -122,12 +122,12 @@
 											{/if}
 										</div>
 						
-										<div class="text-center md:text-left md:w-2/3">
+										<div class="text-left md:w-2/3">
 											<h3 class="text-slate-900 dark:text-white text-2xl font-bold">
 												{data.courses[id].name}
 											</h3>
 											{#if data.courses[id]?.educator}
-												<div class="text-slate-900 dark:text-white flex gap-2 items-center justify-center md:justify-start mt-4 text-md">
+												<div class="text-slate-900 dark:text-white flex gap-2 items-center justify-start mt-4 text-md">
 													<span>Educator: </span>
 													<ProfilePopover
 														triggeredBy={`profile-popover-${id}`}
