@@ -53,6 +53,31 @@
 				}}
 			>
 				<div class="mt-8 p-8 rounded-xl grid gap-6 mb-6 md:grid-cols-1" id="module" style="background: #fff;">
+					<div>
+						<Label for="name" class="mt-3 mb-4 text-lg">Name Your Society</Label>
+						<Input
+							maxlength="25"
+							name="name"
+							disabled={requesting}
+							type="text"
+							id="name"
+							placeholder="Eg.: EdTech DAS"
+							required
+						/>
+					</div>
+					<div>
+						<Label for="description" class="mt-3 mb-4 text-lg">Add a Description for Your Society</Label>
+						<Textarea
+							class="resize-none"
+							rows="8"
+							name="description"
+							disabled={requesting}
+							type="text"
+							id="description"
+							placeholder="Describe the purpose and vision of your society..."
+							required
+						/>
+					</div>
 					<div class="flex items-center gap-4">
 						{#if files && files.length}
 							<img
@@ -62,7 +87,7 @@
 							/>
 						{/if}
 						<div class="w-full">
-						    <Label for="image" class="mb-2">Upload an Image for Your Society</Label>
+						    <Label for="image" class="mt-3 mb-4 text-lg">Upload an Image for Your Society</Label>
 						    <div class="imageupload-wrapper">
 						        <Fileupload
 						            name="image"
@@ -75,32 +100,7 @@
 						    </div>
 						</div>
 
-					</div>
-					<div>
-						<Label for="name" class="mb-2">Name Your Society</Label>
-						<Input
-							maxlength="25"
-							name="name"
-							disabled={requesting}
-							type="text"
-							id="name"
-							placeholder="Eg.: EdTech DAS"
-							required
-						/>
-					</div>
-					<div>
-						<Label for="description" class="mb-2">Add a Description for Your Society</Label>
-						<Textarea
-							class="resize-none"
-							rows="8"
-							name="description"
-							disabled={requesting}
-							type="text"
-							id="description"
-							placeholder="Describe the purpose and vision of your society..."
-							required
-						/>
-					</div>
+					</div>					
 
 					{#if form?.error}
 						<Alert color="red">
