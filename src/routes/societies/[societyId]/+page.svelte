@@ -85,8 +85,8 @@
 			<!-- Main content (2/3 on larger screens) -->
 			<div class="md:col-span-2">
 				<section class="w-full p-8 rounded-xl">
-					<div class="w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
-						<h2 class="text-slate-900 dark:text-white text-3xl font-bold">🎓 Courses</h2>
+					<div class="w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-12 gap-4">
+						<h2 class="text-slate-900 dark:text-white text-3xl mb-4 font-bold">🎓 Courses</h2>
 						{#if data.isMember || data.creator === data.user?.web3Address}
 							<Button as="a" href={`/societies/${societyId}/courses/new`} class="rounded-full px-4">
 								<div class="flex gap-2 items-center">
@@ -108,7 +108,7 @@
 										/>
 									{/if}
 									<!-- Responsive layout -->
-									<div class="flex flex-col md:flex-row w-full gap-4 p-4 rounded-xl" id="module" style="background: #fff;">
+									<div class="flex flex-col md:flex-row w-full gap-4 p-8 rounded-xl" id="module" style="background: #fff;">
 										<div class="flex justify-center md:w-1/3">
 											{#if data.courses[id].image}
 												<img
