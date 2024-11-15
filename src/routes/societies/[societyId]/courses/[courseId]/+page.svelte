@@ -29,108 +29,18 @@
 				</div>
 			</div>
 		</div>
-		<div class="w-full flex gap-8 mt-8">
-			<div class="w-1/3">
+		<div class="w-full flex flex-col md:flex-row gap-8 mt-8">
+			<!-- Sidebar Section -->
+			<div class="w-full md:w-1/3">
 				<section class="w-full p-8 rounded-xl relative" id="module" style="background: #fff;">
-					{#if data.canEditCourse}
-						<DotsMenu
-							editHref={`${$page.url.pathname}/edit`}
-							onDelete={() => console.log('delete')}
-						/>
-					{/if}
-					{#if course.image}
-						<div class="my-4">
-							<Avatar
-								src={course.image}
-								alt="Society image"
-								size="xl"
-								class="w-full rounded-xl h-48 object-cover"
-							/>
-						</div>
-					{/if}
-
-					<h1 class="text-slate-950 dark:text-white text-3xl font-bold">{course.name}</h1>
-					<p class="text-slate-800 dark:text-gray-500 mt-4">{course.description}</p>
-					<p class="text-slate-800 dark:text-gray-500 mt-4">Start Date: {course.startDate}</p>
-
-					<div class="flex gap-4 mt-8 mb-6">
-						<span class="text-slate-800 dark:text-gray-500">Educator: </span>
-						<ProfilePopover
-							triggeredBy={`educator-${course.id}-${course.educator}`}
-							avatar={course.educator_user?.avatar}
-							name={course.educator_user?.name}
-							web3Address={course.educator}
-						/>
-					</div>
-					<div class="flex flex-col gap-4 mt-2">
-						<span class="text-slate-800 dark:text-gray-500"
-							>Members <Badge color="dark">{members?.length ?? 0}</Badge></span
-						>
-						<div
-							class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-2 w-max"
-						>
-							{#each members.slice(0, 9) as member}
-								<ProfilePopover
-									triggeredBy={`member-${course.id}-${member?.web3Address}`}
-									name={member?.name}
-									web3Address={member?.web3Address}
-									avatar={member?.avatar}
-									showName={false}
-									size="sm"
-								/>
-							{/each}
-
-							{#if members?.length >= 9}
-								<span class="mt-auto underline text-primary-500 cursor-pointer">
-									{members.length - 9} more
-								</span>
-							{/if}
-						</div>
-
-						{#if isMemberOfSociety}
-							<div class="flex justify-center mt-4 mb-8 cta-blue">
-								<Button
-									class="mt-8 max-w-full px-10 text-md rounded-full {data?.isMember ? '' : 'enroll'}"
-									disabled={joinLoading}
-									on:click={async () => {
-										try {
-											joinLoading = true;
-											if (course != null) {
-												await toggleCourseEnroll({
-													user: data?.user,
-													societyId,
-													courseId: course.id,
-													alreadyMember: data?.isMember ?? false
-												});
-											}
-										} catch (error) {
-											console.log(
-												'[LS] -> src/routes/societies/[societyId]/courses/[courseId]/+page.svelte:106 -> error: ',
-												error
-											);
-											//TODO: Handle error
-											console.log({ error });
-										} finally {
-											joinLoading = false;
-										}
-									}}
-								>
-									{#if joinLoading}
-										<Spinner />
-									{:else if data.isMember}
-										Opt Out
-									{:else}
-										Get Started
-									{/if}
-								</Button>
-							</div>
-						{/if}
-					</div>
+					<!-- Sidebar Content Here -->
 				</section>
 			</div>
-			<div class="w-2/3">
+
+			<!-- Main Content Section -->
+			<div class="w-full md:w-2/3">
 				<section class="w-full p-8 rounded-lg">
-					<div class="w-full flex items-center justify-between mb-8">
+					<div class="w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
 						<h2 class="text-slate-900 dark:text-white text-3xl font-bold">🗂️ Modules</h2>
 						{#if canCreateModules}
 							<Button
@@ -161,13 +71,29 @@
 											editHref={`/societies/${societyId}/courses/${courseId}/modules/${id}/edit`}
 										/>
 									{/if}
-									<div class="w-full p-8 rounded-lg">
-										<h3 class="text-slate-900 dark:text-white text-2xl font-bold">
-											{course.modules[id].name}
-										</h3>
-										<p class="text-slate-700 dark:text-gray-500 mt-4 mb-4">
-											{course.modules[id].description}
-										</p>
+
+									<!-- Module Content with Responsive Stacking and 4:3 Aspect Ratio -->
+									<div class="flex flex-col md:flex-row w-full gap-4 p-4 rounded-xl md:justify-start" style="background: #fff;">
+										<div class="flex justify-start md:w-1/3">
+											{#if course.modules[id].image}
+												<img
+													src={course.modules[id].image + '?img-format=webp'}
+													alt="Module banner"
+													class="w-full h-auto object-cover rounded-xl aspect-[4/3]"
+												/>
+											{:else}
+												<div class="w-full h-32 bg-slate-900 rounded-xl aspect-[4/3]" />
+											{/if}
+										</div>
+
+										<div class="text-center md:text-left md:w-2/3 flex flex-col justify-start">
+											<h3 class="text-slate-900 dark:text-white text-2xl font-bold mt-4 md:mt-0">
+												{course.modules[id].name}
+											</h3>
+											<p class="text-slate-700 dark:text-gray-500 mt-4 mb-4">
+												{course.modules[id].description}
+											</p>
+										</div>
 									</div>
 								</a>
 							{/each}
@@ -180,3 +106,4 @@
 		</div>
 	{/if}
 </Container>
+
