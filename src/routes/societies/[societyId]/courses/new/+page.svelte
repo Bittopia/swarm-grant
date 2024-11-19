@@ -83,17 +83,14 @@
 					<div>
 						<Label for="startDate" class="mt-3 mb-4 text-lg">Choose a Date to Launch Your Course</Label>
 						<Datepicker
-						    name="startDate"
-						    datepickerOrientation="top"
-						    datepickerFormat="dd/mm/yyyy"
-						    placeholder="dd/mm/yyyy"
-						    required
-						    class="relative"
-						>
-						    <div slot="icon" class="cursor-pointer">
-						        📅 <!-- Custom calendar icon -->
-						    </div>
-						</Datepicker>
+							name="startDate"
+							datepickerOrientation="top"
+							datepickerFormat="dd/mm/yyyy"
+							datepickerTitle=""
+							placeholder="dd/mm/yyyy"
+							required
+							show-icon={false}
+						/>
 					</div>
 					<div>
 						<Label for="description" class="mt-3 mb-4 text-lg">Provide the Wallet Address for the Course Educator</Label>
@@ -140,7 +137,7 @@
 							disabled={requesting}
 							text="Back to courses list"
 						/>
-						<Button disabled={requesting} type="submit" class="rounded-full px-8">Submit</Button>
+						<Button disabled={requesting} type="submit" class="rounded-full px-8 cta">Submit</Button>
 					</div>
 				</div>
 			</form>
