@@ -85,7 +85,7 @@
 <Container>
 	<div class="w-full mb-4">
 		<div class="flex items-center justify-between">
-			<div class="flex items-center gap-4">
+			<div class="flex items-center gap-4 mb-5">
 				<BackButton href={`/societies/${societyId}/courses/${courseId}`} />
 			</div>
 		</div>
@@ -123,12 +123,8 @@
 						id="module"
 						style="background: #fff;"
 					>
-						<!-- <div> -->
-						<!-- 	<Label for="image" class="mb-2">What's the module image?</Label> -->
-						<!-- 	<Fileupload name="image" disabled={requesting} accept="image/*" bind:files /> -->
-						<!-- </div> -->
 						<div>
-							<Label for="name" class="mb-2">What's the module name?</Label>
+							<Label for="name" class="mt-3 mb-4 text-lg">What's the module name?</Label>
 							<Input
 								name="name"
 								disabled={requesting}
@@ -139,7 +135,7 @@
 							/>
 						</div>
 						<div>
-							<Label for="description" class="mb-2">Give a description the module.</Label>
+							<Label for="description" class="mt-3 mb-4 text-lg">Give a description the module.</Label>
 							<Textarea
 								rows="8"
 								name="description"
@@ -152,7 +148,7 @@
 						</div>
 						<div>
 							<div class="flex items-end justify-between gap-4 mb-4">
-								<Label for="content" class="mb-2">Write down the module content.</Label>
+								<Label for="content" class="mt-3 mb-4 text-lg">Write down the module content.</Label>
 								<Button
 									on:click={() => {
 										showVideoUploadModal = true;
@@ -171,6 +167,16 @@
 								id="content"
 								placeholder="Module content in markdown"
 								required
+							/>
+						</div>
+						<div>
+							<Label for="image" class="mt-3 mb-4 text-lg">What's the module image?</Label>
+							<Fileupload 
+								name="image" 
+								class="image-button"
+								id="upload-button"
+								disabled={requesting} 
+								accept="image/*" bind:files 
 							/>
 						</div>
 
