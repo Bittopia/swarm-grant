@@ -81,7 +81,7 @@
 						/>
 					</div>
 					<div>
-						<Label for="startDate" class="mb-2">Choose a Date to Launch Your Course</Label>
+						<Label for="startDate" class="mt-3 mb-4 text-lg">Choose a Date to Launch Your Course</Label>
 						<Datepicker
 							name="startDate"
 							datepickerOrientation="top"
@@ -92,7 +92,7 @@
 						/>
 					</div>
 					<div>
-						<Label for="description" class="mb-2">Provide the Wallet Address for the Course Educator</Label>
+						<Label for="description" class="mt-3 mb-4 text-lg">Provide the Wallet Address for the Course Educator</Label>
 						<Input
 							id="wallet-address"
 							name="educator"
@@ -111,7 +111,7 @@
 							/>
 						{/if}
 						<div class="w-full">
-							<Label for="image" class="mb-2">Upload an Image for Your Course</Label>
+							<Label for="image" class="mt-3 mb-4 text-lg">Upload an Image for Your Course</Label>
 							<p class="text-md text-gray-500 mb-4">(Recommended 4:3 Ratio)</p>
 							<Fileupload
 								name="image"
