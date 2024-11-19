@@ -26,7 +26,7 @@
 <Container>
 	<div class="w-full mb-4">
 		<div class="flex items-center justify-between">
-			<div class="flex items-center gap-4">
+			<div class="flex items-center gap-4 mb-5">
 				<BackButton href={`/societies/${societyId}`} />
 			</div>
 		</div>
@@ -55,26 +55,9 @@
 				}}
 			>
 				<div class="mt-8 p-8 rounded-xl grid gap-6 mb-6 md:grid-cols-1" id="module" style="background: #fff;">
-					<div class="flex items-center gap-4">
-						{#if files && files.length}
-							<img
-								src={URL.createObjectURL(files[0])}
-								alt="selected banner"
-								class="w-48 h-48 object-cover rounded"
-							/>
-						{/if}
-						<div class="w-full">
-							<Label for="image" class="mb-2">What's the course image?</Label>
-							<Fileupload
-								name="image"
-								disabled={requesting}
-								accept="image/*"
-								on:change={(e) => (files = e.target.files)}
-							/>
-						</div>
-					</div>
+					
 					<div>
-						<Label for="name" class="mb-2">What's the course name?</Label>
+						<Label for="name" class="mt-3 mb-4 text-lg">Name Your Course</Label>
 						<Input
 							name="name"
 							disabled={requesting}
@@ -85,7 +68,7 @@
 						/>
 					</div>
 					<div>
-						<Label for="description" class="mb-2">Give a description for your course.</Label>
+						<Label for="description" class="mt-3 mb-4 text-lg">Explain What Makes Your Course Unique and Impactful</Label>
 						<Textarea
 							class="resize-none"
 							rows="8"
@@ -93,12 +76,12 @@
 							disabled={requesting}
 							type="text"
 							id="description"
-							placeholder="Write a description about your course"
+							placeholder="Provide a brief overview of your course content and goals..."
 							required
 						/>
 					</div>
 					<div>
-						<Label for="startDate" class="mb-2">Course date</Label>
+						<Label for="startDate" class="mb-2">Choose a Date to Launch Your Course</Label>
 						<Datepicker
 							name="startDate"
 							datepickerOrientation="top"
@@ -109,7 +92,7 @@
 						/>
 					</div>
 					<div>
-						<Label for="description" class="mb-2">Educator wallet address</Label>
+						<Label for="description" class="mb-2">Provide the Wallet Address for the Course Educator</Label>
 						<Input
 							id="wallet-address"
 							name="educator"
@@ -118,6 +101,27 @@
 							placeholder="Wallet address"
 							required
 						/>
+					</div>
+					<div class="flex items-center gap-4">
+						{#if files && files.length}
+							<img
+								src={URL.createObjectURL(files[0])}
+								alt="selected banner"
+								class="w-48 h-48 object-cover rounded"
+							/>
+						{/if}
+						<div class="w-full">
+							<Label for="image" class="mb-2">Upload an Image for Your Course</Label>
+							<p class="text-md text-gray-500 mb-4">(Recommended 4:3 Ratio)</p>
+							<Fileupload
+								name="image"
+								class="image-button"
+								id="upload-button"
+								disabled={requesting}
+								accept="image/*"
+								on:change={(e) => (files = e.target.files)}
+							/>
+						</div>
 					</div>
 
 					{#if form?.error}
