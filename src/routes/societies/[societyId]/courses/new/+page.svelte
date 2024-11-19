@@ -83,13 +83,17 @@
 					<div>
 						<Label for="startDate" class="mt-3 mb-4 text-lg">Choose a Date to Launch Your Course</Label>
 						<Datepicker
-							name="startDate"
-							datepickerOrientation="top"
-							datepickerFormat="dd/mm/yyyy"
-							datepickerTitle=""
-							placeholder="dd/mm/yyyy"
-							required
-						/>
+						    name="startDate"
+						    datepickerOrientation="top"
+						    datepickerFormat="dd/mm/yyyy"
+						    placeholder="dd/mm/yyyy"
+						    required
+						    class="relative"
+						>
+						    <div slot="icon" class="cursor-pointer">
+						        📅 <!-- Custom calendar icon -->
+						    </div>
+						</Datepicker>
 					</div>
 					<div>
 						<Label for="description" class="mt-3 mb-4 text-lg">Provide the Wallet Address for the Course Educator</Label>
@@ -111,7 +115,7 @@
 							/>
 						{/if}
 						<div class="w-full">
-							<Label for="image" class="mt-3 mb-4 text-lg">Upload an Image for Your Course</Label>
+							<Label for="image" class="mt-3 mb-4 text-lg">📤 Upload an Image for Your Course</Label>
 							<p class="text-md text-gray-500 mb-4">(Recommended 4:3 Ratio)</p>
 							<Fileupload
 								name="image"
