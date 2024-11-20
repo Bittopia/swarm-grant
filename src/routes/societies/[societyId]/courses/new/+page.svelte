@@ -2,7 +2,6 @@
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	import BackButton from '$lib/components/BackButton.svelte';
-	import { ImageSolid } from 'flowbite-svelte-icons';
 	import Container from '$lib/components/Container/Container.svelte';
 	import FormSpinner from '$lib/components/FormSpinner.svelte';
 	import { uploadFile } from '$lib/utils/file.js';
@@ -112,7 +111,10 @@
 							/>
 						{/if}
 						<div class="w-full">
-							<ImageSolid size="lg" /> <Label for="image" class="mt-3 mb-4 text-lg">Upload an Image for Your Course</Label>
+							<div style="display: flex; align-items: center; gap: 8px;">
+							    <ImageSolid size="lg" />
+							    <Label for="image" class="text-lg">🖼 Upload an Image for Your Course</Label>
+							</div>
 							<p class="text-md text-gray-500 mb-4">(Recommended 4:3 Ratio)</p>
 							<Fileupload
 								name="image"
