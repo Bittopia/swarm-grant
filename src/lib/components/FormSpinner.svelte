@@ -9,7 +9,7 @@
 		<Spinner size="12" />
 
 		{#if phrase}
-			<span class="mt-8 text-sm text-white dark:text-white [text-shadow:_0_1px_0_rgb(0_0_0_/_80%)]">
+			<span class="mt-8 text-3xl p-8 text-white dark:text-white [text-shadow:_0_1px_0_rgb(0_0_0_/_80%)]">
 				{phrase}
 			</span>
 		{/if}
