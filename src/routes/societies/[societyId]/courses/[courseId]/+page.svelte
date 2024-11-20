@@ -52,11 +52,11 @@
 						</div>
 					{/if}
 
-					<h1 class="text-slate-950 dark:text-white text-3xl font-bold mt-8">{course.name}</h1>
-					<p class="text-slate-800 dark:text-gray-500 mt-4">{course.description}</p>
-					<p class="text-slate-800 dark:text-gray-500 mt-4">Start Date: {course.startDate}</p>
+					<h1 class="text-slate-950 dark:text-white text-3xl font-bold mt-8 ml-1">{course.name}</h1>
+					<p class="text-slate-800 dark:text-gray-500 mt-4 ml-1">{course.description}</p>
+					<p class="text-slate-800 dark:text-gray-500 mt-4 ml-1">Start Date: {course.startDate}</p>
 
-					<div class="flex gap-4 mt-8 mb-6">
+					<div class="flex gap-4 mt-8 mb-6 ml-1">
 						<span class="text-slate-800 dark:text-gray-500">Educator: </span>
 						<ProfilePopover
 							triggeredBy={`educator-${course.id}-${course.educator}`}
@@ -69,7 +69,7 @@
 						<span class="text-slate-800 dark:text-gray-500">
 							Members <Badge color="dark">{members?.length ?? 0}</Badge>
 						</span>
-						<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-2 w-max">
+						<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-2 w-max ml-1">
 							{#each members.slice(0, 9) as member}
 								<ProfilePopover
 									triggeredBy={`member-${course.id}-${member?.web3Address}`}
