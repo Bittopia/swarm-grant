@@ -130,19 +130,13 @@
 	class="w-full h-auto max-w-lg md:max-w-xl lg:max-w-3xl px-4"
 	style="background: rgb(35, 0, 138) !important;"
 	{dismissable}
-	title="Upload video"
 	outsideclose={dismissable}
 	size="lg"
 >
-	<style>
-		/* Style the default title section */
-		.modal-title {
-			background-color: rgb(35, 0, 138) !important;
-			color: white !important;
-			padding: 16px;
-			border-radius: 4px 4px 0 0; /* Round top corners */
-		}
-	</style>
+	<!-- Style the title -->
+	<div class="p-4 text-white text-xl font-bold bg-[rgb(35,0,138)]">
+		Upload video
+	</div>
 	<form>
 		<div class="flex flex-col md:flex-row gap-8">
 			<div class="w-full flex flex-col gap-2">
@@ -250,7 +244,9 @@
 		</div>
 		<div class="pt-4 mt-8">
 			<div class="flex justify-end w-full gap-4">
+				<Button on:click={onClose}>Cancel</Button>
 				<Button
+					color="alternative" 
 					on:click={() => {
 						if (selected_video_file) {
 							onUpload(
@@ -271,7 +267,7 @@
 						<span> Upload</span>
 					</div>
 				</Button>
-				<Button color="alternative" on:click={onClose}>Cancel</Button>
+				
 			</div>
 		</div>
 	</form>
