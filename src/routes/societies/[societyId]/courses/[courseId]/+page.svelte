@@ -52,7 +52,7 @@
 						</div>
 					{/if}
 
-					<h1 class="text-slate-950 dark:text-white text-3xl font-bold">{course.name}</h1>
+					<h1 class="text-slate-950 dark:text-white text-3xl font-bold mt-8">{course.name}</h1>
 					<p class="text-slate-800 dark:text-gray-500 mt-4">{course.description}</p>
 					<p class="text-slate-800 dark:text-gray-500 mt-4">Start Date: {course.startDate}</p>
 
