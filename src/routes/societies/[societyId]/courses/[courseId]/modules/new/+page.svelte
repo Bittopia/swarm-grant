@@ -192,7 +192,7 @@
 								disabled={requesting}
 								text="Back to modules"
 							/>
-							<Button disabled={requesting} type="submit" class="rounded-full px-8 cta">Save</Button>
+							<Button disabled={requesting} type="submit" class="rounded-full px-8 mb-8 cta">Save</Button>
 						</div>
 					</div>
 				</form>
