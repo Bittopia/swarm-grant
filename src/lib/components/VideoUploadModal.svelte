@@ -142,6 +142,7 @@
 					id="video-title"
 					name="video-title"
 					placeholder="Title"
+					style="background: rgb(35, 0, 138) !important;"
 					required
 					autoFocus
 					bind:value={video_title}
@@ -153,6 +154,7 @@
 					<Textarea
 						id="video-description"
 						name="video-description"
+						style="background: rgb(35, 0, 138) !important;"	
 						placeholder="Description"
 						class="h-36"
 						bind:value={video_description}
