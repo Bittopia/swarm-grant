@@ -84,16 +84,16 @@
 
 <Container>
 	<div class="w-full mb-4">
-		<div class="flex items-center justify-between">
+		<div class="flex flex-col md:flex-row items-center justify-between">
 			<div class="flex items-center gap-4 mb-5">
 				<BackButton href={`/societies/${societyId}/courses/${courseId}`} />
 			</div>
 		</div>
 	</div>
 	<section id="society-new">
-		<Heading level="2" class="mb-4">Adding a new module</Heading>
+		<Heading level="2" class="mb-4">Create a Module for Your Course</Heading>
 		<!-- Define list of societies -->
-		<section class="mt-10 grid gap-8 grid-cols-2">
+		<section class="mt-10 grid gap-8 grid-cols-1 md:grid-cols-2">
 			<section id="module-form">
 				<form
 					method="post"
@@ -119,36 +119,36 @@
 					<Input type="hidden" name="societyId" value={societyId} />
 					<Input type="hidden" name="courseId" value={courseId} />
 					<div
-						class="mt-8 p-8 rounded-xl grid gap-6 mb-6 md:grid-cols-1"
+						class="mt-8 p-8 rounded-xl grid gap-6 mb-6"
 						id="module"
 						style="background: #fff;"
 					>
 						<div>
-							<Label for="name" class="mt-3 mb-4 text-lg">What's the module name?</Label>
+							<Label for="name" class="mt-3 mb-4 text-lg">Enter a Title for Your Module</Label>
 							<Input
 								name="name"
 								disabled={requesting}
 								type="text"
 								id="name"
-								placeholder="Eg.: Introduction"
+								placeholder="Eg.: Getting Started"
 								required
 							/>
 						</div>
 						<div>
-							<Label for="description" class="mt-3 mb-4 text-lg">Give a description the module.</Label>
+							<Label for="description" class="mt-3 mb-4 text-lg">What Will Learners Gain From This Module?</Label>
 							<Textarea
 								rows="8"
 								name="description"
 								disabled={requesting}
 								type="text"
 								id="description"
-								placeholder="Write your option here"
+								placeholder="Write a brief summary of this module..."
 								required
 							/>
 						</div>
 						<div>
-							<div class="flex items-end justify-between gap-4 mb-4">
-								<Label for="content" class="mt-3 mb-4 text-lg">Write down the module content.</Label>
+							<div class="flex flex-col sm:flex-row items-end justify-between gap-4 mb-4">
+								<Label for="content" class="mt-3 mb-4 text-lg">Write the Content for Your Module</Label>
 								<Button
 									on:click={() => {
 										showVideoUploadModal = true;
@@ -165,12 +165,12 @@
 								disabled={requesting}
 								type="text"
 								id="content"
-								placeholder="Module content in markdown"
+								placeholder="Write your module content (Markdown supported)..."
 								required
 							/>
 						</div>
 						<div>
-							<Label for="image" class="mt-3 mb-4 text-lg">What's the module image?</Label>
+							<Label for="image" class="mt-3 mb-4 text-lg">🖼 Add an Image to Highlight This Module</Label>
 							<Fileupload 
 								name="image" 
 								class="image-button"
@@ -186,13 +186,13 @@
 							</Alert>
 						{/if}
 
-						<div class="flex items-center justify-end w-full gap-4">
+						<div class="flex flex-col sm:flex-row items-center justify-end w-full gap-4">
 							<BackButton
 								href={`/societies/${societyId}/courses/${courseId}`}
 								disabled={requesting}
 								text="Back to modules"
 							/>
-							<Button disabled={requesting} type="submit" class="rounded-full px-8">Save</Button>
+							<Button disabled={requesting} type="submit" class="rounded-full px-8 cta">Save</Button>
 						</div>
 					</div>
 				</form>
@@ -215,3 +215,4 @@
 		/>
 	{/if}
 </Container>
+
