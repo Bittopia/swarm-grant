@@ -31,7 +31,7 @@
 		</div>
 
 		<!-- Responsive Layout -->
-		<div class="w-full flex flex-col md:flex-row gap-8 mt-8">
+		<div class="w-full grid gap-8 mt-16 grid-cols-1 md:grid-cols-3">
 			<!-- Sidebar Section -->
 			<div class="w-full md:w-1/3">
 				<section class="w-full p-8 rounded-xl relative" id="module" style="background: #fff;">
@@ -47,7 +47,7 @@
 								src={course.image}
 								alt="Society image"
 								size="xl"
-								class="w-full rounded-xl h-auto object-cover aspect-[4/3]"
+								class="w-full rounded-xl h-48 object-cover aspect-[4/3]"
 							/>
 						</div>
 					{/if}
@@ -131,8 +131,8 @@
 			<!-- Main Content Section -->
 			<div class="w-full md:w-2/3">
 				<section class="w-full p-8 rounded-lg">
-					<div class="w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-16 md:mb-8 gap-4">
-						<h2 class="text-slate-900 dark:text-white text-3xl font-bold">🗂️ Modules</h2>
+					<div class="w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-12 gap-4">
+						<h2 class="text-slate-900 dark:text-white text-3xl mb-4 font-bold">🗂️ Modules</h2>
 						{#if canCreateModules}
 							<Button
 								as="a"
