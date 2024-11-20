@@ -66,7 +66,7 @@
 						/>
 					</div>
 					<div class="flex flex-col gap-4 mt-2">
-						<span class="text-slate-800 dark:text-gray-500">
+						<span class="text-slate-800 dark:text-gray-500 ml-1">
 							Members <Badge color="dark">{members?.length ?? 0}</Badge>
 						</span>
 						<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-2 w-max ml-1">
@@ -82,7 +82,7 @@
 							{/each}
 
 							{#if members?.length >= 9}
-								<span class="mt-auto underline text-primary-500 cursor-pointer">
+								<span class="mt-auto underline text-primary-500 cursor-pointer ml-1">
 									{members.length - 9} more
 								</span>
 							{/if}
