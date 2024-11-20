@@ -134,6 +134,15 @@
 	outsideclose={dismissable}
 	size="lg"
 >
+	<style>
+		/* Style the default title section */
+		.modal-title {
+			background-color: rgb(35, 0, 138) !important;
+			color: white !important;
+			padding: 16px;
+			border-radius: 4px 4px 0 0; /* Round top corners */
+		}
+	</style>
 	<form>
 		<div class="flex flex-col md:flex-row gap-8">
 			<div class="w-full flex flex-col gap-2">
