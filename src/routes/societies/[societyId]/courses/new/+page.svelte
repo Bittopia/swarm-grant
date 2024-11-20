@@ -111,10 +111,7 @@
 							/>
 						{/if}
 						<div class="w-full">
-							<div style="display: flex; align-items: center; gap: 8px;">
-							    <ImageSolid size="lg" />
-							    <Label for="image" class="text-lg">🖼 Upload an Image for Your Course</Label>
-							</div>
+							<Label for="image" class="mt-3 mb-4 text-lg">🖼 Upload an Image for Your Course</Label>
 							<p class="text-md text-gray-500 mb-4">(Recommended 4:3 Ratio)</p>
 							<Fileupload
 								name="image"
