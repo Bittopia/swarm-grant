@@ -155,7 +155,7 @@
 									}}
 									class="mt-4"
 								>
-									Upload video
+									▶️ Upload video
 								</Button>
 							</div>
 							<Textarea
@@ -186,7 +186,7 @@
 							</Alert>
 						{/if}
 
-						<div class="flex flex-col sm:flex-row items-center justify-end w-full gap-4">
+						<div class="flex flex-col sm:flex-row items-center justify-end w-full gap-4 mb-8">
 							<BackButton
 								href={`/societies/${societyId}/courses/${courseId}`}
 								disabled={requesting}
