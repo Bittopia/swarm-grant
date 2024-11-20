@@ -103,6 +103,8 @@
  							<p class="text-md text-gray-500 mb-4">(Recommended 4:3 Ratio)</p>
 							<Fileupload
 								name="image"
+								class="image-button"
+								id="upload-button"
 								disabled={requesting}
 								accept="image/*"
 								on:change={(e) => (files = e.target.files)}
