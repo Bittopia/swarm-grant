@@ -269,3 +269,9 @@
 		</div>
 	</form>
 </Modal>
+
+<style>
+.text-gray-900 {
+	color: rgb(255, 255, 255);
+}
+</style>
