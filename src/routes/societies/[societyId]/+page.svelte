@@ -47,7 +47,7 @@
 							/>
 						</div>
 					{/if}
-					<h1 class="text-slate-950 dark:text-white text-3xl font-bold">{data.name}</h1>
+					<h1 class="text-slate-950 dark:text-white text-3xl font-bold mt-8">{data.name}</h1>
 					<p class="text-slate-800 dark:text-gray-500 mt-4">{data.description}</p>
 					<p class="text-slate-800 dark:text-gray-500 mt-4">{data.members?.length ?? 0} members</p>
 					<div class="flex justify-center mt-4 mb-8 cta-blue">
