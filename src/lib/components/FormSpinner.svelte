@@ -5,7 +5,7 @@
 </script>
 
 <div class="absolute top-0 bottom-0 right-0 left-0 z-50">
-	<div class="flex flex-col gap-4 items-center justify-center h-full bg-[rgb(35,0,138)] text-white dark:text-white">
+	<div class="flex flex-col gap-4 items-center justify-center h-full bg-[rgb(35,0,138)] dark:bg-[rgb(35,0,138)] text-white dark:text-white">
 		<Spinner size="12" />
 
 		{#if phrase}
