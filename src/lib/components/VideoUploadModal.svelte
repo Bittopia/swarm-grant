@@ -127,14 +127,14 @@
 
 <Modal
 	bind:open
-	class="w-full h-full"
+	class="w-full h-auto max-w-lg md:max-w-xl lg:max-w-3xl px-4"
 	{dismissable}
 	title="Upload video"
 	outsideclose={dismissable}
-	size="lg"
+	size="sm"
 >
 	<form>
-		<div class="flex flex-col md:flex-row gap-8">
+		<div class="flex flex-col md:flex-row gap-8" style="background: rgb(35, 0, 138) !important;">
 			<div class="w-full flex flex-col gap-2">
 				<label for="video-title">Enter video title</label>
 				<Input
