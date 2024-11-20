@@ -134,9 +134,7 @@
 	size="lg"
 >
 	<!-- Style the title -->
-	<div class="p-4 text-white text-xl font-bold bg-[rgb(35,0,138)]">
-		Upload video
-	</div>
+	<div class="p-4 text-white text-xl font-bold bg-[rgb(35,0,138)]">▶️ Upload video</div>
 	<form>
 		<div class="flex flex-col md:flex-row gap-8">
 			<div class="w-full flex flex-col gap-2">
