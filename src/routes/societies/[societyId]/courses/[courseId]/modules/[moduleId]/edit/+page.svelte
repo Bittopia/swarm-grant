@@ -66,16 +66,16 @@
 
 <Container>
 	<div class="w-full mb-4">
-		<div class="flex items-center justify-between">
-			<div class="flex items-center gap-4">
+		<div class="flex flex-col md:flex-row items-center justify-between">
+			<div class="flex items-center gap-4 mb-5">
 				<BackButton href={`/societies/${societyId}/courses/${courseId}`} />
 			</div>
 		</div>
 	</div>
 	<section id="society-new">
-		<Heading level="2" class="mb-4">Update module</Heading>
+		<Heading level="2" class="mb-4">Update Module</Heading>
 		<!-- Define list of societies -->
-		<section class="mt-10 grid gap-8 grid-cols-2">
+		<section class="mt-10 grid gap-8 grid-cols-1 md:grid-cols-2">
 			<section id="module-form">
 				<form
 					method="post"
@@ -108,16 +108,7 @@
 						style="background: #fff;"
 					>
 						<div>
-							<Label for="image" class="mb-2">What's the module image?</Label>
-							<Fileupload
-								name="image"
-								disabled={requesting}
-								accept="image/*"
-								on:change={(e) => (files = e.target.files)}
-							/>
-						</div>
-						<div>
-							<Label for="name" class="mb-2">What's the module name?</Label>
+							<Label for="name" class="mt-3 mb-4 text-lg">Enter a Title for Your Module</Label>
 							<Input
 								name="name"
 								disabled={requesting}
@@ -129,7 +120,7 @@
 							/>
 						</div>
 						<div>
-							<Label for="description" class="mb-2">Give a description the module.</Label>
+							<Label for="description" class="mt-3 mb-4 text-lg">What Will Learners Gain From This Module?</Label>
 							<Textarea
 								rows="8"
 								name="description"
@@ -142,15 +133,15 @@
 							/>
 						</div>
 						<div>
-							<div class="flex items-end justify-between gap-4 mb-4">
-								<Label for="content" class="mb-2">Write down the module content.</Label>
+							<div class="flex flex-col sm:flex-row items-end justify-between gap-4 mb-4">
+								<Label for="content" class="mt-3 mb-4 text-lg">Write the Content for Your Module</Label>
 								<Button
 									on:click={() => {
 										showVideoUploadModal = true;
 									}}
 									class="mt-4"
 								>
-									Upload video
+									▶️ Upload video
 								</Button>
 							</div>
 							<Textarea
@@ -161,24 +152,34 @@
 								disabled={requesting}
 								type="text"
 								id="content"
-								placeholder="Module content in markdown"
+								placeholder="Write your module content (Markdown supported)..."
 								required
 							/>
 						</div>
-
+						<div>
+							<Label for="image" class="mt-3 mb-4 text-lg">🖼 Add an Image to Highlight This Module</Label>
+							<Fileupload
+							name="image"
+							class="image-button"
+							id="upload-button"
+							disabled={requesting}
+							accept="image/*"
+							on:change={(e) => (files = e.target.files)}
+						/>
+						</div>
 						{#if form?.error}
 							<Alert color="red">
 								{form.error}
 							</Alert>
 						{/if}
 
-						<div class="flex items-center justify-end w-full gap-4">
+						<div class="flex flex-col sm:flex-row items-center justify-end w-full gap-4 mb-8">
 							<BackButton
 								href={`/societies/${societyId}/courses/${courseId}`}
 								disabled={requesting}
 								text="Back to modules"
 							/>
-							<Button disabled={requesting} type="submit" class="rounded-full px-8">Save</Button>
+							<Button disabled={requesting} type="submit" class="rounded-full px-8 cta">Update</Button>
 						</div>
 					</div>
 				</form>
