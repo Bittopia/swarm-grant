@@ -31,7 +31,7 @@
 		</div>
 
 		<!-- Responsive Layout -->
-		<div class="w-full grid gap-8 mt-16 grid-cols-1 md:grid-cols-3">
+		<div class="w-full flex flex-col md:flex-row gap-8 mt-16">
 			<!-- Sidebar Section -->
 			<div class="w-full md:w-1/3">
 				<section class="w-full p-8 rounded-xl relative" id="module" style="background: #fff;">
