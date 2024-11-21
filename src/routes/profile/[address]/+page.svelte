@@ -33,20 +33,11 @@
 
 	export let data: PageData;
 
-	let bioContent = '';
-	let interestsContent = '';
-	let locationContent = '';
-	let nameContent = '';
-	let avatarUrl = undefined;
-	
-	// Update these values when profileData changes
-	$: if (profileData) {
-	    bioContent = profileData?.bio || 'No bio available';
-	    interestsContent = profileData?.interests || 'No interests listed';
-	    locationContent = profileData?.location || 'No location provided';
-	    nameContent = profileData?.name || 'Anonymous';
-	    avatarUrl = profileData?.avatar || undefined;
-	}
+	let bioContent = data.user?.bio || '';
+	let interestsContent = data.user?.interests || '';
+	let locationContent = data.user?.location || '';
+	let nameContent = data.user?.name || '';
+	$: avatarUrl = data.user?.avatar || undefined;
 
 
 	// async function uploadAvatarHandler(file: File | undefined) {
