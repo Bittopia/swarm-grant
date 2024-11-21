@@ -41,10 +41,10 @@
 	
 	// Update these values when profileData changes
 	$: if (profileData) {
-	    bioContent = profileData?.bio || '';
-	    interestsContent = profileData?.interests || '';
-	    locationContent = profileData?.location || '';
-	    nameContent = profileData?.name || '';
+	    bioContent = profileData?.bio || 'No bio available';
+	    interestsContent = profileData?.interests || 'No interests listed';
+	    locationContent = profileData?.location || 'No location provided';
+	    nameContent = profileData?.name || 'Anonymous';
 	    avatarUrl = profileData?.avatar || undefined;
 	}
 
