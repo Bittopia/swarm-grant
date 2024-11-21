@@ -197,9 +197,12 @@
 					</Dropzone>
 				{:else}
 					<div class="mb-2">
-						<Button color="alternative" class="bg-[rgb(35,0,138)]" on:click={() => (currentStep = 1)} class="border-none ps-0">
-							<ChevronLeftOutline />
+						<Button 
+						  color="alternative" 
+						  class="bg-[rgb(35,0,138)] border-none ps-0" 
+						  on:click={() => { currentStep = 1; }}>
 						</Button>
+
 					</div>
 					<Dropzone
 						name="file"
