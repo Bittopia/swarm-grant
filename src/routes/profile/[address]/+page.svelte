@@ -33,11 +33,21 @@
 
 	export let data: PageData;
 
-	let bioContent = data.user?.bio || '';
-	let interestsContent = data.user?.interests || '';
-	let locationContent = data.user?.location || '';
-	let nameContent = data.user?.name || '';
-	$: avatarUrl = data.user?.avatar || undefined;
+	let bioContent = '';
+	let interestsContent = '';
+	let locationContent = '';
+	let nameContent = '';
+	let avatarUrl = undefined;
+	
+	// Update these values when profileData changes
+	$: if (profileData) {
+	    bioContent = profileData?.bio || '';
+	    interestsContent = profileData?.interests || '';
+	    locationContent = profileData?.location || '';
+	    nameContent = profileData?.name || '';
+	    avatarUrl = profileData?.avatar || undefined;
+	}
+
 
 	// async function uploadAvatarHandler(file: File | undefined) {
 	// 	if (!file || !data.canEdit) return;
