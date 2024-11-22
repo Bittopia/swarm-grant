@@ -134,143 +134,145 @@
 	size="lg"
 >
 	<!-- Style the title -->
-	<div class="p-4 text-white text-xl font-bold bg-[rgb(35,0,138)]">▶️ Upload video</div>
-	<form>
-		<div class="flex flex-col md:flex-row gap-8">
-			<div class="w-full flex flex-col gap-2">
-				<label for="video-title">Enter video title</label>
-				<Input
-					id="video-title"
-					name="video-title"
-					placeholder="Title"
-					required
-					autoFocus
-					bind:value={video_title}
-				/>
+	<div class='blur-sm'>
+    <div class="p-4 text-white text-xl font-bold bg-[rgb(35,0,138)]">▶️ Upload video</div>
+    <form>
+        <div class="flex flex-col md:flex-row gap-8">
+        <div class="w-full flex flex-col gap-2">
+            <label for="video-title">Enter video title</label>
+            <Input
+            id="video-title"
+            name="video-title"
+            placeholder="Title"
+            required
+            autoFocus
+            bind:value={video_title}
+            />
 
-				<div class="flex flex-col gap-2">
-					<label for="video-description">Description (optional)</label>
+            <div class="flex flex-col gap-2">
+            <label for="video-description">Description (optional)</label>
 
-					<Textarea
-						id="video-description"
-						name="video-description"
-						placeholder="Description"
-						class="h-36"
-						bind:value={video_description}
-						required
-					/>
-				</div>
-			</div>
-			<div class="w-full">
-				{#if currentStep === 1}
-					<Dropzone
-						name="file"
-						accept="video/*"
-						on:drop={videoDropHandle}
-						on:dragover={(event) => {
-							event.preventDefault();
-						}}
-						on:change={handleVideoChange}
-					>
-						<h2 class="mb-4">Select video file</h2>
-						<svg
-							aria-hidden="true"
-							class="mb-3 w-10 h-10 text-gray-400"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-							xmlns="http://www.w3.org/2000/svg"
-							><path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-							/></svg
-						>
-						{#if !video_value}
-							<p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-								<span class="font-semibold">Click to upload</span> or drag and drop
-							</p>
-						{:else}
-							<p>{showVideoFile(video_value)}</p>
-						{/if}
-					</Dropzone>
-				{:else}
-					<div class="mb-2">
-						<Button 
-						  color="alternative" 
-						  class="bg-[rgb(35,0,138)] border-none ps-0" 
-						  on:click={() => { currentStep = 1; }}>
-						</Button>
+            <Textarea
+                id="video-description"
+                name="video-description"
+                placeholder="Description"
+                class="h-36"
+                bind:value={video_description}
+                required
+            />
+            </div>
+        </div>
+        <div class="w-full">
+            {#if currentStep === 1}
+            <Dropzone
+                name="file"
+                accept="video/*"
+                on:drop={videoDropHandle}
+                on:dragover={(event) => {
+                event.preventDefault();
+                }}
+                on:change={handleVideoChange}
+            >
+                <h2 class="mb-4">Select video file</h2>
+                <svg
+                aria-hidden="true"
+                class="mb-3 w-10 h-10 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                /></svg
+                >
+                {#if !video_value}
+                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                    <span class="font-semibold">Click to upload</span> or drag and drop
+                </p>
+                {:else}
+                <p>{showVideoFile(video_value)}</p>
+                {/if}
+            </Dropzone>
+            {:else}
+            <div class="mb-2">
+                <Button 
+                color="alternative" 
+                class="bg-[rgb(35,0,138)] border-none ps-0" 
+                on:click={() => { currentStep = 1; }}>
+                </Button>
 
-					</div>
-					<Dropzone
-						name="file"
-						accept="image/*"
-						on:drop={thumbnailDropHandle}
-						on:dragover={(event) => {
-							event.preventDefault();
-						}}
-						on:change={handleThumbnailChange}
-					>
-						<h2 class="mb-4">Select thumbnail (optional)</h2>
-						<svg
-							aria-hidden="true"
-							class="mb-3 w-10 h-10 text-gray-400"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-							xmlns="http://www.w3.org/2000/svg"
-							><path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-							/></svg
-						>
-						{#if !thumbnail_value}
-							<p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-								<span class="font-semibold">Click to upload</span> or drag and drop
-							</p>
-						{:else}
-							<p>{showThumbnailFile(video_value)}</p>
-						{/if}
-					</Dropzone>
-				{/if}
+            </div>
+            <Dropzone
+                name="file"
+                accept="image/*"
+                on:drop={thumbnailDropHandle}
+                on:dragover={(event) => {
+                event.preventDefault();
+                }}
+                on:change={handleThumbnailChange}
+            >
+                <h2 class="mb-4">Select thumbnail (optional)</h2>
+                <svg
+                aria-hidden="true"
+                class="mb-3 w-10 h-10 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                /></svg
+                >
+                {#if !thumbnail_value}
+                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                    <span class="font-semibold">Click to upload</span> or drag and drop
+                </p>
+                {:else}
+                <p>{showThumbnailFile(video_value)}</p>
+                {/if}
+            </Dropzone>
+            {/if}
 
-				<div class="mt-4">
-					<StepIndicator {currentStep} {steps} />
-				</div>
-			</div>
-		</div>
-		<div class="pt-4 mt-8">
-			<div class="flex justify-end w-full gap-4">
-				<Button on:click={onClose}>Cancel</Button>
-				<Button
-					color="alternative" 
-					on:click={() => {
-						if (selected_video_file) {
-							onUpload(
-								selected_video_file,
-								selected_thumbnail_file,
-								video_title,
-								video_description
-							);
-						}
-					}}
-					disabled={uploadDisabled}
-				>
-					<div class="flex gap-4">
-						{#if uploadLoading}
-							<FormSpinner bind:phrase={current_loading_phrase} />
-						{/if}
+            <div class="mt-4">
+            <StepIndicator {currentStep} {steps} />
+            </div>
+        </div>
+        </div>
+        <div class="pt-4 mt-8">
+        <div class="flex justify-end w-full gap-4">
+            <Button on:click={onClose}>Cancel</Button>
+            <Button
+            color="alternative" 
+            on:click={() => {
+                if (selected_video_file) {
+                onUpload(
+                    selected_video_file,
+                    selected_thumbnail_file,
+                    video_title,
+                    video_description
+                );
+                }
+            }}
+            disabled={uploadDisabled}
+            >
+            <div class="flex gap-4">
 
-						<span> Upload</span>
-					</div>
-				</Button>
-				
-			</div>
-		</div>
-	</form>
+                <span> Upload</span>
+            </div>
+            </Button>
+            
+        </div>
+        </div>
+    </form>
+  </div>
+  {#if !uploadLoading}
+    <FormSpinner bind:phrase={current_loading_phrase} />
+  {/if}
 </Modal>
 
