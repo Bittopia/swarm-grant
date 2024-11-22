@@ -4,7 +4,7 @@
 
 	export let className = '';
 	export let editHref = '';
-	export let onDelete = () => {};
+	// export let onDelete = () => {};
 </script>
 
 <div class="absolute right-0 top-0">
@@ -16,9 +16,9 @@
 			<EditOutline class="w-4 h-4" />
 			Edit
 		</DropdownItem>
-		<DropdownItem class="flex items-center gap-2" on:click={onDelete}>
-			<TrashBinOutline class="w-4 h-4" />
-			Delete
-		</DropdownItem>
+		<!-- <DropdownItem class="flex items-center gap-2" on:click={onDelete}> -->
+		<!-- 	<TrashBinOutline class="w-4 h-4" /> -->
+		<!-- 	Delete -->
+		<!-- </DropdownItem> -->
 	</Dropdown>
 </div>
