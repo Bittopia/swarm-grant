@@ -33,12 +33,13 @@
 
 	export let data: PageData;
 
-	let bioContent = data.user?.bio || '';
-	let interestsContent = data.user?.interests || '';
-	let locationContent = data.user?.location || '';
-	let nameContent = data.user?.name || '';
-	$: avatarUrl = data.user?.avatar || undefined;
+	$: user = data?.visiting_user || data?.user;
 
+	$: bioContent = user?.bio || '';
+	$: interestsContent = user?.interests || '';
+	$: locationContent = user?.location || '';
+	$: nameContent = user?.name || '';
+	$: avatarUrl = user?.avatar || undefined;
 
 	// async function uploadAvatarHandler(file: File | undefined) {
 	// 	if (!file || !data.canEdit) return;
@@ -88,7 +89,7 @@
 			const formData = new FormData();
 			formData.append('file', file);
 
-			const response = await fetch(`/profile/${data.user?.web3Address}`, {
+			const response = await fetch(`/profile/${user?.web3Address}`, {
 				method: 'POST',
 				body: formData
 			});
@@ -96,7 +97,7 @@
 			if (response.ok) {
 				const { url } = await response.json();
 
-				const r = await fetch(`/profile/${data.user?.web3Address}`, {
+				const r = await fetch(`/profile/${user?.web3Address}`, {
 					method: 'PUT',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({ avatarUrl: url })
@@ -130,7 +131,7 @@
 						<Avatar src={avatarUrl} alt="Avatar" size="xl" />
 					</FileUpload>
 				{:else}
-					<Avatar src={`${avatarUrl}?img-format=webp&w=300&h=300&quality=90`} alt="Avatar" size="xl" />
+					<Avatar src={`${avatarUrl}`} alt="Avatar" size="xl" />
 				{/if}
 				<div class="flex gap-2 items-center mt-4">
 					{#if editingName}
@@ -188,8 +189,8 @@
 					{/if}
 				</div>
 				<Label class="flex items-center gap-4">
-					{truncateWalletAddress(data.user?.web3Address)}
-					<CopyToClipboard text={data.user?.web3Address} />
+					{truncateWalletAddress(user?.web3Address)}
+					<CopyToClipboard text={user?.web3Address} />
 				</Label>
 
 				<div class="mt-4">
@@ -264,9 +265,9 @@
 								on:input={(e) => (bioContent = e.target.value)}
 								autoFocus
 							/>
-						{:else if data.user?.bio}
+						{:else if user?.bio}
 							<section class="flex flex-col gap-4 text-slate-700 dark:text-gray-400 py-2">
-								<MarkdownContent content={snarkdown(data.user?.bio)} />
+								<MarkdownContent content={snarkdown(user?.bio)} />
 							</section>
 						{:else}
 							<p class="w-full text-gray-400">Add a brief bio to introduce yourself.</p>
@@ -315,9 +316,9 @@
 							on:input={(e) => (interestsContent = e.target.value)}
 							autoFocus
 						/>
-					{:else if data.user?.interests}
+					{:else if user?.interests}
 						<section class="flex flex-col gap-4 text-slate-700 dark:text-gray-400 py-2">
-							<MarkdownContent content={snarkdown(data.user?.interests)} />
+							<MarkdownContent content={snarkdown(user?.interests)} />
 						</section>
 					{:else}
 						<p class="w-full text-gray-400">Share your interests and hobbies here.</p>
@@ -365,9 +366,9 @@
 							on:input={(e) => (locationContent = e.target.value)}
 							autoFocus
 						/>
-					{:else if data.user?.location}
+					{:else if user?.location}
 						<section class="flex flex-col gap-4 text-slate-700 dark:text-gray-400 py-2">
-							<MarkdownContent content={snarkdown(data.user?.location)} />
+							<MarkdownContent content={snarkdown(user?.location)} />
 						</section>
 					{:else}
 						<p class="w-full text-gray-400">Let others know where you're based.</p>

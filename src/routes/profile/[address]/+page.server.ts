@@ -12,9 +12,9 @@ export const load: ServerLoad = async ({ params, locals, parent }) => {
 
 	const canEdit = locals.user != null && locals.user.web3Address === address;
 
-	// const user = await UserService.get(address);
+	const user = await UserService.get(address);
 
-	return { canEdit };
+	return { visiting_user: user, canEdit };
 };
 
 export const actions = {
