@@ -66,6 +66,8 @@ export const actions = {
 				);
 
 				course.image = url;
+			} else {
+				course.image = null;
 			}
 			await courseService.update(course);
 		} catch (error) {

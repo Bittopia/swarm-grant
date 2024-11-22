@@ -69,6 +69,8 @@ export const actions = {
 				);
 
 				society.image = url;
+			} else {
+				society.image = null;
 			}
 
 			society.creator = user.web3Address;

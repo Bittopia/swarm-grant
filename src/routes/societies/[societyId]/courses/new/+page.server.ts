@@ -45,6 +45,8 @@ export const actions = {
 				);
 
 				course.image = url;
+			} else {
+				course.image = null;
 			}
 
 			course.creator = locals.user.web3Address;

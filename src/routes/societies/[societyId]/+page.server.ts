@@ -17,7 +17,10 @@ export const load: ServerLoad = async ({ params, parent, locals }) => {
 
 	const society = await SocietyService.get(societyId);
 
-	const isMember = await SocietyService.isMember(society.id, user?.web3Address);
+	const isMember = await SocietyService.isMember(
+		society?.id,
+		user?.web3Address,
+	);
 
 	const canEditSociety = user?.web3Address === society?.creator;
 

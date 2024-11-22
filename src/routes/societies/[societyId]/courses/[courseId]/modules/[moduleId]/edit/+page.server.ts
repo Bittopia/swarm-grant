@@ -90,6 +90,8 @@ export const actions = {
 				);
 
 				module.image = url;
+			} else {
+				module.image = undefined;
 			}
 
 			if (module.videos) {
