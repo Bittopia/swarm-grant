@@ -23,4 +23,8 @@ export class ModuleService {
 	async get(soceityId: string, courseId: string, id: string) {
 		return this.moduleRepo.get(soceityId, courseId, id);
 	}
+
+	async delete(soceityId: string, courseId: string, id: string) {
+		return this.moduleRepo.delete(soceityId, courseId, id);
+	}
 }

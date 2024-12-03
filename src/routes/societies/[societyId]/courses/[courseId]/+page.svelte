@@ -8,6 +8,7 @@
 	import { Badge } from 'flowbite-svelte';
 	import { toggleCourseEnroll } from '$lib/utils/course.js';
 	import DotsMenu from '$lib/components/DotsMenu.svelte';
+	import { invalidateAll } from '$app/navigation';
 
 	export let data;
 	export let { societyId, courseId } = $page.params;
@@ -18,6 +19,22 @@
 	$: canCreateModules = data.canCreateModules;
 	$: members = course?.users ?? [];
 	$: isMemberOfSociety = data.isMemberOfSociety;
+
+	async function handleDeleteModule(moduleId: string) {
+		const response = await fetch(
+			`/societies/${societyId}/courses/${courseId}/modules/${moduleId}`,
+			{
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}
+		);
+
+		if (response.ok) {
+			await invalidateAll();
+		}
+	}
 </script>
 
 <Container>
@@ -69,7 +86,9 @@
 						<span class="text-slate-800 dark:text-gray-500 ml-1">
 							Members <Badge color="dark">{members?.length ?? 0}</Badge>
 						</span>
-						<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-2 w-max ml-1">
+						<div
+							class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-2 w-max ml-1"
+						>
 							{#each members.slice(0, 9) as member}
 								<ProfilePopover
 									triggeredBy={`member-${course.id}-${member?.web3Address}`}
@@ -91,7 +110,9 @@
 						{#if isMemberOfSociety}
 							<div class="flex justify-center mt-4 mb-8 cta-blue">
 								<Button
-									class="mt-8 max-w-full px-10 text-md rounded-full {data?.isMember ? '' : 'enroll'}"
+									class="mt-8 max-w-full px-10 text-md rounded-full {data?.isMember
+										? ''
+										: 'enroll'}"
 									disabled={joinLoading}
 									on:click={async () => {
 										try {
@@ -131,7 +152,9 @@
 			<!-- Main Content Section -->
 			<div class="w-full md:w-2/3">
 				<section class="w-full p-8 rounded-lg">
-					<div class="w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-12 gap-4">
+					<div
+						class="w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-12 gap-4"
+					>
 						<h2 class="text-slate-900 dark:text-white text-3xl mb-4 font-bold">🗂️ Modules</h2>
 						{#if canCreateModules}
 							<Button
@@ -152,39 +175,40 @@
 					{#if course.modules && Object.keys(course.modules).length > 0}
 						<section class="flex flex-col items-center gap-4">
 							{#each Object.keys(course.modules) as id}
-								<a
-									class="w-full p-1 rounded-xl relative"
-									href={`/societies/${societyId}/courses/${courseId}/modules/${id}`}
-									id="module" style="background: #fff;">
+								<div id="module" class="w-full p-1 rounded-xl relative" style="background: #fff;">
+									<a href={`/societies/${societyId}/courses/${courseId}/modules/${id}`} id="module">
+										<div
+											class="flex flex-col md:flex-row w-full gap-4 p-8 rounded-lg md:justify-start"
+										>
+											<div class="flex justify-start md:w-1/3">
+												{#if course.modules[id].image}
+													<img
+														src={course.modules[id].image + '?img-format=webp'}
+														alt="Module banner"
+														class="w-full h-auto object-cover rounded-lg aspect-[4/3]"
+													/>
+												{:else}
+													<div class="w-full h-32 bg-slate-900 rounded-lg aspect-[4/3]" />
+												{/if}
+											</div>
+
+											<div class="text-left ml-4 md:w-2/3">
+												<h3 class="text-slate-900 dark:text-white mb-4 text-2xl font-bold">
+													{course.modules[id].name}
+												</h3>
+												<p class="text-slate-700 dark:text-gray-500 mt-4 mb-4">
+													{course.modules[id].description}
+												</p>
+											</div>
+										</div>
+									</a>
 									{#if course.creator === data.user?.web3Address}
 										<DotsMenu
 											editHref={`/societies/${societyId}/courses/${courseId}/modules/${id}/edit`}
+											onDelete={() => handleDeleteModule(id)}
 										/>
 									{/if}
-
-									<div class="flex flex-col md:flex-row w-full gap-4 p-8 rounded-lg md:justify-start">
-										<div class="flex justify-start md:w-1/3">
-											{#if course.modules[id].image}
-												<img
-													src={course.modules[id].image + '?img-format=webp'}
-													alt="Module banner"
-													class="w-full h-auto object-cover rounded-lg aspect-[4/3]"
-												/>
-											{:else}
-												<div class="w-full h-32 bg-slate-900 rounded-lg aspect-[4/3]" />
-											{/if}
-										</div>
-
-										<div class="text-left ml-4 md:w-2/3">
-											<h3 class="text-slate-900 dark:text-white mb-4 text-2xl font-bold">
-												{course.modules[id].name}
-											</h3>
-											<p class="text-slate-700 dark:text-gray-500 mt-4 mb-4">
-												{course.modules[id].description}
-											</p>
-										</div>
-									</div>
-								</a>
+								</div>
 							{/each}
 						</section>
 					{:else}

@@ -131,14 +131,14 @@ export class ModuleRepository {
 		return null;
 	}
 
-	async delete(module: ModuleType) {
+	async delete(societyId: string, courseId: string, moduleId: string) {
 		try {
 			const data = await societyRepository.all();
 			const societies = data.societies;
 
 			set(
 				societies,
-				[module.societyId, "courses", module.courseId, "modules", module.id],
+				[societyId, "courses", courseId, "modules", moduleId],
 				undefined,
 			);
 
