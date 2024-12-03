@@ -106,12 +106,12 @@ export class CourseRepository {
 		return null;
 	}
 
-	async delete(course: CourseType) {
+	async delete(societyId: string, courseId: string) {
 		try {
 			const data = await societyRepository.all();
 			const societies = data.societies;
 
-			set(societies, [course.societyId, "courses", course.id], undefined);
+			set(societies, [societyId, "courses", courseId], undefined);
 
 			const { reference } = await this.beeService.mutate({
 				data: { ...data, societies },

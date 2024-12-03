@@ -43,4 +43,8 @@ export class CourseService {
 
 		return course?.members?.includes(web3Address);
 	}
+
+	async delete(societyId: string, courseId: string) {
+		return await this.courseRepo.delete(societyId, courseId);
+	}
 }

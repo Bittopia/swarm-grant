@@ -8,7 +8,7 @@
 	import { Badge } from 'flowbite-svelte';
 	import { toggleCourseEnroll } from '$lib/utils/course.js';
 	import DotsMenu from '$lib/components/DotsMenu.svelte';
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 
 	export let data;
 	export let { societyId, courseId } = $page.params;
@@ -23,16 +23,23 @@
 	async function handleDeleteModule(moduleId: string) {
 		const response = await fetch(
 			`/societies/${societyId}/courses/${courseId}/modules/${moduleId}`,
-			{
-				method: 'DELETE',
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}
+			{ method: 'DELETE' }
 		);
 
 		if (response.ok) {
 			await invalidateAll();
+		}
+	}
+
+	async function handleDeleteCourse() {
+		if (!courseId) return;
+
+		const response = await fetch(`/societies/${societyId}/courses/${courseId}`, {
+			method: 'DELETE'
+		});
+
+		if (response.ok) {
+			goto(`/societies/${societyId}`);
 		}
 	}
 </script>
@@ -53,10 +60,7 @@
 			<div class="w-full md:w-1/3">
 				<section class="w-full p-8 rounded-xl relative" id="module" style="background: #fff;">
 					{#if data.canEditCourse}
-						<DotsMenu
-							editHref={`${$page.url.pathname}/edit`}
-							onDelete={() => console.log('delete')}
-						/>
+						<DotsMenu editHref={`${$page.url.pathname}/edit`} onDelete={handleDeleteCourse} />
 					{/if}
 					{#if course.image}
 						<div class="my-4">
