@@ -7,13 +7,25 @@
 	import BackButton from '$lib/components/BackButton.svelte';
 	import { CirclePlusOutline } from 'flowbite-svelte-icons';
 	import DotsMenu from '$lib/components/DotsMenu.svelte';
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 
 	export let { societyId } = $page.params;
 
 	export let data;
 
 	let joinLoading = false;
+
+	async function handleDeleteSociety() {
+		if (!societyId) return;
+
+		const response = await fetch(`/societies/${societyId}`, {
+			method: 'DELETE'
+		});
+
+		if (response.ok) {
+			goto('/');
+		}
+	}
 
 	async function handleDeleteCourse(courseId: string) {
 		if (!courseId) return;
@@ -44,10 +56,7 @@
 			<div class="md:col-span-1">
 				<section class="w-full p-8 rounded-xl relative" id="module" style="background: #fff;">
 					{#if data.canEditSociety}
-						<DotsMenu
-							editHref={$page.url.pathname + '/edit'}
-							onDelete={() => console.log('delete')}
-						/>
+						<DotsMenu editHref={$page.url.pathname + '/edit'} onDelete={handleDeleteSociety} />
 					{/if}
 
 					{#if data.image}
