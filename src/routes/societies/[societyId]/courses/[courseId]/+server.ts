@@ -10,6 +10,16 @@ export const DELETE: RequestHandler = async ({ locals, params }) => {
 		throw error(400, "Invalid parameters");
 	}
 
+	const course = await CourseService.get(params.societyId, params.courseId);
+
+	if (!course) {
+		throw error(404, "Course not found");
+	}
+
+	if (course.creator !== locals.user.web3Address) {
+		throw error(403, "You are not the owner of this course");
+	}
+
 	const success = await CourseService.delete(params.societyId, params.courseId);
 
 	return new Response(JSON.stringify({ success }), { status: 200 });
